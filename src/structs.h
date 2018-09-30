@@ -4,12 +4,12 @@ typedef struct {
   double b;
 } COLOR;
 
-typedef struct objectArray
+typedef struct objectList
 {
 	struct objectArray *next;
 	struct objectArray *previous;
 	struct object *object;
-} objectArray;
+} objectList;
 
 typedef struct object
 {
@@ -21,7 +21,7 @@ typedef struct object
 
 typedef struct sphere
 {
-	
+
 } Sphere;
 
 
