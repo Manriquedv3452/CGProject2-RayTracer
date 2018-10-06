@@ -1,10 +1,6 @@
 #include <GL/glut.h>
 #include <math.h>
 
-
-
-
-
 /*GLOBAL VARS*/
 FILE *output;
 FILE *file;
