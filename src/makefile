@@ -1,6 +1,6 @@
 OBJECTS=rayTracer.o
 OUTPUT=rayTracer
-FNAME=main.c
+FNAME=ray_tracer.c
 FLEXNAME=flex.l
 FLEXOUTPUT=lex.yy.c
 
