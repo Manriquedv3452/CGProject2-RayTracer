@@ -1,5 +1,6 @@
 #include "ray_tracer.h"
 #include "image.c"
+#include "textures.c"
 
 long double mag_aux;
 
@@ -11,7 +12,12 @@ RGB* what_color(Vector eye, Vector parametric)
   if (intersection == NULL)
     color = BACKGROUND;
   else
-    color = intersection -> object -> color;
+  {
+   // if (intersection -> object -> texture == NULL)
+      color = intersection -> object -> color;
+   //else
+     // color = (&intersection -> object -> texture -> texels[100][100]);
+  }
 }
 
 Intersection * first_intersection (Vector eye, Vector parametricEye)
@@ -106,7 +112,7 @@ Vector map_framebuffer_to_window(long double x, long double y)
   Vector window_point;
 
   window_point.x = (x + 0.5) * (window.xmax - window.xmin) / Hresolution + window.xmin;
-  window_point.y = (y + 0.5) * (window.ymax - window.ymin) / Hresolution + window.ymin;
+  window_point.y = (y + 0.5) * (window.ymax - window.ymin) / Vresolution + window.ymin;
   window_point.z = 0.0;
 
   return window_point;
@@ -115,28 +121,27 @@ Vector map_framebuffer_to_window(long double x, long double y)
 void ray_tracer(void)
 {
   Vector window_point;
-  Vector window_vector;
   Vector tVector;
   RGB * color;  
-  for (int i = 0; i < Hresolution; i++)
+  for (int i = 0; i < Vresolution; i++)
   {
-    for (int j = 0; j < Vresolution; j++)
+    for (int j = 0; j < Hresolution; j++)
     {
-      window_point = map_framebuffer_to_window(j, i);
+     window_point = map_framebuffer_to_window(j, i);
 
 
       tVector.x = window_point.x - scene -> eye.x;
       tVector.y = window_point.y - scene -> eye.y;
       tVector.z = window_point.z - scene -> eye.z;
      
-      
       normalize_vector(&tVector);
-
       color = what_color(scene -> eye, tVector);
       framebuffer[i][j] = *color;
       
     }
   }
+  write_AVS(framebuffer, "Imagen.avs", Vresolution, Hresolution);
+  system("convert Imagen.avs PNG:Imagen.png");
 }
 
 long double calculate_magnitude(Vector vector)
@@ -159,16 +164,16 @@ void normalize_vector(Vector *vector)
 
 int main(int argc, char *argv[])
 {
-  framebuffer = calloc(Hresolution, sizeof(RGB));
-  for (int i = 0; i < Hresolution; i++)
+  framebuffer = calloc(Vresolution, sizeof(RGB));
+  for (int i = 0; i < Vresolution; i++)
   {
-    framebuffer[i] = calloc(Vresolution, sizeof(RGB));
+    framebuffer[i] = calloc(Hresolution, sizeof(RGB));
   }
 
   window.xmin = 0;
   window.ymin = 0;
-  window.xmax = 400;
-  window.ymax = 400;
+  window.xmax = 1008;
+  window.ymax = 567;
 
   BACKGROUND = (RGB*) malloc(sizeof(RGB));
   BACKGROUND -> r = 0.2;
@@ -176,18 +181,18 @@ int main(int argc, char *argv[])
   BACKGROUND -> b = 0.2;
 
      Vector eye;
-  eye.x = 200;
-  eye.y = 200;
-  eye.z = -1500;
+  eye.x = 504;
+  eye.y = 283;
+  eye.z = -2000;
 
   Vector s_center;
-  s_center.x = 200;
-  s_center.y = 200;
-  s_center.z = 650;
+  s_center.x = 504;
+  s_center.y = 283;
+  s_center.z = 1600;
 
   Sphere *sphere = (Sphere*) malloc(sizeof(Sphere));
   sphere -> center = s_center;
-  sphere -> radius = 200;
+  sphere -> radius = 300;
 
   RGB*color = (RGB*) malloc(sizeof(RGB));
   color -> r = 0;
@@ -198,11 +203,13 @@ int main(int argc, char *argv[])
   new_object -> color = color;
   new_object -> intersection_function = &intersection_sphere;
   new_object -> object = sphere;
+  new_object -> texture = NULL;//load_texture_from_AVS("textures/wood.avs");
+  //new_object -> mapping_texture = &map_sphere;
 
   Vector s_center2;
-  s_center2.x = 100;
-  s_center2.y = 200;
-  s_center2.z = 100;
+  s_center2.x = 252;
+  s_center2.y = 283;
+  s_center2.z = 1000;
 
   Sphere *sphere2 = (Sphere*) malloc(sizeof(Sphere));
   sphere2 -> center = s_center2;
@@ -217,15 +224,13 @@ int main(int argc, char *argv[])
   new_object2 -> color = color2;
   new_object2 -> intersection_function = &intersection_sphere;
   new_object2 -> object = sphere2;
+  new_object2 -> texture = NULL;
 
   scene = new_scene(eye);
   insert_object(new_object);
   insert_object(new_object2);
 
   ray_tracer();
-
-  write_AVS(framebuffer, "Imagen.avs", Vresolution, Hresolution);
-  system("convert Imagen.avs PNG:Imagen.png");
 
 	return 1;
 }

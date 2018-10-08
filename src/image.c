@@ -26,8 +26,8 @@ void write_AVS(RGB** frameBuffer, char* file_name, int Vres, int Hres){
 
       /*    Escribe los colores     */
 
-         for (int i = Hres - 1; i >= 0; i--) {
-            for (int j = 0; j < Vres; j++) {
+         for (int i = Vres - 1; i >= 0; i--) {
+            for (int j = 0; j < Hres; j++) {
                fputc(255, filePtr);
                fputc(framebuffer[i][j].r * 255, filePtr);
                fputc(framebuffer[i][j].g * 255, filePtr);
@@ -40,4 +40,49 @@ void write_AVS(RGB** frameBuffer, char* file_name, int Vres, int Hres){
 
 
    fclose(filePtr);
+}
+
+Texture * load_texture_from_AVS(char *file_name)
+{
+      int a,r,g,b;
+      FILE *fptr;
+      int width,height; /* Assumes 4 byte ints */
+      Texture * texture;
+
+      texture = NULL;
+      /* Attempt to open the file */
+      if ((fptr = fopen(file_name,"r")) == NULL) {
+            fprintf(stderr,"Failed to open input file \"%s\"\n", file_name);
+            return texture;
+      }
+
+      /* Read the header */
+      fread(&width,sizeof(int),1,fptr);
+      width = FIX(width);
+      fread(&height,sizeof(int),1,fptr);
+      height = FIX(height);
+
+      //texture = new_texture(width, height);
+
+      for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+
+            /* Read the current pixel */
+            a = fgetc(fptr);
+            r = fgetc(fptr);
+            g = fgetc(fptr);
+            b = fgetc(fptr);
+
+            if (a == EOF || g == EOF || r == EOF || b == EOF) {
+                  fprintf(stderr,"Unexpected end of file\n");
+                  return texture;
+            }
+
+            texture -> texels[i][j].r = r;
+            texture -> texels[i][j].g = g;
+            texture -> texels[i][j].b = b;
+
+            }
+      }
+      return texture;
 }

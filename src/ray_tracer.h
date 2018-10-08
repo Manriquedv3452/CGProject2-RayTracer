@@ -11,7 +11,6 @@ Intersection * intersection_sphere(Vector eye, Vector tVector, Object *sphereOje
 void ray_tracer(void);
 void insert_object(Object *object);
 
-void writeAVS(RGB** pBuffrer, char* pName, int pFileHeight, int pFileWidth);
 
 void normalize_vector(Vector *vector);
 long double calculate_magnitude(Vector vector);
@@ -42,6 +41,21 @@ Scene * new_scene(Vector eye)
 
 }
 
+Texture * new_texture(int width, int height)
+{
+    Texture * texture = (Texture*) malloc(sizeof(Texture));
+    texture -> height = height;
+    texture -> width = width;
+
+    texture -> texels = calloc(width, sizeof(RGB));
+    for (int i = 0; i < width; i++)
+    {
+        texture -> texels[i] = calloc(height, sizeof(RGB));
+    }
+
+    return texture;
+}
+
 Ray * new_ray(Vector eye, Vector direction)
 {
     Ray *ray = (Ray*) malloc(sizeof(Ray));
@@ -50,3 +64,4 @@ Ray * new_ray(Vector eye, Vector direction)
 
     return ray;
 }
+

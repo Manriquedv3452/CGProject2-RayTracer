@@ -17,6 +17,18 @@ typedef struct objectList{
 	struct object *object;
 } objectList;
 
+typedef struct
+{
+	long double U, V;
+} UV;
+typedef struct 
+{
+	int width;
+	int height;
+	RGB** texels;
+
+} Texture;
+
 
 typedef struct Intersection Intersection;
 
@@ -25,8 +37,9 @@ typedef struct object{
 	struct object *previous;
 	RGB *color;
 	Intersection* (*intersection_function) (Vector, Vector, struct object*);
+	UV * (*mapping_texture) (Intersection *);
 	void *object;
-	
+	Texture * texture;
 
 } Object;
 
@@ -81,4 +94,4 @@ Window window;
 RGB **framebuffer;
 
 #define Hresolution 1008
-#define Vresolution 1008
+#define Vresolution 567
