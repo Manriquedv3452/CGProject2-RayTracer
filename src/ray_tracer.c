@@ -1,4 +1,5 @@
 #include "ray_tracer.h"
+#include "vector.h"
 #include "image.c"
 #include "textures.c"
 
@@ -13,10 +14,10 @@ RGB* what_color(Vector eye, Vector parametric)
     color = BACKGROUND;
   else
   {
-   // if (intersection -> object -> texture == NULL)
+   if (intersection -> object -> texture == NULL)
       color = intersection -> object -> color;
-   //else
-     // color = (&intersection -> object -> texture -> texels[100][100]);
+   else
+     color = get_texture_RGB(intersection);
   }
 }
 
@@ -98,8 +99,11 @@ Intersection * intersection_sphere(Vector eye, Vector tVector, Object *sphereOje
       intersection_1 =  intersection_2;
       intersection_2 = inter_aux;
     }
+    intersection_point.x = eye.x + intersection_1 * tVector.x;
+    intersection_point.y = eye.y + intersection_1 * tVector.y;
+    intersection_point.z = eye.z + intersection_1 * tVector.z;
 
-    intersection =  new_intersection(sphereOject, intersection_1);
+    intersection =  new_intersection(sphereOject, intersection_1, intersection_point);
     //printf("NTRA");
   }
 
@@ -144,23 +148,6 @@ void ray_tracer(void)
   system("convert Imagen.avs PNG:Imagen.png");
 }
 
-long double calculate_magnitude(Vector vector)
-{
-  return sqrt(
-              pow(vector.x, 2) +
-              pow(vector.y, 2) + 
-              pow(vector.z, 2)
-            ); 
-}
-
-void normalize_vector(Vector *vector)
-{
-  long double mag = calculate_magnitude(*vector);
-
-  vector -> x = vector -> x / mag;
-  vector -> y = vector -> y / mag;
-  vector -> z = vector -> z / mag;
-}
 
 int main(int argc, char *argv[])
 {
@@ -203,8 +190,9 @@ int main(int argc, char *argv[])
   new_object -> color = color;
   new_object -> intersection_function = &intersection_sphere;
   new_object -> object = sphere;
-  new_object -> texture = NULL;//load_texture_from_AVS("textures/wood.avs");
-  //new_object -> mapping_texture = &map_sphere;
+  new_object -> texture = load_texture_from_AVS("textures/bright.avs");
+  new_object -> mapping_texture = &map_sphere;
+
 
   Vector s_center2;
   s_center2.x = 252;
@@ -224,7 +212,8 @@ int main(int argc, char *argv[])
   new_object2 -> color = color2;
   new_object2 -> intersection_function = &intersection_sphere;
   new_object2 -> object = sphere2;
-  new_object2 -> texture = NULL;
+  new_object2 -> texture = load_texture_from_AVS("textures/fireEyeElliptical.avs");
+  new_object2 -> mapping_texture = &map_sphere;
 
   scene = new_scene(eye);
   insert_object(new_object);

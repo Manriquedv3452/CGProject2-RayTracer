@@ -12,15 +12,11 @@ void ray_tracer(void);
 void insert_object(Object *object);
 
 
-void normalize_vector(Vector *vector);
-long double calculate_magnitude(Vector vector);
-
-Intersection * new_intersection(Object * object, long double t)
+Intersection * new_intersection(Object * object, long double t, Vector intersection_point)
 {
 	Intersection *new_intersection = (Intersection*) malloc(sizeof(Intersection));
 	new_intersection -> object = object;
-	//new_intersection -> distance = distance;
-	//new_intersection -> intersection_point = intersection_point;
+	new_intersection -> intersection_point = intersection_point;
     new_intersection -> t = t;
 
 	return new_intersection;
@@ -47,10 +43,10 @@ Texture * new_texture(int width, int height)
     texture -> height = height;
     texture -> width = width;
 
-    texture -> texels = calloc(width, sizeof(RGB));
-    for (int i = 0; i < width; i++)
+    texture -> texels = calloc(height, sizeof(RGB));
+    for (int i = 0; i < height; i++)
     {
-        texture -> texels[i] = calloc(height, sizeof(RGB));
+        texture -> texels[i] = calloc(width, sizeof(RGB));
     }
 
     return texture;

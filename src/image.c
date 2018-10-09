@@ -7,6 +7,8 @@
 
 
 void write_AVS(RGB** frameBuffer, char* file_name, int Vres, int Hres);
+Texture * load_texture_from_AVS(char *file_name);
+
 
 void write_AVS(RGB** frameBuffer, char* file_name, int Vres, int Hres){
    int row, column;
@@ -62,9 +64,9 @@ Texture * load_texture_from_AVS(char *file_name)
       fread(&height,sizeof(int),1,fptr);
       height = FIX(height);
 
-      //texture = new_texture(width, height);
+      texture = new_texture(width, height);
 
-      for (int i = 0; i < height; i++) {
+      for (int i = height -1; i >= 0; i--) {
             for (int j = 0; j < width; j++) {
 
             /* Read the current pixel */
@@ -78,9 +80,9 @@ Texture * load_texture_from_AVS(char *file_name)
                   return texture;
             }
 
-            texture -> texels[i][j].r = r;
-            texture -> texels[i][j].g = g;
-            texture -> texels[i][j].b = b;
+            texture -> texels[i][j].r = (double) r / 256;
+            texture -> texels[i][j].g = (double) g / 256;
+            texture -> texels[i][j].b = (double) b / 256;
 
             }
       }
