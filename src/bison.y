@@ -34,6 +34,7 @@ int unDecleared = FALSE;
 int inFor = FALSE;
 char* actualFunction = "";
 int current_token;
+int is_in_object = 0;
 
 
 %}
@@ -48,11 +49,15 @@ int current_token;
 %%
 
 primary_expression
-	: EYE			
+	: TEXTURE		
+	;
+
+vector_expression
+	: EYE {if (is_in_object){yyerror("");}}
 	;
 
 object_expression
-	: SPHERE compound_statement
+	: SPHERE {is_in_object = 1; } compound_statement { is_in_object = 0; };
 	;
 
 constant
@@ -78,7 +83,7 @@ unary_expression
 
 assignment_expression
 	: unary_expression assignment_operator constant {}
-	| unary_expression assignment_operator '[' constant ',' constant ',' constant ']'
+	| vector_expression assignment_operator '[' constant ',' constant ',' constant ']' 
 	| unary_expression assignment_operator string
 	;
 

@@ -61,19 +61,19 @@ int cursorPos = 0;
 
 
 
-{HP}{H}+{IS}?				{ count(); return I_CONSTANT; }
-{NZ}{D}*{IS}?				{ count(); return I_CONSTANT; }
-"0"{O}*{IS}?				{ count(); return I_CONSTANT; }
-{CP}?"'"([^'\\\n]|{ES})+"'"		{ count(); return I_CONSTANT; }
+{HP}{H}+{IS}?				{  return I_CONSTANT; }
+{NZ}{D}*{IS}?				{  return I_CONSTANT; }
+"0"{O}*{IS}?				{  return I_CONSTANT; }
+{CP}?"'"([^'\\\n]|{ES})+"'"		{  return I_CONSTANT; }
 
-{D}+{E}{FS}?				{ count(); return F_CONSTANT; }
-{D}*"."{D}+{E}?{FS}?			{ count(); return F_CONSTANT; }
-{D}+"."{E}?{FS}?			{ count(); return F_CONSTANT; }
-{HP}{H}+{P}{FS}?			{ count(); return F_CONSTANT; }
-{HP}{H}*"."{H}+{P}{FS}?			{ count(); return F_CONSTANT; }
-{HP}{H}+"."{P}{FS}?			{ count(); return F_CONSTANT; }
+{D}+{E}{FS}?				{  return F_CONSTANT; }
+{D}*"."{D}+{E}?{FS}?			{  return F_CONSTANT; }
+{D}+"."{E}?{FS}?			{  return F_CONSTANT; }
+{HP}{H}+{P}{FS}?			{  return F_CONSTANT; }
+{HP}{H}*"."{H}+{P}{FS}?			{  return F_CONSTANT; }
+{HP}{H}+"."{P}{FS}?			{ return F_CONSTANT; }
 
-({SP}?\"([^"\\\n]|{ES})*\"({WS}|{EOL})*)+".avs"	{ count(); return STRING_LITERAL; }
+({SP}?\"([^"\\\n]|{ES})*\"({WS}|{EOL})*)+".avs"	{ return STRING_LITERAL; }
 
 "Scene"	{ return SCENE; }
 "Sphere" { return SPHERE; }
@@ -89,6 +89,8 @@ int cursorPos = 0;
 ")" { return ')'; }
 "{" { return '{'; }
 "}" { return '}'; }
+"[" { return '['; }
+"]" { return ']'; }
 
 {WS}+					{ }
 

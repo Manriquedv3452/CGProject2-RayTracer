@@ -1,4 +1,5 @@
 Scene {
-    eye = 3434;
-    Sphere {}
+    eye = [ 5, 5, 5];
+    Sphere {
+    }
 }
