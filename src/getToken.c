@@ -1,25 +1,28 @@
-//#include "structs.h"
+#include <stdlib.h>
 
 //FLEX LIBRARY
 extern int yylex();
 extern int yylineno;
 extern char* yytext;
-extern int yyleng;
 extern char* strdup(char*);
-extern FILE* yyin;
 
+int getToken(void);
 
-TokenInfo getToken(void);
+char* previousToken;
+int previousTokenCode;
+int nextToken;
 
 //FUNCTION RETURNS THE NEXT TOKEN.
-TokenInfo getToken(void)
+int getToken(void)
 {	
-	TokenInfo data;
-	data.tokenCode = yylex();
-	data.lexeme = strdup(yytext);
-	data.lineNumber = yylineno;
-	data.token_length = yyleng;
 
-	return data;
+	if (yytext != NULL)
+	{
+		previousToken = strdup(yytext);
+		previousTokenCode = nextToken;
+	}
+
+	nextToken = yylex();
+
+	return nextToken;
 }
-

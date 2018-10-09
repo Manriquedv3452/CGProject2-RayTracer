@@ -84,10 +84,6 @@ typedef enum token_types{
 	CONSTANT = 203
 } TokenType;
 
-typedef enum {
-	SPHERE = 1
-} ObjectKind;
-
 
 
 RGB *BACKGROUND;

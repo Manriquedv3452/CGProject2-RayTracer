@@ -27,6 +27,7 @@ Texel_Coord * map_sphere (Intersection * intersection){
     uv -> u = acos(distance_center.z) / (2 * PI);
     uv -> v = (intersection -> intersection_point.y - sphere->center.y + sphere->radius)/ (2 * sphere->radius);
 
+
     return uv;
 }
 

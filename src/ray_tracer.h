@@ -8,8 +8,8 @@ RGB* what_color(Vector a, Vector d);
 Intersection * first_intersection (Vector a, Vector d);
 Intersection * calculate_intersection(Object* object, Vector eye, Vector tVector);
 Intersection * intersection_sphere(Vector eye, Vector tVector, Object *sphereOject);
-void ray_tracer(void);
-void insert_object(Object *object);
+void ray_tracer();
+void insert_object(Object *object, Scene * pScene);
 
 
 Intersection * new_intersection(Object * object, long double t, Vector intersection_point)

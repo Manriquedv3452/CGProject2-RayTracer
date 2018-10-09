@@ -1,0 +1,4 @@
+Scene {
+    eye = 3434;
+    Sphere {}
+}
