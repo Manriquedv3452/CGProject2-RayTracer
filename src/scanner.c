@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-extern void ray_tracer(void);
 extern int yyparse(void);
 extern FILE* yyin;
 

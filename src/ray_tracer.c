@@ -64,20 +64,20 @@ Intersection * intersection_sphere(Vector eye, Vector tVector, Object *sphereOje
   Vector intersection_point;
   Intersection * intersection;
 
-
-  Sphere * sphere = (Sphere*) sphereOject -> object;
+  Sphere * sphere_object = (Sphere*) sphereOject -> object;
   intersection = (Intersection*) malloc(sizeof(Intersection));
 
+  
   beta = 2*(
-            tVector.x * (eye.x - sphere -> center.x) + 
-            tVector.y * (eye.y - sphere -> center.y) + 
-            tVector.z * (eye.z - sphere -> center.z)
+            tVector.x * (eye.x - sphere_object -> center.x) + 
+            tVector.y * (eye.y - sphere_object -> center.y) + 
+            tVector.z * (eye.z - sphere_object -> center.z)
           );
 
-  gamma = pow(eye.x - sphere -> center.x, 2) + 
-          pow(eye.y - sphere -> center.y, 2) + 
-          pow(eye.z - sphere -> center.z, 2) - 
-          pow(sphere -> radius, 2);
+  gamma = pow(eye.x - sphere_object -> center.x, 2) + 
+          pow(eye.y - sphere_object -> center.y, 2) + 
+          pow(eye.z - sphere_object -> center.z, 2) - 
+          pow(sphere_object -> radius, 2);
 
   //printf("%.2f\n", beta*beta - 4*gamma);
 
@@ -149,16 +149,5 @@ void ray_tracer()
   system("convert Imagen.avs PNG:Imagen.png");
 }
 
-void insert_object(Object *object, Scene * pScene)
-{
-  Object *obj_aux = pScene -> objectsTail -> previous;
 
-  pScene -> objectsTail -> previous = object;
-  obj_aux -> next = object;
-  object -> previous = obj_aux;
-  object -> next = pScene -> objectsTail;
-
-  //free(obj_aux);
-
-}
 

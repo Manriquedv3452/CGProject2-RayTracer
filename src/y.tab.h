@@ -52,19 +52,20 @@ extern int yydebug;
     EYE = 262,
     TEXTURE = 263,
     COLOR = 264,
-    SPHERE = 265,
-    RADIUS = 266,
-    CENTER = 267,
-    BOOL = 268,
-    CHAR = 269,
-    SHORT = 270,
-    INT = 271,
-    LONG = 272,
-    SIGNED = 273,
-    UNSIGNED = 274,
-    FLOAT = 275,
-    DOUBLE = 276,
-    VOID = 277
+    TEXTURE_FILE = 265,
+    SPHERE = 266,
+    RADIUS = 267,
+    CENTER = 268,
+    BOOL = 269,
+    CHAR = 270,
+    SHORT = 271,
+    INT = 272,
+    LONG = 273,
+    SIGNED = 274,
+    UNSIGNED = 275,
+    FLOAT = 276,
+    DOUBLE = 277,
+    VOID = 278
   };
 #endif
 /* Tokens.  */
@@ -75,19 +76,20 @@ extern int yydebug;
 #define EYE 262
 #define TEXTURE 263
 #define COLOR 264
-#define SPHERE 265
-#define RADIUS 266
-#define CENTER 267
-#define BOOL 268
-#define CHAR 269
-#define SHORT 270
-#define INT 271
-#define LONG 272
-#define SIGNED 273
-#define UNSIGNED 274
-#define FLOAT 275
-#define DOUBLE 276
-#define VOID 277
+#define TEXTURE_FILE 265
+#define SPHERE 266
+#define RADIUS 267
+#define CENTER 268
+#define BOOL 269
+#define CHAR 270
+#define SHORT 271
+#define INT 272
+#define LONG 273
+#define SIGNED 274
+#define UNSIGNED 275
+#define FLOAT 276
+#define DOUBLE 277
+#define VOID 278
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

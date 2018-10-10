@@ -26,7 +26,7 @@ EOL [\n]
 %option yylineno
 
 %{	#include <studio.h>
-	#include "structs.h"
+
 	#include "y.tab.h"
 	#define MAXLEN 100
 
@@ -60,11 +60,18 @@ int cursorPos = 0;
 [ \t\v\f]	{/*DO NOTHING*/}
 
 
-
+"textures/"{L}{A}*".avs"				{ return TEXTURE_FILE; }
 {HP}{H}+{IS}?				{  return I_CONSTANT; }
 {NZ}{D}*{IS}?				{  return I_CONSTANT; }
 "0"{O}*{IS}?				{  return I_CONSTANT; }
 {CP}?"'"([^'\\\n]|{ES})+"'"		{  return I_CONSTANT; }
+
+
+"-"{HP}{H}+{IS}?				{  return I_CONSTANT; }
+"-"{NZ}{D}*{IS}?				{  return I_CONSTANT; }
+"-""0"{O}*{IS}?				{  return I_CONSTANT; }
+"-"{CP}?"'"([^'\\\n]|{ES})+"'"		{  return I_CONSTANT; }
+
 
 {D}+{E}{FS}?				{  return F_CONSTANT; }
 {D}*"."{D}+{E}?{FS}?			{  return F_CONSTANT; }
@@ -73,7 +80,7 @@ int cursorPos = 0;
 {HP}{H}*"."{H}+{P}{FS}?			{  return F_CONSTANT; }
 {HP}{H}+"."{P}{FS}?			{ return F_CONSTANT; }
 
-({SP}?\"([^"\\\n]|{ES})*\"({WS}|{EOL})*)+".avs"	{ return STRING_LITERAL; }
+({SP}?\"([^"\\\n]|{ES})*.avs\"({WS}|{EOL})*)+	{ return STRING_LITERAL; }
 
 "Scene"	{ return SCENE; }
 "Sphere" { return SPHERE; }
@@ -94,13 +101,15 @@ int cursorPos = 0;
 
 {WS}+					{ }
 
-. 			{ yyerror(""); }
+({SP}?\"([^"\\\n]|{ES})*\"({WS}|{EOL})*)+	{ yyerror("SHOULD HAVE EXTENSIO .avs"); }
+. 			{ yyerror("LEXICAL ERROR"); }
 %%
 
 
 void yyerror(const char *s)
 {
-	printf("%sError%s in line %d\n", CRED, CWHT, yylineno - 1);
+	printf("%sError%s in line %d: %s\n", CRED, CWHT, yylineno , s);
+	exit(1);
 }
 static void comment(void)
 {

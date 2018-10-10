@@ -9,6 +9,8 @@ extern char* strdup(char*);
 int getToken(void);
 
 char* previousToken;
+char* current_token;
+int current_token_code;
 int previousTokenCode;
 int nextToken;
 
@@ -23,6 +25,9 @@ int getToken(void)
 	}
 
 	nextToken = yylex();
+
+	current_token = strdup(yytext);
+	current_token_code = nextToken;
 
 	return nextToken;
 }

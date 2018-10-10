@@ -88,6 +88,8 @@ typedef enum token_types{
 
 RGB *BACKGROUND;
 Scene *scene;
+Object *current_object;
+Sphere *sphere;
 Window window;
 RGB **framebuffer;
 

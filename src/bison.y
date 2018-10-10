@@ -5,6 +5,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include "ray_tracer.c"
+#include "process_data.h"
+
 #define FALSE 0
 #define TRUE 1
 
@@ -25,6 +28,9 @@ extern char* previousToken;
 extern int cursorPos;
 extern int previousTokenCode;
 
+extern char* current_token;
+extern int current_token_code;
+
 #define yylex getToken
 #define YYERROR_VERBOSE 1
 
@@ -33,14 +39,14 @@ int inContext = FALSE;
 int unDecleared = FALSE;
 int inFor = FALSE;
 char* actualFunction = "";
-int current_token;
 int is_in_object = 0;
 
+void end_expression(void);
 
 %}
 %token	I_CONSTANT F_CONSTANT STRING_LITERAL 
 %token 	SCENE EYE
-%token 	TEXTURE COLOR
+%token 	TEXTURE COLOR TEXTURE_FILE
 %token  SPHERE RADIUS CENTER
 
 %token	BOOL CHAR SHORT INT LONG SIGNED UNSIGNED FLOAT DOUBLE VOID
@@ -49,15 +55,11 @@ int is_in_object = 0;
 %%
 
 primary_expression
-	: TEXTURE		
-	;
-
-vector_expression
-	: EYE {if (is_in_object){yyerror("");}}
+	: TEXTURE {if (!is_in_object) {yyerror("TEXTURE not in object"); }}		
 	;
 
 object_expression
-	: SPHERE {is_in_object = 1; } compound_statement { is_in_object = 0; };
+	: SPHERE {is_in_object = 1; create_sphere(); create_object(SPHERE); } compound_statement_object { is_in_object = 0; process_object(SPHERE); insert_object(current_object, scene); };
 	;
 
 constant
@@ -67,7 +69,7 @@ constant
 
 
 string
-	: STRING_LITERAL
+	: STRING_LITERAL 
 	;	
 
 
@@ -75,16 +77,31 @@ postfix_expression
 	: primary_expression 				{ yyerrok; }
 	;
 
-
 unary_expression
 	: postfix_expression							{ yyerrok; }
 	;	
 
 
+
 assignment_expression
 	: unary_expression assignment_operator constant {}
-	| vector_expression assignment_operator '[' constant ',' constant ',' constant ']' 
+	| EYE assignment_operator '[' constant { load_scene_eye_x(current_token); }
+							  ',' constant { load_scene_eye_y(current_token); }
+							  ',' constant { load_scene_eye_z(current_token); } ']' 
 	| unary_expression assignment_operator string
+	;
+
+assignment_expression_object
+	: RADIUS assignment_operator constant { add_sphere_radius(current_token); }
+	| CENTER assignment_operator '[' constant { add_sphere_center_x(current_token); } 
+								 ',' constant { add_sphere_center_y(current_token); }
+								 ',' constant { add_sphere_center_z(current_token); } ']' 
+							
+	| COLOR assignment_operator '[' constant { load_object_colorR(current_token); } 
+								 ',' constant { load_object_colorG(current_token); } 
+								 ',' constant { load_object_colorB(current_token); }  ']'
+
+	| TEXTURE assignment_operator TEXTURE_FILE { load_object_texture(current_token); }
 	;
 
 assignment_operator
@@ -94,6 +111,11 @@ assignment_operator
 expression
 	: assignment_expression	 
 	;
+	
+expression_object
+	: assignment_expression_object 
+	;
+
 
 declaration_specifiers
 	: type_specifier
@@ -119,7 +141,7 @@ declarator
 	;
 
 direct_declarator
-	: SCENE 
+	: SCENE { create_scene(); }
 	;
 
 
@@ -128,10 +150,20 @@ statement
 	| expression_statement				
 	;
 
+statement_object
+	: compound_statement_object
+	| expression_statement_object				
+	;
 
 compound_statement
 	: '{' '}'
 	| '{' { } block_item_list '}' { }
+	//| '{'  error					{ yyerrok; }
+	;
+
+compound_statement_object
+	: '{' '}'
+	| '{' { } block_item_list_object '}' { }
 	//| '{'  error					{ yyerrok; }
 	;
 
@@ -145,10 +177,27 @@ block_item
 	| object_expression
 	;
 
+block_item_list_object
+	: block_item_object
+	| block_item_list_object block_item_object					
+	;	
+
+
+block_item_object
+	: statement_object
+	;
+
+
 expression_statement
 	: expression ';' 		{  }
 	//| error ';'		       { yyerrok; }//err
 	| expression error 		{  yyerrok; }
+	;
+
+expression_statement_object
+	: expression_object ';' 		{  }
+	//| error ';'		       { yyerrok; }//err
+	| expression_object error 		{  yyerrok; }
 	;
 
 translation_unit
@@ -161,11 +210,11 @@ external_declaration
 	;
 
 function_definition
-	: declaration_specifiers declarator { }  compound_statement { }	
-	| declarator  compound_statement 			
+	: declaration_specifiers declarator { }  compound_statement { ray_tracer();	 }	
+	| declarator  compound_statement { ray_tracer(); }			
 	;
 
 %%
 
-#include "process_data.h"
+#include "process_data.c"
 

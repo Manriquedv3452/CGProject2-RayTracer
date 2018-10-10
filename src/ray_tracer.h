@@ -61,3 +61,16 @@ Ray * new_ray(Vector eye, Vector direction)
     return ray;
 }
 
+void insert_object(Object *object, Scene * pScene)
+{
+  Object *obj_aux = pScene -> objectsTail -> previous;
+
+  pScene -> objectsTail -> previous = object;
+  obj_aux -> next = object;
+  object -> previous = obj_aux;
+  object -> next = pScene -> objectsTail;
+
+  //free(obj_aux);
+
+}
+

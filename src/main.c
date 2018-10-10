@@ -1,5 +1,5 @@
-#include "ray_tracer.c"
-
+#include <stdio.h>
+#include <stdlib.h>
 
 int is_numeric(char character);
 int verify_argument(char *argument);
@@ -8,7 +8,7 @@ extern int scanner(char* fileName);
 
 int main(int argc, char *argv[])
 {
-  framebuffer = calloc(Vresolution, sizeof(RGB));
+  /*framebuffer = calloc(Vresolution, sizeof(RGB));
   for (int i = 0; i < Vresolution; i++)
   {
     framebuffer[i] = calloc(Hresolution, sizeof(RGB));
@@ -74,11 +74,11 @@ int main(int argc, char *argv[])
 
   scene = new_scene(eye);
   insert_object(new_object, scene);
-  insert_object(new_object2, scene);
+  insert_object(new_object2, scene);*/
 
   scanner("description.txt");
 
-  ray_tracer();
+  //ray_tracer();
 
 	return 1;
 }

@@ -19,7 +19,7 @@ LDFLAGS=-L/usr/local/Mesa-18.1.5/lib -L/usr/include/X11/Xlib.h
 $(OUTPUT): $(OBJECTS)
 	flex $(FLEXNAME)
 	bison -yd $(BISONNAME)
-	cc  $(FNAME) $(SCANNER) $(GETTOKEN) $(FLEXOUTPUT) $(BISONOUTPUT) $(LDLIBS) -o $(OUTPUT)
+	cc  -g $(FNAME) $(SCANNER) $(GETTOKEN) $(FLEXOUTPUT) $(BISONOUTPUT) $(LDLIBS) -o $(OUTPUT)
 
 $(OBJECTS): structs.h
 
