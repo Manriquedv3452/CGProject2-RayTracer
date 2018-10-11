@@ -3,14 +3,13 @@ Scene {
     Sphere {
         center = [504, 283, 1600];
         radius = 300;
-        color = [0, 1, 0];
-    
+        color = [0.0, 1.0, 0.0];
     }
 
     Light
     {
-        position = [900, 400, -500];
-        intensity = 0.5;
+        position = [504, 283, -1000];
+        intensity = 1.0;
 
     }
 

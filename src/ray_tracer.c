@@ -8,6 +8,7 @@ long double mag_aux;
 RGB* what_color(Vector eye, Vector parametric)
 {
   RGB * color;
+  RGB *new_color = (RGB*) malloc(sizeof(RGB));
   Intersection * intersection = first_intersection(eye, parametric);
   Vector *L;
   Vector *N;
@@ -22,7 +23,7 @@ RGB* what_color(Vector eye, Vector parametric)
   N = (Vector*) malloc(sizeof(Vector));
 
   if (intersection == NULL)
-    color = BACKGROUND;
+    return BACKGROUND;
   else 
   {
     object = intersection -> object;  
@@ -30,7 +31,8 @@ RGB* what_color(Vector eye, Vector parametric)
 
     I = 0.0;
     N = object -> normal_vector_function(intersection, object);
-    
+
+    normalize_vector(N);
     for (current_light = scene -> lightsHead; current_light -> next != scene -> lightsTail; current_light = current_light -> next)
     {
       
@@ -38,33 +40,34 @@ RGB* what_color(Vector eye, Vector parametric)
       L -> y = current_light -> next -> position.y - intersection_point.y;
       L -> z = current_light -> next -> position.z - intersection_point.z;
 
-      normalize_vector(L);
 
+      normalize_vector(L);
+      
       L_point_N = dot_product(*L, *N);
+
 
       if (L_point_N > 0.0)
       {
-        I = I + (L_point_N * current_light -> next -> intensity);
+        I += (L_point_N * current_light -> next -> intensity);
       }
     
     }
     //printf("%.2f\n", (double) I);
     //I = I *0.9;
     I = min(I, 1.0);
-    I += 0.5;
 
     if (intersection -> object -> texture == NULL)
       color = intersection -> object -> color;
     else
       color = get_texture_RGB(intersection);
 
-    color -> r *= I;
-    color -> g *= I;
-    color -> b *= I;
+    new_color -> r = color -> r * I;
+    new_color -> g = color -> g * I;
+    new_color -> b = color -> b * I;
 
+    return new_color;
   }
- 
-  return color;
+
 }
 
 Intersection * first_intersection (Vector eye, Vector parametricEye)

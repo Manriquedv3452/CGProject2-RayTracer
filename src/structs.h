@@ -1,7 +1,7 @@
 typedef struct {
-  double r;
-  double g;
-  double b;
+  long double r;
+  long double g;
+  long double b;
 } RGB;
 
 typedef struct 
