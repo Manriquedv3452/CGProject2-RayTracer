@@ -112,6 +112,10 @@ void create_light(void)
     light_aux -> color -> r = 1;
     light_aux -> color -> g = 1;
     light_aux -> color -> b = 1;
+
+    light_aux -> c1 = 1.0;
+    light_aux -> c2 = 0.0;
+    light_aux -> c3 = 0.0;
 }
 
 void add_light_position_x(char* token)
@@ -145,6 +149,21 @@ void load_light_colorG(char* token)
 void load_light_colorB(char* token)
 {
     light_aux -> color -> b = atof(token);
+}
+
+void add_light_c1(char* token)
+{
+    light_aux -> c1 = atof(token);
+}
+
+void add_light_c2(char* token)
+{
+    light_aux -> c2 = atof(token);
+}
+
+void add_light_c3(char* token)
+{
+    light_aux -> c3 = atof(token);
 }
 
 //SCENE

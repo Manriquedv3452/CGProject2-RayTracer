@@ -73,7 +73,7 @@ typedef struct light
 	Vector position;
 	long double intensity;
 	RGB* color;
-
+	long double c1, c2, c3;
 } Light;
 
 typedef struct

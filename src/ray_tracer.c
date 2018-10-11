@@ -18,6 +18,9 @@ RGB* what_color(Vector eye, Vector parametric)
   Vector light_intersection;
   long double L_point_N;
   Light* current_light;
+  long double light_distance;
+
+  long double Fatt; //atenation factor
 
   L = (Vector*) malloc(sizeof(Vector));
   N = (Vector*) malloc(sizeof(Vector));
@@ -40,7 +43,7 @@ RGB* what_color(Vector eye, Vector parametric)
       L -> y = current_light -> next -> position.y - intersection_point.y;
       L -> z = current_light -> next -> position.z - intersection_point.z;
 
-
+      light_distance = calculate_magnitude(*L);
       normalize_vector(L);
       
       L_point_N = dot_product(*L, *N);
@@ -48,7 +51,8 @@ RGB* what_color(Vector eye, Vector parametric)
 
       if (L_point_N > 0.0)
       {
-        I += (L_point_N * object -> diffuse_coefficient * current_light -> next -> intensity);
+        Fatt = min(1.0, 1/(current_light -> next -> c1 + (current_light -> next -> c2 * light_distance) + (current_light -> next -> c3 * pow(light_distance, 2))));
+        I += (L_point_N * object -> diffuse_coefficient * Fatt * current_light -> next -> intensity);
       }
     
     }

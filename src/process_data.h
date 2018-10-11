@@ -27,3 +27,6 @@ void add_light_intensity(char* token);
 void load_light_colorR(char* token);
 void load_light_colorG(char* token);
 void load_light_colorB(char* token);
+void add_light_c1(char* token);
+void add_light_c2(char* token);
+void add_light_c3(char* token);

@@ -54,24 +54,27 @@ extern int yydebug;
     LIGHT = 264,
     INTENSITY = 265,
     POSITION = 266,
-    TEXTURE = 267,
-    COLOR = 268,
-    TEXTURE_FILE = 269,
-    DIFFUSE_COEFFICIENT = 270,
-    AMBIENT_LIGHTING_COEFFICIENT = 271,
-    SPHERE = 272,
-    RADIUS = 273,
-    CENTER = 274,
-    BOOL = 275,
-    CHAR = 276,
-    SHORT = 277,
-    INT = 278,
-    LONG = 279,
-    SIGNED = 280,
-    UNSIGNED = 281,
-    FLOAT = 282,
-    DOUBLE = 283,
-    VOID = 284
+    LIGHT_C1 = 267,
+    LIGHT_C2 = 268,
+    LIGHT_C3 = 269,
+    TEXTURE = 270,
+    COLOR = 271,
+    TEXTURE_FILE = 272,
+    DIFFUSE_COEFFICIENT = 273,
+    AMBIENT_LIGHTING_COEFFICIENT = 274,
+    SPHERE = 275,
+    RADIUS = 276,
+    CENTER = 277,
+    BOOL = 278,
+    CHAR = 279,
+    SHORT = 280,
+    INT = 281,
+    LONG = 282,
+    SIGNED = 283,
+    UNSIGNED = 284,
+    FLOAT = 285,
+    DOUBLE = 286,
+    VOID = 287
   };
 #endif
 /* Tokens.  */
@@ -84,24 +87,27 @@ extern int yydebug;
 #define LIGHT 264
 #define INTENSITY 265
 #define POSITION 266
-#define TEXTURE 267
-#define COLOR 268
-#define TEXTURE_FILE 269
-#define DIFFUSE_COEFFICIENT 270
-#define AMBIENT_LIGHTING_COEFFICIENT 271
-#define SPHERE 272
-#define RADIUS 273
-#define CENTER 274
-#define BOOL 275
-#define CHAR 276
-#define SHORT 277
-#define INT 278
-#define LONG 279
-#define SIGNED 280
-#define UNSIGNED 281
-#define FLOAT 282
-#define DOUBLE 283
-#define VOID 284
+#define LIGHT_C1 267
+#define LIGHT_C2 268
+#define LIGHT_C3 269
+#define TEXTURE 270
+#define COLOR 271
+#define TEXTURE_FILE 272
+#define DIFFUSE_COEFFICIENT 273
+#define AMBIENT_LIGHTING_COEFFICIENT 274
+#define SPHERE 275
+#define RADIUS 276
+#define CENTER 277
+#define BOOL 278
+#define CHAR 279
+#define SHORT 280
+#define INT 281
+#define LONG 282
+#define SIGNED 283
+#define UNSIGNED 284
+#define FLOAT 285
+#define DOUBLE 286
+#define VOID 287
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

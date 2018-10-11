@@ -1,26 +1,37 @@
 Scene {
     eye = [504, 283, -2000];
-    ambient_lighting = 0.0;
+    ambient_lighting = 0.4;
     Sphere {
         center = [504, 283, 1600];
         radius = 300;
         color = [0.0, 1.0, 0.0];
-        diffuse_coefficient = 0.8;
-        ambient_lighting_coefficient = 0.4;
+        diffuse_coefficient = 1;
+        ambient_lighting_coefficient = 0.2;
     }
 
     Light
     {
-        position = [504, 283, -1000];
-        intensity = 1.0;
+        position = [300, 283, 500];
+        intensity = 0.8;
+        c1 = 1.0;
+        c2 = 0.0;           //for Fatt
+        c3 = 0.0;
 
     }
+
+    /*Light
+    {
+        position = [900, 283, 500];
+        intensity = 0.4;
+    }*/
 
     Sphere 
     {
         center = [252, 283, 1000];
         radius = 60;
         color = [1, 0 , 0];
+        diffuse_coefficient = 1.0;
+        ambient_lighting_coefficient = 0.4;
         //texture = textures/bright.avs;
     }
 

@@ -34,7 +34,7 @@ void end_expression(void);
 %}
 %token	I_CONSTANT F_CONSTANT STRING_LITERAL 
 %token 	SCENE EYE AMBIENT_LIGHTING
-%token	LIGHT INTENSITY POSITION
+%token	LIGHT INTENSITY POSITION LIGHT_C1 LIGHT_C2 LIGHT_C3
 %token 	TEXTURE COLOR TEXTURE_FILE DIFFUSE_COEFFICIENT AMBIENT_LIGHTING_COEFFICIENT
 %token  SPHERE RADIUS CENTER 
 
@@ -91,6 +91,9 @@ assignment_expression_light
 	| COLOR assignment_operator '[' constant { load_light_colorR(current_token); } 
 								 ',' constant { load_light_colorG(current_token); } 
 								 ',' constant { load_light_colorB(current_token); }  ']'
+	| LIGHT_C1 assignment_operator constant { add_light_c1(current_token); }
+	| LIGHT_C2 assignment_operator constant { add_light_c2(current_token); }
+	| LIGHT_C3 assignment_operator constant { add_light_c3(current_token); }
 	;
 
 
