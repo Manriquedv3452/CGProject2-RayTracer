@@ -48,12 +48,12 @@ RGB* what_color(Vector eye, Vector parametric)
 
       if (L_point_N > 0.0)
       {
-        I += (L_point_N * current_light -> next -> intensity);
+        I += (L_point_N * object -> diffuse_coefficient * current_light -> next -> intensity);
       }
     
     }
-    //printf("%.2f\n", (double) I);
-    //I = I *0.9;
+
+    I += scene -> ambient_lighting * object -> ambient_lighting_coefficient;
     I = min(I, 1.0);
 
     if (intersection -> object -> texture == NULL)

@@ -33,20 +33,16 @@ int is_in_object = 0;
 void end_expression(void);
 %}
 %token	I_CONSTANT F_CONSTANT STRING_LITERAL 
-%token 	SCENE EYE 
+%token 	SCENE EYE AMBIENT_LIGHTING
 %token	LIGHT INTENSITY POSITION
-%token 	TEXTURE COLOR TEXTURE_FILE DIFFUSE_COEFFICIENT
+%token 	TEXTURE COLOR TEXTURE_FILE DIFFUSE_COEFFICIENT AMBIENT_LIGHTING_COEFFICIENT
 %token  SPHERE RADIUS CENTER 
 
 %token	BOOL CHAR SHORT INT LONG SIGNED UNSIGNED FLOAT DOUBLE VOID
 
 %start translation_unit
 %%
-
-primary_expression
-	: TEXTURE {if (!is_in_object) {yyerror("TEXTURE not in object"); }}		
-	;
-
+	
 object_expression
 	: SPHERE {is_in_object = 1; create_sphere(); create_object(SPHERE); } compound_statement_object { is_in_object = 0; process_object(SPHERE); insert_object(current_object, scene); };
 	| LIGHT { create_light(); } compound_statement_light { insert_light(light_aux, scene); }
@@ -58,27 +54,16 @@ constant
 	;
 
 
-string
+/*string
 	: STRING_LITERAL 
-	;	
-
-
-postfix_expression
-	: primary_expression 				{ yyerrok; }
-	;
-
-unary_expression
-	: postfix_expression							{ yyerrok; }
-	;	
-
+	;	*/
 
 
 assignment_expression
-	: unary_expression assignment_operator constant {}
-	| EYE assignment_operator '[' constant { load_scene_eye_x(current_token); }
+	: EYE assignment_operator '[' constant { load_scene_eye_x(current_token); }
 							  ',' constant { load_scene_eye_y(current_token); }
 							  ',' constant { load_scene_eye_z(current_token); } ']' 
-	| unary_expression assignment_operator string
+	| AMBIENT_LIGHTING assignment_operator constant { add_ambient_lighting(current_token); }
 	;
 
 assignment_expression_object
@@ -92,6 +77,8 @@ assignment_expression_object
 								 ',' constant { load_object_colorB(current_token); }  ']'
 
 	| TEXTURE assignment_operator TEXTURE_FILE { load_object_texture(current_token); }
+	| DIFFUSE_COEFFICIENT assignment_operator constant { add_diffuse_coefficient(current_token); }
+	| AMBIENT_LIGHTING_COEFFICIENT assignment_operator constant { add_ambient_lighting_coefficient(current_token); }
 	;
 
 assignment_expression_light

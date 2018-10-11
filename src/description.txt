@@ -1,9 +1,12 @@
 Scene {
     eye = [504, 283, -2000];
+    ambient_lighting = 0.0;
     Sphere {
         center = [504, 283, 1600];
         radius = 300;
         color = [0.0, 1.0, 0.0];
+        diffuse_coefficient = 0.8;
+        ambient_lighting_coefficient = 0.4;
     }
 
     Light
@@ -13,15 +16,15 @@ Scene {
 
     }
 
-    /*Sphere 
+    Sphere 
     {
         center = [252, 283, 1000];
         radius = 60;
         color = [1, 0 , 0];
-        texture = textures/bright.avs;
+        //texture = textures/bright.avs;
     }
 
-     Sphere 
+     /*Sphere 
     {
         center = [300, 390, 1000];
         radius = 60;

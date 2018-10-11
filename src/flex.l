@@ -92,7 +92,9 @@ int cursorPos = 0;
 "center" { return CENTER; }
 "texture" { return TEXTURE; }
 "color" {return COLOR; }
-"diffuse_coeficient" {return DIFFUSE_COEFFICIENT; }
+"diffuse_coefficient" {return DIFFUSE_COEFFICIENT; }
+"ambient_lighting"	{ return AMBIENT_LIGHTING; }
+"ambient_lighting_coefficient" {	return AMBIENT_LIGHTING_COEFFICIENT; }
 "=" { return '='; }
 ";" { return ';'; }
 "," { return ','; }

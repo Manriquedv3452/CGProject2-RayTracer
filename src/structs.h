@@ -44,6 +44,7 @@ typedef struct object{
 	void *object;
 	Texture * texture;
 	long double diffuse_coefficient;
+	long double ambient_lighting_coefficient;
 
 } Object;
 
@@ -92,7 +93,7 @@ typedef struct
 	Object* objectsTail;
 	int objects_amount;
 	int lights_amount;
-
+	long double ambient_lighting;
 } Scene;
 
 typedef enum token_types{

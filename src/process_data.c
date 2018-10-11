@@ -14,6 +14,9 @@ void create_object(int object_kind)
     load_object_colorG("0");
     load_object_colorB("0");
     current_object -> texture = NULL;
+    current_object -> diffuse_coefficient = 1.0;
+    current_object -> ambient_lighting_coefficient = 1.0;
+
     switch (object_kind)
     {
         case SPHERE:
@@ -31,6 +34,11 @@ void create_object(int object_kind)
 void add_diffuse_coefficient(char* token)
 {
     current_object -> diffuse_coefficient = atof(token);
+}
+
+void add_ambient_lighting_coefficient(char* token)
+{
+    current_object -> ambient_lighting_coefficient = atof(token);
 }
 
 void load_object_texture(char* file_name)
@@ -140,6 +148,12 @@ void load_light_colorB(char* token)
 }
 
 //SCENE
+
+void add_ambient_lighting(char* token)
+{
+    scene -> ambient_lighting = atof(token);
+}
+
 void load_scene_eye_x(char* token)
 {
     scene -> eye.x = atof(token);
@@ -188,4 +202,7 @@ void create_scene(void)
 
     scene -> objects_amount = 0;
     scene -> lights_amount = 0;
+
+    scene -> ambient_lighting = 0.0;
 }
+

@@ -50,26 +50,28 @@ extern int yydebug;
     STRING_LITERAL = 260,
     SCENE = 261,
     EYE = 262,
-    LIGHT = 263,
-    INTENSITY = 264,
-    POSITION = 265,
-    TEXTURE = 266,
-    COLOR = 267,
-    TEXTURE_FILE = 268,
-    DIFFUSE_COEFFICIENT = 269,
-    SPHERE = 270,
-    RADIUS = 271,
-    CENTER = 272,
-    BOOL = 273,
-    CHAR = 274,
-    SHORT = 275,
-    INT = 276,
-    LONG = 277,
-    SIGNED = 278,
-    UNSIGNED = 279,
-    FLOAT = 280,
-    DOUBLE = 281,
-    VOID = 282
+    AMBIENT_LIGHTING = 263,
+    LIGHT = 264,
+    INTENSITY = 265,
+    POSITION = 266,
+    TEXTURE = 267,
+    COLOR = 268,
+    TEXTURE_FILE = 269,
+    DIFFUSE_COEFFICIENT = 270,
+    AMBIENT_LIGHTING_COEFFICIENT = 271,
+    SPHERE = 272,
+    RADIUS = 273,
+    CENTER = 274,
+    BOOL = 275,
+    CHAR = 276,
+    SHORT = 277,
+    INT = 278,
+    LONG = 279,
+    SIGNED = 280,
+    UNSIGNED = 281,
+    FLOAT = 282,
+    DOUBLE = 283,
+    VOID = 284
   };
 #endif
 /* Tokens.  */
@@ -78,26 +80,28 @@ extern int yydebug;
 #define STRING_LITERAL 260
 #define SCENE 261
 #define EYE 262
-#define LIGHT 263
-#define INTENSITY 264
-#define POSITION 265
-#define TEXTURE 266
-#define COLOR 267
-#define TEXTURE_FILE 268
-#define DIFFUSE_COEFFICIENT 269
-#define SPHERE 270
-#define RADIUS 271
-#define CENTER 272
-#define BOOL 273
-#define CHAR 274
-#define SHORT 275
-#define INT 276
-#define LONG 277
-#define SIGNED 278
-#define UNSIGNED 279
-#define FLOAT 280
-#define DOUBLE 281
-#define VOID 282
+#define AMBIENT_LIGHTING 263
+#define LIGHT 264
+#define INTENSITY 265
+#define POSITION 266
+#define TEXTURE 267
+#define COLOR 268
+#define TEXTURE_FILE 269
+#define DIFFUSE_COEFFICIENT 270
+#define AMBIENT_LIGHTING_COEFFICIENT 271
+#define SPHERE 272
+#define RADIUS 273
+#define CENTER 274
+#define BOOL 275
+#define CHAR 276
+#define SHORT 277
+#define INT 278
+#define LONG 279
+#define SIGNED 280
+#define UNSIGNED 281
+#define FLOAT 282
+#define DOUBLE 283
+#define VOID 284
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
