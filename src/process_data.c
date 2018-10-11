@@ -202,9 +202,9 @@ void create_scene(void)
     window.ymax = 567;
 
     BACKGROUND = (RGB*) malloc(sizeof(RGB));
-    BACKGROUND -> r = 0.1;
-    BACKGROUND -> g = 0.1;
-    BACKGROUND -> b = 0.1;
+    BACKGROUND -> r = 0.09;
+    BACKGROUND -> g = 0.09;
+    BACKGROUND -> b = 0.09;
 
     scene = (Scene*) malloc(sizeof(Scene));
     scene -> objectsHead = (Object*) malloc(sizeof(Object));
