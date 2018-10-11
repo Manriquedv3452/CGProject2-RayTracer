@@ -87,10 +87,14 @@ typedef struct
 typedef struct 
 {
 	Vector eye;
+	RGB* background;
+	
 	Light *lightsHead;
 	Light *lightsTail;
+
 	Object* objectsHead;
 	Object* objectsTail;
+
 	int objects_amount;
 	int lights_amount;
 	long double ambient_lighting;
@@ -101,8 +105,6 @@ typedef enum token_types{
 } TokenType;
 
 
-
-RGB *BACKGROUND;
 Scene *scene;
 Object *current_object;
 Light *light_aux; 

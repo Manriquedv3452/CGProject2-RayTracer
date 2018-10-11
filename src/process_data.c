@@ -188,6 +188,21 @@ void load_scene_eye_z(char* token)
     scene -> eye.z = atof(token);
 }
 
+void add_background_colorR(char* token)
+{
+    scene -> background -> r = atof(token);
+}
+
+void add_background_colorG(char* token)
+{
+    scene -> background -> g = atof(token);
+}
+
+void add_background_colorB(char* token)
+{
+    scene -> background -> b = atof(token);
+}
+
 void create_scene(void)
 {
     framebuffer = calloc(Vresolution, sizeof(RGB));
@@ -201,12 +216,14 @@ void create_scene(void)
     window.xmax = 1008;
     window.ymax = 567;
 
-    BACKGROUND = (RGB*) malloc(sizeof(RGB));
-    BACKGROUND -> r = 0.09;
-    BACKGROUND -> g = 0.09;
-    BACKGROUND -> b = 0.09;
 
     scene = (Scene*) malloc(sizeof(Scene));
+
+    scene -> background = (RGB*) malloc(sizeof(RGB));
+    scene -> background -> r = 0.2;
+    scene -> background -> g = 0.2;
+    scene -> background -> b = 0.2;
+
     scene -> objectsHead = (Object*) malloc(sizeof(Object));
     scene -> objectsTail = (Object*) malloc(sizeof(Object));
 

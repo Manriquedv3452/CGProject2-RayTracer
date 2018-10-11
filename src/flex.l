@@ -95,6 +95,7 @@ int cursorPos = 0;
 "diffuse_coefficient" {return DIFFUSE_COEFFICIENT; }
 "ambient_lighting"	{ return AMBIENT_LIGHTING; }
 "ambient_lighting_coefficient" {	return AMBIENT_LIGHTING_COEFFICIENT; }
+"background"	{ return BACKGROUND; }
 "c1" { return LIGHT_C1; }
 "c2" { return LIGHT_C2; }
 "c3" { return LIGHT_C3; }

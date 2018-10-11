@@ -51,30 +51,31 @@ extern int yydebug;
     SCENE = 261,
     EYE = 262,
     AMBIENT_LIGHTING = 263,
-    LIGHT = 264,
-    INTENSITY = 265,
-    POSITION = 266,
-    LIGHT_C1 = 267,
-    LIGHT_C2 = 268,
-    LIGHT_C3 = 269,
-    TEXTURE = 270,
-    COLOR = 271,
-    TEXTURE_FILE = 272,
-    DIFFUSE_COEFFICIENT = 273,
-    AMBIENT_LIGHTING_COEFFICIENT = 274,
-    SPHERE = 275,
-    RADIUS = 276,
-    CENTER = 277,
-    BOOL = 278,
-    CHAR = 279,
-    SHORT = 280,
-    INT = 281,
-    LONG = 282,
-    SIGNED = 283,
-    UNSIGNED = 284,
-    FLOAT = 285,
-    DOUBLE = 286,
-    VOID = 287
+    BACKGROUND = 264,
+    LIGHT = 265,
+    INTENSITY = 266,
+    POSITION = 267,
+    LIGHT_C1 = 268,
+    LIGHT_C2 = 269,
+    LIGHT_C3 = 270,
+    TEXTURE = 271,
+    COLOR = 272,
+    TEXTURE_FILE = 273,
+    DIFFUSE_COEFFICIENT = 274,
+    AMBIENT_LIGHTING_COEFFICIENT = 275,
+    SPHERE = 276,
+    RADIUS = 277,
+    CENTER = 278,
+    BOOL = 279,
+    CHAR = 280,
+    SHORT = 281,
+    INT = 282,
+    LONG = 283,
+    SIGNED = 284,
+    UNSIGNED = 285,
+    FLOAT = 286,
+    DOUBLE = 287,
+    VOID = 288
   };
 #endif
 /* Tokens.  */
@@ -84,30 +85,31 @@ extern int yydebug;
 #define SCENE 261
 #define EYE 262
 #define AMBIENT_LIGHTING 263
-#define LIGHT 264
-#define INTENSITY 265
-#define POSITION 266
-#define LIGHT_C1 267
-#define LIGHT_C2 268
-#define LIGHT_C3 269
-#define TEXTURE 270
-#define COLOR 271
-#define TEXTURE_FILE 272
-#define DIFFUSE_COEFFICIENT 273
-#define AMBIENT_LIGHTING_COEFFICIENT 274
-#define SPHERE 275
-#define RADIUS 276
-#define CENTER 277
-#define BOOL 278
-#define CHAR 279
-#define SHORT 280
-#define INT 281
-#define LONG 282
-#define SIGNED 283
-#define UNSIGNED 284
-#define FLOAT 285
-#define DOUBLE 286
-#define VOID 287
+#define BACKGROUND 264
+#define LIGHT 265
+#define INTENSITY 266
+#define POSITION 267
+#define LIGHT_C1 268
+#define LIGHT_C2 269
+#define LIGHT_C3 270
+#define TEXTURE 271
+#define COLOR 272
+#define TEXTURE_FILE 273
+#define DIFFUSE_COEFFICIENT 274
+#define AMBIENT_LIGHTING_COEFFICIENT 275
+#define SPHERE 276
+#define RADIUS 277
+#define CENTER 278
+#define BOOL 279
+#define CHAR 280
+#define SHORT 281
+#define INT 282
+#define LONG 283
+#define SIGNED 284
+#define UNSIGNED 285
+#define FLOAT 286
+#define DOUBLE 287
+#define VOID 288
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

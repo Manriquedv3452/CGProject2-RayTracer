@@ -33,7 +33,7 @@ int is_in_object = 0;
 void end_expression(void);
 %}
 %token	I_CONSTANT F_CONSTANT STRING_LITERAL 
-%token 	SCENE EYE AMBIENT_LIGHTING
+%token 	SCENE EYE AMBIENT_LIGHTING BACKGROUND
 %token	LIGHT INTENSITY POSITION LIGHT_C1 LIGHT_C2 LIGHT_C3
 %token 	TEXTURE COLOR TEXTURE_FILE DIFFUSE_COEFFICIENT AMBIENT_LIGHTING_COEFFICIENT
 %token  SPHERE RADIUS CENTER 
@@ -64,6 +64,9 @@ assignment_expression
 							  ',' constant { load_scene_eye_y(current_token); }
 							  ',' constant { load_scene_eye_z(current_token); } ']' 
 	| AMBIENT_LIGHTING assignment_operator constant { add_ambient_lighting(current_token); }
+	| BACKGROUND assignment_operator '[' constant { add_background_colorR(current_token); } ','
+										 constant { add_background_colorG(current_token); } ','
+										 constant { add_background_colorB(current_token); } ']'
 	;
 
 assignment_expression_object

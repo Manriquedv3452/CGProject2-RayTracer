@@ -26,7 +26,7 @@ RGB* what_color(Vector eye, Vector parametric)
   N = (Vector*) malloc(sizeof(Vector));
 
   if (intersection == NULL)
-    return BACKGROUND;
+    return scene -> background;
   else 
   {
     object = intersection -> object;  

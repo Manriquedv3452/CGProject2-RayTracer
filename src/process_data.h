@@ -18,6 +18,9 @@ void add_ambient_lighting(char* token);
 void load_scene_eye_x(char* token);
 void load_scene_eye_y(char* token);
 void load_scene_eye_z(char* token);
+void add_background_colorR(char* token);
+void add_background_colorG(char* token);
+void add_background_colorB(char* token);
 
 void create_light(void);
 void add_light_position_x(char* token);

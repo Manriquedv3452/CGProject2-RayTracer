@@ -1,6 +1,7 @@
 Scene {
     eye = [504, 283, -2000];
     ambient_lighting = 0.4;
+    background = [0.2, 0.2, 0.2];
     Sphere {
         center = [504, 283, 1600];
         radius = 300;
