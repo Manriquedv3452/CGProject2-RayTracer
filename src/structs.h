@@ -39,9 +39,11 @@ typedef struct object{
 	struct object *previous;
 	RGB *color;
 	Intersection* (*intersection_function) (Vector, Vector, struct object*);
-	Texel_Coord * (*mapping_texture) (Intersection *);
+	Texel_Coord * (*mapping_texture_function) (Intersection *);
+	Vector * (*normal_vector_function) (Intersection *, struct object*);
 	void *object;
 	Texture * texture;
+	long double diffuse_coefficient;
 
 } Object;
 
@@ -63,6 +65,16 @@ typedef struct
 	Vector direction;
 } Ray;
 
+typedef struct light
+{
+	struct light *next;
+	struct light *previous;
+	Vector position;
+	long double intensity;
+	RGB* color;
+
+} Light;
+
 typedef struct
 {
 	long double xmin;
@@ -74,9 +86,12 @@ typedef struct
 typedef struct 
 {
 	Vector eye;
+	Light *lightsHead;
+	Light *lightsTail;
 	Object* objectsHead;
 	Object* objectsTail;
-	int amountObjects;
+	int objects_amount;
+	int lights_amount;
 
 } Scene;
 
@@ -89,6 +104,7 @@ typedef enum token_types{
 RGB *BACKGROUND;
 Scene *scene;
 Object *current_object;
+Light *light_aux; 
 Sphere *sphere;
 Window window;
 RGB **framebuffer;

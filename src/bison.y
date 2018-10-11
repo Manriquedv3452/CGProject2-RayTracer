@@ -1,18 +1,12 @@
 %{
-
 /* Taken from http://www.quut.com/c/ANSI-C-grammar-y.html*/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include "ray_tracer.c"
 #include "process_data.h"
-
 #define FALSE 0
 #define TRUE 1
-
-
-
 void yyerror(const char *);
 void yynote(char *noteInfo, int line, int column, int writeCode, int cursorPosi);
 void yywarning(char *warningInfo, int line, int column, int writeCode, int cursorPosi);
@@ -23,31 +17,26 @@ extern int column;
 extern int previousColumn;
 extern void print(void);
 extern int nextToken;
-
 extern char* previousToken;
 extern int cursorPos;
 extern int previousTokenCode;
-
 extern char* current_token;
 extern int current_token_code;
-
 #define yylex getToken
 #define YYERROR_VERBOSE 1
-
 int errorFound = FALSE;
 int inContext = FALSE;
 int unDecleared = FALSE;
 int inFor = FALSE;
 char* actualFunction = "";
 int is_in_object = 0;
-
 void end_expression(void);
-
 %}
 %token	I_CONSTANT F_CONSTANT STRING_LITERAL 
-%token 	SCENE EYE
-%token 	TEXTURE COLOR TEXTURE_FILE
-%token  SPHERE RADIUS CENTER
+%token 	SCENE EYE 
+%token	LIGHT INTENSITY POSITION
+%token 	TEXTURE COLOR TEXTURE_FILE DIFFUSE_COEFFICIENT
+%token  SPHERE RADIUS CENTER 
 
 %token	BOOL CHAR SHORT INT LONG SIGNED UNSIGNED FLOAT DOUBLE VOID
 
@@ -60,6 +49,7 @@ primary_expression
 
 object_expression
 	: SPHERE {is_in_object = 1; create_sphere(); create_object(SPHERE); } compound_statement_object { is_in_object = 0; process_object(SPHERE); insert_object(current_object, scene); };
+	| LIGHT { create_light(); } compound_statement_light { insert_light(light_aux, scene); }
 	;
 
 constant
@@ -104,6 +94,19 @@ assignment_expression_object
 	| TEXTURE assignment_operator TEXTURE_FILE { load_object_texture(current_token); }
 	;
 
+assignment_expression_light
+	: POSITION assignment_operator '[' constant { add_light_position_x(current_token); } 
+								 ',' constant { add_light_position_y(current_token); }
+								 ',' constant { add_light_position_z(current_token); } ']'
+
+	| INTENSITY assignment_operator constant { add_light_intensity(current_token); } 
+							
+	| COLOR assignment_operator '[' constant { load_light_colorR(current_token); } 
+								 ',' constant { load_light_colorG(current_token); } 
+								 ',' constant { load_light_colorB(current_token); }  ']'
+	;
+
+
 assignment_operator
 	: '=' {}
 	;
@@ -116,6 +119,9 @@ expression_object
 	: assignment_expression_object 
 	;
 
+expression_light
+	: assignment_expression_light
+	;
 
 declaration_specifiers
 	: type_specifier
@@ -155,6 +161,13 @@ statement_object
 	| expression_statement_object				
 	;
 
+
+statement_light
+	: compound_statement_light
+	| expression_statement_light			
+	;
+
+
 compound_statement
 	: '{' '}'
 	| '{' { } block_item_list '}' { }
@@ -164,6 +177,12 @@ compound_statement
 compound_statement_object
 	: '{' '}'
 	| '{' { } block_item_list_object '}' { }
+	//| '{'  error					{ yyerrok; }
+	;
+
+compound_statement_light
+	: '{' '}'
+	| '{' { } block_item_list_light '}' { }
 	//| '{'  error					{ yyerrok; }
 	;
 
@@ -187,6 +206,16 @@ block_item_object
 	: statement_object
 	;
 
+block_item_list_light
+	: block_item_light
+	| block_item_list_light block_item_light				
+	;	
+
+
+block_item_light
+	: statement_light
+	;
+
 
 expression_statement
 	: expression ';' 		{  }
@@ -198,6 +227,12 @@ expression_statement_object
 	: expression_object ';' 		{  }
 	//| error ';'		       { yyerrok; }//err
 	| expression_object error 		{  yyerrok; }
+	;
+
+expression_statement_light
+	: expression_light ';' 		{  }
+	//| error ';'		       { yyerrok; }//err
+	| expression_light error 		{  yyerrok; }
 	;
 
 translation_unit
@@ -215,6 +250,4 @@ function_definition
 	;
 
 %%
-
 #include "process_data.c"
-

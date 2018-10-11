@@ -9,7 +9,7 @@ RGB * get_texel(Texel_Coord * point, Texture * texture){
 
 RGB *  get_texture_RGB(Intersection * intersection){
     //UV (*functionPoint) (Object*, Vector) = object -> texture;
-    Texel_Coord * mapped_texel = intersection -> object -> mapping_texture(intersection);
+    Texel_Coord * mapped_texel = intersection -> object -> mapping_texture_function(intersection);
     return get_texel(mapped_texel, intersection -> object -> texture);
 }
 

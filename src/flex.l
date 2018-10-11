@@ -83,12 +83,16 @@ int cursorPos = 0;
 ({SP}?\"([^"\\\n]|{ES})*.avs\"({WS}|{EOL})*)+	{ return STRING_LITERAL; }
 
 "Scene"	{ return SCENE; }
+"Light" { return LIGHT; }
+"intensity" { return INTENSITY; }
+"position" { return POSITION; }
 "Sphere" { return SPHERE; }
 "eye" { return EYE; }
 "radius" { return RADIUS; }
 "center" { return CENTER; }
 "texture" { return TEXTURE; }
 "color" {return COLOR; }
+"diffuse_coeficient" {return DIFFUSE_COEFFICIENT; }
 "=" { return '='; }
 ";" { return ';'; }
 "," { return ','; }
@@ -101,7 +105,7 @@ int cursorPos = 0;
 
 {WS}+					{ }
 
-({SP}?\"([^"\\\n]|{ES})*\"({WS}|{EOL})*)+	{ yyerror("SHOULD HAVE EXTENSIO .avs"); }
+({SP}?\"([^"\\\n]|{ES})*\"({WS}|{EOL})*)+	{ yyerror("SHOULD HAVE EXTENSION .avs"); }
 . 			{ yyerror("LEXICAL ERROR"); }
 %%
 

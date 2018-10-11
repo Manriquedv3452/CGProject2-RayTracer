@@ -9,16 +9,62 @@ RGB* what_color(Vector eye, Vector parametric)
 {
   RGB * color;
   Intersection * intersection = first_intersection(eye, parametric);
+  Vector *L;
+  Vector *N;
+  Vector intersection_point;
+  long double I;
+  Object* object;
+  Vector light_intersection;
+  long double L_point_N;
+  Light* current_light;
+
+  L = (Vector*) malloc(sizeof(Vector));
+  N = (Vector*) malloc(sizeof(Vector));
 
   if (intersection == NULL)
     color = BACKGROUND;
-  else
+  else 
   {
-   if (intersection -> object -> texture == NULL)
+    object = intersection -> object;  
+    intersection_point = intersection -> intersection_point;
+
+    I = 0.0;
+    N = object -> normal_vector_function(intersection, object);
+    
+    for (current_light = scene -> lightsHead; current_light -> next != scene -> lightsTail; current_light = current_light -> next)
+    {
+      
+      L -> x = current_light -> next -> position.x - intersection_point.x;
+      L -> y = current_light -> next -> position.y - intersection_point.y;
+      L -> z = current_light -> next -> position.z - intersection_point.z;
+
+      normalize_vector(L);
+
+      L_point_N = dot_product(*L, *N);
+
+      if (L_point_N > 0.0)
+      {
+        I = I + (L_point_N * current_light -> next -> intensity);
+      }
+    
+    }
+    //printf("%.2f\n", (double) I);
+    //I = I *0.9;
+    I = min(I, 1.0);
+    I += 0.5;
+
+    if (intersection -> object -> texture == NULL)
       color = intersection -> object -> color;
-   else
-     color = get_texture_RGB(intersection);
+    else
+      color = get_texture_RGB(intersection);
+
+    color -> r *= I;
+    color -> g *= I;
+    color -> b *= I;
+
   }
+ 
+  return color;
 }
 
 Intersection * first_intersection (Vector eye, Vector parametricEye)
@@ -110,6 +156,18 @@ Intersection * intersection_sphere(Vector eye, Vector tVector, Object *sphereOje
   return intersection;
 }
 
+Vector * sphere_normal_vector(Intersection * intersection, Object* object)
+{
+  Sphere* sphere_object = (Sphere*) object -> object;
+  Vector * normal_vector = (Vector*) malloc(sizeof(Vector));
+
+  normal_vector -> x = (intersection -> intersection_point.x - sphere_object -> center.x) / sphere_object -> radius; 
+  normal_vector -> y = (intersection -> intersection_point.y - sphere_object -> center.y) / sphere_object -> radius; 
+  normal_vector -> z = (intersection -> intersection_point.z - sphere_object -> center.z) / sphere_object -> radius; 
+
+  return normal_vector;
+}
+
 
 Vector map_framebuffer_to_window(long double x, long double y)
 {
@@ -145,8 +203,10 @@ void ray_tracer()
       
     }
   }
+
   write_AVS(framebuffer, "Imagen.avs", Vresolution, Hresolution);
   system("convert Imagen.avs PNG:Imagen.png");
+  system("display Imagen.avs");
 }
 
 

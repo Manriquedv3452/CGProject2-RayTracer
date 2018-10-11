@@ -18,13 +18,19 @@ void create_object(int object_kind)
     {
         case SPHERE:
             current_object -> intersection_function = &intersection_sphere;
-            current_object -> mapping_texture = &map_sphere;
+            current_object -> mapping_texture_function = &map_sphere;
+            current_object -> normal_vector_function = &sphere_normal_vector;
             break;
 
         default:
             printf("ERROR\n");
             break;      
     }
+}
+
+void add_diffuse_coefficient(char* token)
+{
+    current_object -> diffuse_coefficient = atof(token);
 }
 
 void load_object_texture(char* file_name)
@@ -85,6 +91,53 @@ void add_sphere_radius(char* token)
     sphere -> radius = atof(token);
 }
 
+//LIGHT
+void create_light(void)
+{
+    light_aux = (Light *) malloc(sizeof(Light));
+    light_aux -> intensity = 0.0;
+    light_aux -> position.x = 0;
+    light_aux -> position.y = 0;
+    light_aux -> position.z = 0;
+
+    light_aux -> color = (RGB*) malloc(sizeof(RGB));    
+    light_aux -> color -> r = 1;
+    light_aux -> color -> g = 1;
+    light_aux -> color -> b = 1;
+}
+
+void add_light_position_x(char* token)
+{
+    light_aux -> position.x = atof(token);
+}
+
+void add_light_position_y(char* token)
+{
+    light_aux -> position.y = atof(token);
+}
+
+void add_light_position_z(char* token)
+{
+    light_aux -> position.z = atof(token);
+}
+
+void add_light_intensity(char* token)
+{
+    light_aux -> intensity = atof(token);
+}
+
+void load_light_colorR(char* token)
+{
+    light_aux -> color -> r = atof(token);
+}
+void load_light_colorG(char* token)
+{
+    light_aux -> color -> g = atof(token);
+}
+void load_light_colorB(char* token)
+{
+    light_aux -> color -> b = atof(token);
+}
 
 //SCENE
 void load_scene_eye_x(char* token)
@@ -126,4 +179,13 @@ void create_scene(void)
 
     scene -> objectsHead -> next = scene -> objectsTail;
     scene -> objectsTail -> previous = scene -> objectsHead;
+
+    scene -> lightsHead = (Light*) malloc(sizeof(Light));
+    scene -> lightsTail = (Light*) malloc(sizeof(Light));
+
+    scene -> lightsHead -> next = scene -> lightsTail;
+    scene -> lightsTail -> previous = scene -> lightsHead;
+
+    scene -> objects_amount = 0;
+    scene -> lights_amount = 0;
 }
