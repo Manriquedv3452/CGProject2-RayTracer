@@ -8,8 +8,12 @@ extern int scanner(char* fileName);
 
 int main(int argc, char *argv[])
 {
-
-  scanner("description.txt");
+  if (argc != 2){
+        printf("Argument not found.\n\n"
+            "To run: ./program <designer_file>\n\n");
+        return 0;
+    }
+  scanner(argv[1]);
 
   //ray_tracer();
 
