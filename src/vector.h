@@ -22,5 +22,6 @@ void normalize_vector(Vector *vector)
 
 long double dot_product(Vector a, Vector b)
 {
+    //printf("%.2f\n", (double) a.x);
     return (a.x * b.x + a.y*b.y + a.z * b.z);
 }

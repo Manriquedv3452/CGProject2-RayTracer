@@ -1,3 +1,4 @@
+
 typedef struct {
   long double r;
   long double g;
@@ -38,13 +39,15 @@ typedef struct object{
 	struct object *next;
 	struct object *previous;
 	RGB *color;
-	Intersection* (*intersection_function) (Vector, Vector, struct object*);
+	Intersection* (*intersection_function) (Vector*, Vector*, struct object*);
 	Texel_Coord * (*mapping_texture_function) (Intersection *);
 	Vector * (*normal_vector_function) (Intersection *, struct object*);
 	void *object;
 	Texture * texture;
 	long double diffuse_coefficient;
 	long double ambient_lighting_coefficient;
+	long double specular_coefficient;
+	int stain_level_Kn;
 
 } Object;
 
@@ -86,7 +89,7 @@ typedef struct
 
 typedef struct 
 {
-	Vector eye;
+	Vector *eye;
 	RGB* background;
 	
 	Light *lightsHead;
@@ -115,3 +118,4 @@ RGB **framebuffer;
 #define Hresolution 1008
 #define Vresolution 567
 #define PI 3.141592653589793
+#define EPSILON 0.0005

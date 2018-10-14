@@ -6,6 +6,8 @@ void load_object_texture(char* file_name);
 void process_object(int object_kind);
 void add_diffuse_coefficient(char* token);
 void add_ambient_lighting_coefficient(char* token);
+void add_specular_coefficient(char* token);
+void add_object_kn(char* token);
 
 void create_sphere(void);
 void add_sphere_center_x(char* token);

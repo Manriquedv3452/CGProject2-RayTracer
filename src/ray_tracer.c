@@ -1,22 +1,22 @@
 #include "ray_tracer.h"
-#include "vector.h"
-#include "image.c"
-#include "textures.c"
 
-long double mag_aux;
-
-RGB* what_color(Vector eye, Vector parametric)
+RGB* what_color(Vector *eye, Vector *direction)
 {
   RGB * color;
   RGB *new_color = (RGB*) malloc(sizeof(RGB));
-  Intersection * intersection = first_intersection(eye, parametric);
+  Intersection * intersection = first_intersection(eye, direction);
+  Intersection* obstacle;
   Vector *L;
   Vector *N;
+  Vector *V;
+  Vector *R;
   Vector intersection_point;
   long double I;
+  long double E;
   Object* object;
   Vector light_intersection;
-  long double L_point_N;
+  long double N_dot_L;
+  long double V_dot_R;
   Light* current_light;
   long double light_distance;
 
@@ -24,15 +24,23 @@ RGB* what_color(Vector eye, Vector parametric)
 
   L = (Vector*) malloc(sizeof(Vector));
   N = (Vector*) malloc(sizeof(Vector));
+  V = (Vector*) malloc(sizeof(Vector));
+  R = (Vector*) malloc(sizeof(Vector));
+
 
   if (intersection == NULL)
     return scene -> background;
   else 
   {
+    V -> x = -direction -> x;
+    V -> y = -direction -> y;
+    V -> z = -direction -> z;
+ 
     object = intersection -> object;  
     intersection_point = intersection -> intersection_point;
 
     I = 0.0;
+    E = 0.0;
     N = object -> normal_vector_function(intersection, object);
 
     normalize_vector(N);
@@ -46,35 +54,56 @@ RGB* what_color(Vector eye, Vector parametric)
       light_distance = calculate_magnitude(*L);
       normalize_vector(L);
       
-      L_point_N = dot_product(*L, *N);
+      N_dot_L = dot_product(*N, *L);
 
-
-      if (L_point_N > 0.0)
+      
+      if (N_dot_L > 0.0)
       {
-        Fatt = min(1.0, 1/(current_light -> next -> c1 + (current_light -> next -> c2 * light_distance) + (current_light -> next -> c3 * pow(light_distance, 2))));
-        I += (L_point_N * object -> diffuse_coefficient * Fatt * current_light -> next -> intensity);
+        Fatt = min(1.0, 1/(
+                          current_light -> next -> c1 + 
+                          (current_light -> next -> c2 * light_distance) + 
+                          (current_light -> next -> c3 * (light_distance * light_distance))
+                          )
+                  );
+        obstacle = first_intersection(&intersection_point, L);
+        R -> x = 2 * (N -> x * N_dot_L) - L -> x;
+        R -> y = 2 * (N -> y * N_dot_L) - L -> y;
+        R -> z = 2 * (N -> z * N_dot_L) - L -> z;
+
+        if (!obstacle || obstacle -> t > light_distance)
+        {
+          I += (N_dot_L * object -> diffuse_coefficient * Fatt * current_light -> next -> intensity);
+
+          V_dot_R = dot_product(*V, *R);
+
+          if (V_dot_R > 0.0)
+          { 
+            E += (power_int(V_dot_R, object -> stain_level_Kn) * object -> specular_coefficient * Fatt * current_light -> next -> intensity);
+          }
+        }
       }
     
     }
 
     I += scene -> ambient_lighting * object -> ambient_lighting_coefficient;
     I = min(I, 1.0);
+    E = min(E, 1.0);
 
     if (intersection -> object -> texture == NULL)
       color = intersection -> object -> color;
     else
       color = get_texture_RGB(intersection);
 
-    new_color -> r = color -> r * I;
-    new_color -> g = color -> g * I;
-    new_color -> b = color -> b * I;
+    new_color -> r = (color -> r * I) + E * (1.0 - color -> r);
+    new_color -> g = (color -> g * I) + E * (1.0 - color -> g);
+    new_color -> b = (color -> b * I) + E * (1.0 - color -> b);
 
     return new_color;
-  }
+  } 
 
 }
 
-Intersection * first_intersection (Vector eye, Vector parametricEye)
+Intersection * first_intersection (Vector *eye, Vector *direction)
 {
   Intersection* intersection;
   long double tmin;
@@ -88,9 +117,10 @@ Intersection * first_intersection (Vector eye, Vector parametricEye)
   for (current = scene -> objectsHead; current -> next != scene -> objectsTail; current = current -> next)
   {
     object = current -> next;
-    first_intersection = object -> intersection_function(eye, parametricEye, object);
+    first_intersection = object -> intersection_function(eye, direction, object);
 
-    if (first_intersection != NULL && first_intersection -> t < tmin)
+    if (first_intersection != NULL && first_intersection -> t < tmin 
+          && first_intersection -> t > EPSILON)
     {
 
       tmin = first_intersection -> t;
@@ -101,79 +131,6 @@ Intersection * first_intersection (Vector eye, Vector parametricEye)
   return intersection;
 }
 
-
-Intersection * intersection_sphere(Vector eye, Vector tVector, Object *sphereOject)
-{
-  long double intersection_1;
-  long double intersection_2;
-
-  double beta; 
-  double gamma;
-
-  long double discriminate;
-
-  long double distance = mag_aux;
-
-  Vector intersection_point;
-  Intersection * intersection;
-
-  Sphere * sphere_object = (Sphere*) sphereOject -> object;
-  intersection = (Intersection*) malloc(sizeof(Intersection));
-
-  
-  beta = 2*(
-            tVector.x * (eye.x - sphere_object -> center.x) + 
-            tVector.y * (eye.y - sphere_object -> center.y) + 
-            tVector.z * (eye.z - sphere_object -> center.z)
-          );
-
-  gamma = pow(eye.x - sphere_object -> center.x, 2) + 
-          pow(eye.y - sphere_object -> center.y, 2) + 
-          pow(eye.z - sphere_object -> center.z, 2) - 
-          pow(sphere_object -> radius, 2);
-
-  //printf("%.2f\n", beta*beta - 4*gamma);
-
-  discriminate = beta*beta - 4*gamma;
-  //printf("%.2f - %.2f\n",  beta, gamma);
-  if (discriminate < 0.0)
-  {
-    intersection = NULL;
-  }
-  else
-  {
-    discriminate = sqrt(discriminate);
-    intersection_1 = (-beta + discriminate)/2;
-    intersection_2 = (-beta - discriminate)/2;
-    
-    if (intersection_2 < intersection_1)
-    {
-      long double inter_aux = intersection_1;
-      intersection_1 =  intersection_2;
-      intersection_2 = inter_aux;
-    }
-    intersection_point.x = eye.x + intersection_1 * tVector.x;
-    intersection_point.y = eye.y + intersection_1 * tVector.y;
-    intersection_point.z = eye.z + intersection_1 * tVector.z;
-
-    intersection =  new_intersection(sphereOject, intersection_1, intersection_point);
-    //printf("NTRA");
-  }
-
-  return intersection;
-}
-
-Vector * sphere_normal_vector(Intersection * intersection, Object* object)
-{
-  Sphere* sphere_object = (Sphere*) object -> object;
-  Vector * normal_vector = (Vector*) malloc(sizeof(Vector));
-
-  normal_vector -> x = (intersection -> intersection_point.x - sphere_object -> center.x) / sphere_object -> radius; 
-  normal_vector -> y = (intersection -> intersection_point.y - sphere_object -> center.y) / sphere_object -> radius; 
-  normal_vector -> z = (intersection -> intersection_point.z - sphere_object -> center.z) / sphere_object -> radius; 
-
-  return normal_vector;
-}
 
 
 Vector map_framebuffer_to_window(long double x, long double y)
@@ -191,8 +148,10 @@ void ray_tracer()
 {
 
   Vector window_point;
-  Vector tVector;
+  Vector *direction;
   RGB * color;  
+
+  direction = (Vector*) malloc(sizeof(Vector));
   for (int i = 0; i < Vresolution; i++)
   {
     for (int j = 0; j < Hresolution; j++)
@@ -200,18 +159,19 @@ void ray_tracer()
      window_point = map_framebuffer_to_window(j, i);
 
 
-      tVector.x = window_point.x - scene -> eye.x;
-      tVector.y = window_point.y - scene -> eye.y;
-      tVector.z = window_point.z - scene -> eye.z;
+      direction -> x = window_point.x - scene -> eye -> x;
+      direction -> y = window_point.y - scene -> eye -> y;
+      direction -> z = window_point.z - scene -> eye -> z;
      
-      normalize_vector(&tVector);
-      color = what_color(scene -> eye, tVector);
+      normalize_vector(direction);
+      color = what_color(scene -> eye, direction);
       framebuffer[i][j] = *color;
       
     }
   }
 
   write_AVS(framebuffer, "Imagen.avs", Vresolution, Hresolution);
+  printf("Done!\n");
   system("convert Imagen.avs PNG:Imagen.png");
   system("display Imagen.avs");
 }

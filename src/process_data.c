@@ -16,6 +16,8 @@ void create_object(int object_kind)
     current_object -> texture = NULL;
     current_object -> diffuse_coefficient = 1.0;
     current_object -> ambient_lighting_coefficient = 1.0;
+    current_object -> specular_coefficient = 1.0;
+    current_object -> stain_level_Kn = 5;
 
     switch (object_kind)
     {
@@ -31,6 +33,11 @@ void create_object(int object_kind)
     }
 }
 
+void add_object_kn(char* token)
+{
+    current_object -> stain_level_Kn = atoi(token);
+}
+
 void add_diffuse_coefficient(char* token)
 {
     current_object -> diffuse_coefficient = atof(token);
@@ -39,6 +46,10 @@ void add_diffuse_coefficient(char* token)
 void add_ambient_lighting_coefficient(char* token)
 {
     current_object -> ambient_lighting_coefficient = atof(token);
+}
+void add_specular_coefficient(char* token)
+{
+    current_object -> specular_coefficient = atof(token);
 }
 
 void load_object_texture(char* file_name)
@@ -103,7 +114,7 @@ void add_sphere_radius(char* token)
 void create_light(void)
 {
     light_aux = (Light *) malloc(sizeof(Light));
-    light_aux -> intensity = 0.0;
+    light_aux -> intensity = 1.0;
     light_aux -> position.x = 0;
     light_aux -> position.y = 0;
     light_aux -> position.z = 0;
@@ -175,17 +186,17 @@ void add_ambient_lighting(char* token)
 
 void load_scene_eye_x(char* token)
 {
-    scene -> eye.x = atof(token);
+    scene -> eye -> x = atof(token);
 }
 
 void load_scene_eye_y(char* token)
 {
-    scene -> eye.y = atof(token);
+    scene -> eye -> y = atof(token);
 }
 
 void load_scene_eye_z(char* token)
 {
-    scene -> eye.z = atof(token);
+    scene -> eye -> z = atof(token);
 }
 
 void add_background_colorR(char* token)
@@ -240,5 +251,10 @@ void create_scene(void)
     scene -> lights_amount = 0;
 
     scene -> ambient_lighting = 0.0;
+
+    scene -> eye = (Vector*) malloc(sizeof(Vector));
+    scene -> eye -> x = 0;
+    scene -> eye -> y = 0;
+    scene -> eye -> z = 0;
 }
 

@@ -35,7 +35,7 @@ void end_expression(void);
 %token	I_CONSTANT F_CONSTANT STRING_LITERAL 
 %token 	SCENE EYE AMBIENT_LIGHTING BACKGROUND
 %token	LIGHT INTENSITY POSITION LIGHT_C1 LIGHT_C2 LIGHT_C3
-%token 	TEXTURE COLOR TEXTURE_FILE DIFFUSE_COEFFICIENT AMBIENT_LIGHTING_COEFFICIENT
+%token 	TEXTURE COLOR TEXTURE_FILE DIFFUSE_COEFFICIENT AMBIENT_LIGHTING_COEFFICIENT SPECULAR_COEFFICIENT STAIN_LEVEL_KN
 %token  SPHERE RADIUS CENTER 
 
 %token	BOOL CHAR SHORT INT LONG SIGNED UNSIGNED FLOAT DOUBLE VOID
@@ -82,6 +82,8 @@ assignment_expression_object
 	| TEXTURE assignment_operator TEXTURE_FILE { load_object_texture(current_token); }
 	| DIFFUSE_COEFFICIENT assignment_operator constant { add_diffuse_coefficient(current_token); }
 	| AMBIENT_LIGHTING_COEFFICIENT assignment_operator constant { add_ambient_lighting_coefficient(current_token); }
+	| SPECULAR_COEFFICIENT assignment_operator constant{ add_specular_coefficient(current_token); }
+	| STAIN_LEVEL_KN assignment_operator constant { add_object_kn(current_token); }
 	;
 
 assignment_expression_light
@@ -239,7 +241,7 @@ external_declaration
 
 function_definition
 	: declaration_specifiers declarator { }  compound_statement { ray_tracer();	 }	
-	| declarator  compound_statement { ray_tracer(); }			
+	| declarator  compound_statement { printf("Doing Ray Tracing...\n"); ray_tracer(); }			
 	;
 
 %%

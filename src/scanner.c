@@ -15,9 +15,8 @@ int scanner(char* fileName)
 
 	if (FileTemp != NULL){
 		yyin = FileTemp;
-
+		printf("Reading and interpreting design...\n");
 		yyparse();
-		//ray_tracer();
 		fclose(FileTemp);
 	}
 	return 1;

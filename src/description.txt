@@ -1,350 +1,166 @@
 Scene {
     eye = [504, 283, -2000];
-    ambient_lighting = 0.4;
-    background = [0.4, 0.4, 0.4];
+    ambient_lighting = 0.3;
+    background = [0.1, 0.1, 0.1];
 
-    Light
-    {
-        position = [300, 283, 500];
-        intensity = 0.8;
-        c1 = 1.0;
-        c2 = 0.0;           //for Fatt
-        c3 = 0.0;
-
-    }
-
-    Light
-    {
-        position = [1000, 283, 500];
-        intensity = 0.2;
-        c1 = 1.0;
-        c2 = 0.0;           //for Fatt
-        c3 = 0.0;
-
-    }
-
-
-    //CUERPO
     Sphere {
-        center = [50, 100, 1600];
-        radius = 160;
+        center = [590, 100, 0];
+        radius = 80;
+        color = [1.0, 0.0, 0.9];
+        diffuse_coefficient = 0.7;
+        ambient_lighting_coefficient = 0.9;
+    }
+
+    Sphere {
+        center = [650, 140, 0];
+        radius = 15;
         color = [1.0, 1.0, 1.0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2;
+        diffuse_coefficient = 1.0;
+        ambient_lighting_coefficient = 1.0;
     }
 
-    Sphere 
-    {
-        center = [50, 280, 1600];
-        radius = 90;
+/*---------------Luz1------------------*/
+
+    Light{
+        position = [500, 50, -90];
+        intensity = 1.0;
+                color = [1, 1, 1];
+        c1 = 1.0;
+    }
+
+    Sphere {
+        center = [500, 65, 50];
+        radius = 35;
         color = [1.0, 1.0, 1.0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.1; 
+        diffuse_coefficient = 1.0;
+        ambient_lighting_coefficient = 1.0;
+    }
+/*---------------Luz1------------------*/
+
+    Sphere {
+        center = [500, 110, 100];
+        radius = 25;
+        color = [0.3, 0.3, 0.3];
+        diffuse_coefficient = 0.6;
+        ambient_lighting_coefficient = 0.5;
     }
 
-    //BOTONES
-    Sphere 
-    {
-        center = [70, 300, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.1; 
-    }
-    Sphere 
-    {
-        center = [70, 260, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.1; 
+/*---------------Luz2------------------*/
+    Light{
+        position = [575, 215, 40];
+        intensity = 1.0;
+                color = [1, 1, 1];
+        c1 = 1.0;
     }
 
-    //CABEZA
-    Sphere 
-    {
-        center = [50, 370, 1600];
-        radius = 45;
+    Sphere {
+        center = [575, 205, 60];
+        radius = 40;
         color = [1.0, 1.0, 1.0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.1; 
+        diffuse_coefficient = 1.0;
+        ambient_lighting_coefficient = 1.0;
+        specular_coefficient = 1.0;
+        stain_level = 50;
+    }
+/*---------------Luz2------------------*/
+
+    Sphere {
+        center = [350, 130, 10];
+        radius = 71;
+        color = [0.0, 0.6, 0.6];
+        diffuse_coefficient = 0.8;
+        ambient_lighting_coefficient = 0.5;
+                specular_coefficient = 1.0;
+        stain_level = 50;
     }
 
-
-    //OJO IZQ
-    Sphere 
-    {
-        center = [64, 390, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
+    Sphere {
+        center = [350, 150, 70];
+        radius = 40;
+        color = [0.7, 0.6, 0.1];
+        diffuse_coefficient = 0.6;
+        ambient_lighting_coefficient = 0.3;
+                specular_coefficient = 1.0;
+        stain_level = 50;
     }
 
-    //OJO DER
-    Sphere 
-    {
-        center = [85, 390, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
+/*---------------Luz3------------------*/
+
+    Sphere {
+        center = [280, 170, 80];
+        radius = 40;
+        color = [1.0, 1.0, 1.0];
+        diffuse_coefficient = 1.0;
+        ambient_lighting_coefficient = 1.0;
+                specular_coefficient = 1.0;
+        stain_level = 50;
+    }
+/*---------------Luz3------------------*/
+
+    Sphere {
+        center = [700, 100, 30];
+        radius = 15;
+        color = [0.0001, 0.0001, 0.0001];
+        diffuse_coefficient = 0.7;
+        ambient_lighting_coefficient = 1.0;
+                specular_coefficient = 1.0;
+        stain_level = 50;
     }
 
-    //NARIZ
-    Sphere 
-    {
-        center = [73.5, 380, 1400];
-        radius = 5;
-        color = [1, 0.65, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
+    Sphere {
+        center = [720, 200, 30];
+        radius = 40;
+        color = [0.1, 0.2, 0.5];
+        diffuse_coefficient = 0.7;
+        ambient_lighting_coefficient = 1.0;
+                specular_coefficient = 1.0;
+        stain_level = 50;
     }
 
-    //SONRISA
-    Sphere 
-    {
-        center = [50, 375, 1400];
-        radius = 2.5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
-    }
-    Sphere 
-    {
-        center = [55, 370, 1400];
-        radius = 2.5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
+/*---------------Luz4------------------*/
+    Light{
+        position = [210, 105, 20];
+        intensity = 1.0;
+        c1 = 1.0;
+        color = [1, 1, 1];
     }
 
-    Sphere 
-    {
-        center = [60, 365, 1400];
-        radius = 2.5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
+    Sphere {
+        center = [210, 105, 60];
+        radius = 20;
+        color = [1.0, 1.0, 1.0];
+        diffuse_coefficient = 1.0;
+        ambient_lighting_coefficient = 1.0;
+                specular_coefficient = 1.0;
+        stain_level = 50;
     }
-    Sphere 
-    {
-        center = [65, 362, 1400];
-        radius = 2.5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
+/*---------------Luz4------------------*/
+
+    Sphere {
+        center = [230, 85, 40];
+        radius = 20;
+        color = [0.7, 0.0, 0.4];
+        diffuse_coefficient = 1.0;
+        ambient_lighting_coefficient = 1.0;
     }
 
-    Sphere 
-    {
-        center = [70, 362, 1400];
-        radius = 2.5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
-    }
-    
-    
-    //BRAZO DERECHO
-    Sphere 
-    {
-        center = [140, 280, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
+    Sphere {
+        center = [150, 130, 50];
+        radius = 30;
+        color = [0.4, 0.0, 0.8];
+        diffuse_coefficient = 0.542;
+        ambient_lighting_coefficient = 1.0;
+                specular_coefficient = 1.0;
+        stain_level = 50;
     }
 
-    Sphere 
-    {
-        center = [150, 280, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
+    Sphere {
+        center = [140, 165, 60];
+        radius = 25;
+        color = [0.5, 0.7, 0.0];
+        diffuse_coefficient = 0.9;
+        ambient_lighting_coefficient = 0.87;
+                specular_coefficient = 1.0;
+        stain_level = 50;
     }
-
-    Sphere 
-    {
-        center = [160, 280, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
-    }
-
-    Sphere 
-    {
-        center = [170, 280, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
-    }
-
-    Sphere 
-    {
-        center = [180, 280, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
-    }
-
-    Sphere 
-    {
-        center = [190, 280, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
-    }
-
-    //BRAZO DER CURVA 2
-    Sphere 
-    {
-        center = [195, 290, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
-    }
-    Sphere 
-    {
-        center = [200, 300, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
-    }
-    Sphere 
-    {
-        center = [205, 310, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
-    }
-    Sphere 
-    {
-        center = [210, 320, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
-    }
-
-
-    //BRAZO IZQUIERDO
-    Sphere 
-    {
-        center = [10, 280, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
-    }
-
-    Sphere 
-    {
-        center = [0, 280, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
-    }
-
-    Sphere 
-    {
-        center = [-10, 280, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
-    }
-
-    Sphere 
-    {
-        center = [-20, 280, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
-    }
-
-    Sphere 
-    {
-        center = [-30, 280, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
-    }
-
-    Sphere 
-    {
-        center = [-40, 280, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
-    }
-
-    //BRAZO DER CURVA 2
-    Sphere 
-    {
-        center = [-45, 270, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
-    }
-    Sphere 
-    {
-        center = [-50, 260, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
-    }
-    Sphere 
-    {
-        center = [-55, 250, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
-    }
-    Sphere 
-    {
-        center = [-60   , 240, 1400];
-        radius = 5;
-        color = [0, 0, 0];
-        diffuse_coefficient = 1;
-        ambient_lighting_coefficient = 0.2; 
-    }
-
-    /*Light
-    {
-        position = [900, 283, 500];
-        intensity = 0.4;
-    }*/
-
-
-     /*Sphere 
-    {
-        center = [300, 390, 1000];
-        radius = 60;
-        color = [1, 0 , 0];
-        texture = textures/eyeElliptical.avs;
-    }
-
-     Sphere 
-    {
-        center = [252, 283, 1000];
-        radius = 60;
-        color = [1, 0 , 0];
-        texture = textures/bright.avs;
-    }*/
 }

@@ -1,36 +1,33 @@
 Scene{
-eye=[504, 283, -2000];
-ambient_lighting=0.4;
-Light{
-position=[1000, 283, 500];intensity=0.2;c1=1.0;}
-Sphere{
-center=[504,283, 1600];
-radius=50;color=[1, 1, 1];
-}
+    eye=[504, 283, -2000];
+    ambient_lighting=0.2;
 
-Sphere{
-center=[504,283, 1400];
-radius=25;color=[1, 1, 1];
-}
+    Light{
+        position=[900, 283, -1000];
+        intensity=1.0;
+        c1=1.0;
+        }
 
-Sphere{
-center=[503,283, 1200];
-radius=100;color=[1, 1, 1];
-}
+    Sphere
+    {
+        center = [600, 283, 1100];
+        radius = 200;
+        color = [1, 0, 0];
+         diffuse_coefficient = 0.8;
+        ambient_lighting_coefficient = 1.0;
+        specular_coefficient = 1.0;
+        stain_level = 50;
+    }
 
-Sphere{
-center=[504,283, 1000];
-radius=50;color=[1, 1, 1];
-}
-
-Sphere{
-center=[504,282, 1000];
-radius=50;color=[1, 1, 1];
-}
-
-Sphere{
-center=[504,283, 1600];
-radius=50;color=[1, 1, 1];
-}
+    Sphere
+    {
+        center = [800, 283, 500];
+        radius = 100;
+        color = [1, 0, 0];
+         diffuse_coefficient = 0.8;
+        ambient_lighting_coefficient = 1.0;
+        specular_coefficient = 1.0;
+        stain_level = 50;
+    }
 
 }
