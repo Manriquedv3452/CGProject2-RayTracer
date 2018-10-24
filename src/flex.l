@@ -51,8 +51,6 @@ int cursorPos = 0;
 
 %}
 
-
-/*Taken from https://www.lysator.liu.se/c/ANSI-C-grammar-l.html*/
 %%
 "/*"                                    { comment(); }
 "//".*                                  { column = 0; /* consume //-comment */ }

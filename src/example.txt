@@ -8,6 +8,7 @@ Scene{
         c1=1.0;
         }
 
+
     Sphere
     {
         center = [600, 283, 1100];

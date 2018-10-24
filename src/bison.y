@@ -1,5 +1,4 @@
 %{
-/* Taken from http://www.quut.com/c/ANSI-C-grammar-y.html*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
