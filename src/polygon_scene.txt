@@ -1,0 +1,59 @@
+Scene{
+    eye=[504, 283, -2000];
+    ambient_lighting=0.2;
+
+       Light
+       {
+        position=[600, 200, -1000];
+        intensity=0.6;
+        c1=1.0;
+       }
+
+        Light
+        {
+            position=[100, 100, -1000];
+            intensity=1.0;
+            c1=1.0;
+        }
+
+    Polygon 
+    {
+        point = [392, 331, 10];
+        point = [596, 192, 70];
+        point = [445, 214, 40];
+        point = [439, 115, 55];
+        point = [196, 92, 100];
+
+        color = [1, 0, 0];
+        diffuse_coefficient = 0.4;
+        ambient_lighting_coefficient = 1.0;
+        specular_coefficient = 0.7;
+        stain_level = 500;
+    }
+
+    Polygon 
+    {
+        point = [692, 331, 10];
+        point = [896, 192, 70];
+        point = [745, 500, 40];
+        point = [739, 115, 55];
+        point = [496, 92, 100];
+
+        color = [1, 0, 0];
+        diffuse_coefficient = 0.4;
+        ambient_lighting_coefficient = 1.0;
+        specular_coefficient = 0.7;
+        stain_level = 500;
+    }
+
+    Sphere
+    {
+        center = [800, 283, 500];
+        radius = 100;
+        color = [1, 0, 0];
+         diffuse_coefficient = 0.8;
+        ambient_lighting_coefficient = 1.0;
+        specular_coefficient = 1.0;
+        stain_level = 50;
+    }
+}

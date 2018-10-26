@@ -10,14 +10,14 @@
       __typeof__ (b) _b = (b); \
     _a < _b ? _a : _b; })
 
-/*int double_is_equal(long double x, long double y);
+int double_is_equal(long double x, long double y);
 
-#define EPSILON 0.00001
+#define EPSILON_AUX 0.00001
 
 int double_is_equal(long double x, long double y)
 {
-	return (fabs(x - y) < EPSILON && fabs(x - y) > -EPSILON);
-}*/
+	return (fabs(x - y) < EPSILON_AUX && fabs(x - y) > -EPSILON_AUX);
+}
 
 long double power_int(long double element, int exponent)
 {

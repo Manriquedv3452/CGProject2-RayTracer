@@ -36,6 +36,7 @@ void end_expression(void);
 %token	LIGHT INTENSITY POSITION LIGHT_C1 LIGHT_C2 LIGHT_C3
 %token 	TEXTURE COLOR TEXTURE_FILE DIFFUSE_COEFFICIENT AMBIENT_LIGHTING_COEFFICIENT SPECULAR_COEFFICIENT STAIN_LEVEL_KN
 %token  SPHERE RADIUS CENTER
+%token	CILINDER DISC CONE ELIPSE QUADRATIC_SURFACE 
 %token  POLYGON POINT
 
 %token	BOOL CHAR SHORT INT LONG SIGNED UNSIGNED FLOAT DOUBLE VOID
@@ -76,9 +77,9 @@ assignment_expression_object
 								 ',' constant { add_sphere_center_y(current_token); }
 								 ',' constant { add_sphere_center_z(current_token); } ']'
 
-	| POINT assignment_operator '[' constant { add_polygon_point_x(current_token); }
+	| POINT {create_new_point(); } assignment_operator '[' constant { add_polygon_point_x(current_token); }
 								 ',' constant { add_polygon_point_y(current_token); }
-								 ',' constant { add_polygon_point_z(current_token); } ']'
+								 ',' constant { add_polygon_point_z(current_token); } ']' { insert_polygon_point(); }
 
 	| COLOR assignment_operator '[' constant { load_object_colorR(current_token); }
 								 ',' constant { load_object_colorG(current_token); }

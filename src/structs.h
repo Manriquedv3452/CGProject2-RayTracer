@@ -22,7 +22,8 @@ typedef struct
 {
 	long double u;
 	long double v;
-} Texel_Coord;
+} VectorUV;
+
 
 typedef struct
 {
@@ -40,7 +41,7 @@ typedef struct object{
 	struct object *previous;
 	RGB *color;
 	Intersection* (*intersection_function) (Vector*, Vector*, struct object*);
-	Texel_Coord * (*mapping_texture_function) (Intersection *);
+	VectorUV * (*mapping_texture_function) (Intersection *);
 	Vector * (*normal_vector_function) (Intersection *, struct object*);
 	void *object;
 	Texture * texture;
@@ -64,15 +65,25 @@ typedef struct sphere{
 } Sphere;
 
 typedef struct plane{
-    double A;
-    double B;
-    double C;
-    double D;
+    long double A;
+    long double B;
+    long double C;
+    long double D;
 } Plane;
 
+typedef struct points
+{
+	struct points* next;
+	struct points* previous;
+	Vector* point;
+} Points;
+
 typedef struct polygon{
-    Vector** point;
+    Points* points_head;
+	Points* points_tail;
+	int points_number;
     Plane* plane;
+	VectorUV** flat_points;
 } Polygon;
 
 typedef struct
@@ -123,9 +134,13 @@ typedef enum token_types{
 Scene *scene;
 Object *current_object;
 Light *light_aux;
-Sphere *sphere;
 Window window;
 RGB **framebuffer;
+
+Vector* actual_point;
+//objects
+Sphere *sphere;
+Polygon *polygon;
 
 #define Hresolution 1008
 #define Vresolution 567

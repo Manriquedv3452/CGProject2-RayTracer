@@ -4,6 +4,8 @@ Intersection * new_intersection(Object * object, long double t, Vector intersect
 Scene * new_scene(Vector *eye);
 Texture * new_texture(int width, int height);
 void insert_light(Light *light, Scene * pScene);
+VectorUV* create_vectorUV(long double u, long double v);
+void insert_point(Points *point, Polygon * pPolygon);
 
 Object * push_object_to_scene(Scene *pScene)
 {
@@ -78,15 +80,39 @@ void insert_object(Object *object, Scene * pScene)
 
 void insert_light(Light *light, Scene * pScene)
 {
-  Light *lgh_aux = pScene -> lightsTail -> previous;
+    Light *lgh_aux = pScene -> lightsTail -> previous;
 
-  pScene -> lightsTail -> previous = light;
-  lgh_aux -> next = light;
-  light -> previous = lgh_aux;
-  light -> next = pScene -> lightsTail;
+    pScene -> lightsTail -> previous = light;
+    lgh_aux -> next = light;
+    light -> previous = lgh_aux;
+    light -> next = pScene -> lightsTail;
 
-  pScene -> lights_amount++;
+    pScene -> lights_amount++;
 
-  //free(obj_aux);
+    //free(obj_aux);
 
+}
+
+void insert_point(Points *point, Polygon * pPolygon)
+{
+    Points *node_aux = (Points*) malloc(sizeof(Points));
+    node_aux -> next = pPolygon -> points_tail -> previous;
+
+    pPolygon -> points_tail -> previous = point;
+    node_aux -> next -> next = point;
+    point -> previous = point -> next;
+    point -> next = pPolygon -> points_tail;
+    //pScene -> objectsTail -> previous = pScene -> objectsTail -> previous -> next = (Object*) malloc(sizeof(Object));
+  
+    polygon -> points_number++;
+    free(node_aux);
+}
+
+VectorUV* create_vectorUV(long double u, long double v)
+{
+    VectorUV* new_vector = (VectorUV*) malloc(sizeof(VectorUV));
+    new_vector -> u = u;
+    new_vector -> v = v;
+
+    return new_vector;
 }

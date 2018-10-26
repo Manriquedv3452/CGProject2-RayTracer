@@ -15,10 +15,12 @@ void add_sphere_center_y(char* token);
 void add_sphere_center_z(char* token);
 void add_sphere_radius(char* token);
 
+void create_new_point(void);
 void create_polygon(void);
 void add_polygon_point_x(char* token);
 void add_polygon_point_y(char* token);
 void add_polygon_point_z(char* token);
+void insert_polygon_point(void);
 
 void create_scene(void);
 void add_ambient_lighting(char* token);

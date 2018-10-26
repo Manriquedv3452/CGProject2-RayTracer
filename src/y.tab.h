@@ -68,18 +68,23 @@ extern int yydebug;
     SPHERE = 278,
     RADIUS = 279,
     CENTER = 280,
-    POLYGON = 281,
-    POINT = 282,
-    BOOL = 283,
-    CHAR = 284,
-    SHORT = 285,
-    INT = 286,
-    LONG = 287,
-    SIGNED = 288,
-    UNSIGNED = 289,
-    FLOAT = 290,
-    DOUBLE = 291,
-    VOID = 292
+    CILINDER = 281,
+    DISC = 282,
+    CONE = 283,
+    ELIPSE = 284,
+    QUADRATIC_SURFACE = 285,
+    POLYGON = 286,
+    POINT = 287,
+    BOOL = 288,
+    CHAR = 289,
+    SHORT = 290,
+    INT = 291,
+    LONG = 292,
+    SIGNED = 293,
+    UNSIGNED = 294,
+    FLOAT = 295,
+    DOUBLE = 296,
+    VOID = 297
   };
 #endif
 /* Tokens.  */
@@ -106,18 +111,23 @@ extern int yydebug;
 #define SPHERE 278
 #define RADIUS 279
 #define CENTER 280
-#define POLYGON 281
-#define POINT 282
-#define BOOL 283
-#define CHAR 284
-#define SHORT 285
-#define INT 286
-#define LONG 287
-#define SIGNED 288
-#define UNSIGNED 289
-#define FLOAT 290
-#define DOUBLE 291
-#define VOID 292
+#define CILINDER 281
+#define DISC 282
+#define CONE 283
+#define ELIPSE 284
+#define QUADRATIC_SURFACE 285
+#define POLYGON 286
+#define POINT 287
+#define BOOL 288
+#define CHAR 289
+#define SHORT 290
+#define INT 291
+#define LONG 292
+#define SIGNED 293
+#define UNSIGNED 294
+#define FLOAT 295
+#define DOUBLE 296
+#define VOID 297
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

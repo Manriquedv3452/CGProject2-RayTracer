@@ -25,8 +25,9 @@ void create_object(int object_kind){
             break;
 
         case POLYGON:
+        
             current_object -> intersection_function = &intersection_polygon;
-            current_object -> mapping_texture_function = &map_polygon;
+            //current_object -> mapping_texture_function = &map_polygon;
             current_object -> normal_vector_function = &polygon_normal_vector;
             break;
 
@@ -54,7 +55,7 @@ void create_object(int object_kind){
             current_object -> normal_vector_function = &polygon_normal_vector;*/
             break;
 
-        case QUADRATIC:
+        case QUADRATIC_SURFACE:
             /*current_object -> intersection_function = &intersection_polygon;
             current_object -> mapping_texture_function = &map_polygon;
             current_object -> normal_vector_function = &polygon_normal_vector;*/
@@ -102,6 +103,12 @@ void process_object(int object_kind)
             break;
 
         case POLYGON:
+            if (polygon -> points_number < 3)
+                yyerror("Polygon should have at least 3 points");
+
+
+            polygon -> plane = calculate_polygon_plane(polygon);
+            create_flat_points(polygon);
             current_object -> object = polygon;
             break;
 
@@ -135,19 +142,36 @@ void add_sphere_radius(char* token){
 
 void create_polygon(void){
     polygon = (Polygon *) malloc(sizeof(Polygon));
-    polygon -> point.x = 0;
-    polygon -> point.y = 0;
-    polygon -> point.z = 0;
+    polygon -> plane = (Plane*) malloc(sizeof(Plane));
+
+    polygon -> points_head = (Points*) malloc(sizeof(Points)); 
+    polygon -> points_tail = (Points*) malloc(sizeof(Points)); 
+    polygon -> points_head -> next = polygon -> points_tail;
+    polygon -> points_tail -> previous = polygon -> points_head;
+
+    polygon -> points_number = 0;
+}
+
+void create_new_point(void)
+{
+    actual_point = (Vector*) malloc(sizeof(Vector));
 }
 
 void add_polygon_point_x(char* token){
-     polygon -> point.x = atof(token);
+     actual_point -> x = atof(token);
 }
 void add_polygon_point_y(char* token){
-     polygon -> point.y = atof(token);
+     actual_point -> y = atof(token);
 }
 void add_polygon_point_z(char* token){
-     polygon -> point.z = atof(token);
+     actual_point -> z = atof(token);
+}
+
+void insert_polygon_point(void)
+{
+    Points* point = (Points*) malloc(sizeof(Points));
+    point -> point = actual_point;
+    insert_point(point, polygon);
 }
 
 //LIGHT

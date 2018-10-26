@@ -78,6 +78,13 @@ int cursorPos = 0;
 {HP}{H}*"."{H}+{P}{FS}?			{  return F_CONSTANT; }
 {HP}{H}+"."{P}{FS}?			{ return F_CONSTANT; }
 
+"-"{D}+{E}{FS}?				{  return F_CONSTANT; }
+"-"{D}*"."{D}+{E}?{FS}?			{  return F_CONSTANT; }
+"-"{D}+"."{E}?{FS}?			{  return F_CONSTANT; }
+"-"{HP}{H}+{P}{FS}?			{  return F_CONSTANT; }
+"-"{HP}{H}*"."{H}+{P}{FS}?			{  return F_CONSTANT; }
+"-"{HP}{H}+"."{P}{FS}?			{ return F_CONSTANT; }
+
 ({SP}?\"([^"\\\n]|{ES})*.avs\"({WS}|{EOL})*)+	{ return STRING_LITERAL; }
 
 "Scene"	{ return SCENE; }
@@ -85,6 +92,8 @@ int cursorPos = 0;
 "intensity" { return INTENSITY; }
 "position" { return POSITION; }
 "Sphere" { return SPHERE; }
+"Polygon" { return POLYGON; }
+"point" { return POINT; }
 "eye" { return EYE; }
 "radius" { return RADIUS; }
 "center" { return CENTER; }
