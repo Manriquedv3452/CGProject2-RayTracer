@@ -63,14 +63,14 @@ typedef struct sphere{
     Vector center;
 } Sphere;
 
-typedef struct sphere{
+typedef struct plane{
     double A;
     double B;
     double C;
     double D;
 } Plane;
 
-typedef struct sphere{
+typedef struct polygon{
     Vector** point;
     Plane* plane;
 } Polygon;

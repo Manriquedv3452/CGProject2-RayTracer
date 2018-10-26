@@ -878,8 +878,7 @@ int column = 0;
 int cursorPos = 0;
 
 #line 881 "lex.yy.c"
-/*Taken from https://www.lysator.liu.se/c/ANSI-C-grammar-l.html*/
-#line 883 "lex.yy.c"
+#line 882 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -1096,9 +1095,9 @@ YY_DECL
 		}
 
 	{
-#line 56 "flex.l"
+#line 54 "flex.l"
 
-#line 1102 "lex.yy.c"
+#line 1101 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1167,268 +1166,268 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 57 "flex.l"
+#line 55 "flex.l"
 { comment(); }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 58 "flex.l"
+#line 56 "flex.l"
 { column = 0; /* consume //-comment */ }
 	YY_BREAK
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 59 "flex.l"
+#line 57 "flex.l"
 {/*yylineno = ++lineNum;*/}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 60 "flex.l"
+#line 58 "flex.l"
 {/*DO NOTHING*/}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 63 "flex.l"
+#line 61 "flex.l"
 { return TEXTURE_FILE; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 64 "flex.l"
+#line 62 "flex.l"
 {  return I_CONSTANT; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 65 "flex.l"
+#line 63 "flex.l"
 {  return I_CONSTANT; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 66 "flex.l"
+#line 64 "flex.l"
 {  return I_CONSTANT; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 67 "flex.l"
+#line 65 "flex.l"
 {  return I_CONSTANT; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 70 "flex.l"
+#line 68 "flex.l"
 {  return I_CONSTANT; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 71 "flex.l"
+#line 69 "flex.l"
 {  return I_CONSTANT; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 72 "flex.l"
+#line 70 "flex.l"
 {  return I_CONSTANT; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 73 "flex.l"
+#line 71 "flex.l"
 {  return I_CONSTANT; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 76 "flex.l"
+#line 74 "flex.l"
 {  return F_CONSTANT; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 77 "flex.l"
+#line 75 "flex.l"
 {  return F_CONSTANT; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 78 "flex.l"
+#line 76 "flex.l"
 {  return F_CONSTANT; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 79 "flex.l"
+#line 77 "flex.l"
 {  return F_CONSTANT; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 80 "flex.l"
+#line 78 "flex.l"
 {  return F_CONSTANT; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 81 "flex.l"
+#line 79 "flex.l"
 { return F_CONSTANT; }
 	YY_BREAK
 case 20:
 /* rule 20 can match eol */
 YY_RULE_SETUP
-#line 83 "flex.l"
+#line 81 "flex.l"
 { return STRING_LITERAL; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 85 "flex.l"
+#line 83 "flex.l"
 { return SCENE; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 86 "flex.l"
+#line 84 "flex.l"
 { return LIGHT; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 87 "flex.l"
+#line 85 "flex.l"
 { return INTENSITY; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 88 "flex.l"
+#line 86 "flex.l"
 { return POSITION; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 89 "flex.l"
+#line 87 "flex.l"
 { return SPHERE; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 90 "flex.l"
+#line 88 "flex.l"
 { return EYE; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 91 "flex.l"
+#line 89 "flex.l"
 { return RADIUS; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 92 "flex.l"
+#line 90 "flex.l"
 { return CENTER; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 93 "flex.l"
+#line 91 "flex.l"
 { return TEXTURE; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 94 "flex.l"
+#line 92 "flex.l"
 {return COLOR; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 95 "flex.l"
+#line 93 "flex.l"
 {return DIFFUSE_COEFFICIENT; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 96 "flex.l"
+#line 94 "flex.l"
 { return AMBIENT_LIGHTING; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 97 "flex.l"
+#line 95 "flex.l"
 {	return AMBIENT_LIGHTING_COEFFICIENT; }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 98 "flex.l"
+#line 96 "flex.l"
 { return SPECULAR_COEFFICIENT; }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 99 "flex.l"
+#line 97 "flex.l"
 { return STAIN_LEVEL_KN; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 100 "flex.l"
+#line 98 "flex.l"
 { return BACKGROUND; }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 101 "flex.l"
+#line 99 "flex.l"
 { return LIGHT_C1; }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 102 "flex.l"
+#line 100 "flex.l"
 { return LIGHT_C2; }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 103 "flex.l"
+#line 101 "flex.l"
 { return LIGHT_C3; }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 104 "flex.l"
+#line 102 "flex.l"
 { return '='; }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 105 "flex.l"
+#line 103 "flex.l"
 { return ';'; }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 106 "flex.l"
+#line 104 "flex.l"
 { return ','; }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 107 "flex.l"
+#line 105 "flex.l"
 { return '('; }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 108 "flex.l"
+#line 106 "flex.l"
 { return ')'; }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 109 "flex.l"
+#line 107 "flex.l"
 { return '{'; }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 110 "flex.l"
+#line 108 "flex.l"
 { return '}'; }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 111 "flex.l"
+#line 109 "flex.l"
 { return '['; }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 112 "flex.l"
+#line 110 "flex.l"
 { return ']'; }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 114 "flex.l"
+#line 112 "flex.l"
 { }
 	YY_BREAK
 case 50:
 /* rule 50 can match eol */
 YY_RULE_SETUP
-#line 116 "flex.l"
+#line 114 "flex.l"
 { yyerror("SHOULD HAVE EXTENSION .avs"); }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 117 "flex.l"
+#line 115 "flex.l"
 { yyerror("LEXICAL ERROR"); }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 118 "flex.l"
+#line 116 "flex.l"
 ECHO;
 	YY_BREAK
-#line 1432 "lex.yy.c"
+#line 1431 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2445,7 +2444,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 118 "flex.l"
+#line 116 "flex.l"
 
 
 

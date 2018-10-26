@@ -1,6 +1,8 @@
 void normalize_vector(Vector *vector);
 long double calculate_magnitude(Vector vector);
 long double dot_product(Vector a, Vector b);
+Vector substract(Vector a, Vector b);
+Vector cross_product(Vector a, Vector b);
 
 long double calculate_magnitude(Vector vector)
 {
@@ -26,7 +28,7 @@ long double dot_product(Vector a, Vector b)
     return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
 
-Vector substract(Vector a; Vector b){
+Vector substract(Vector a, Vector b){
     Vector product;
     product.x = a.x - b.x;
     product.y = a.y - b.y;
@@ -34,7 +36,7 @@ Vector substract(Vector a; Vector b){
     return product;
 }
 
-Vector cross_product(Vector a; Vector b){
+Vector cross_product(Vector a, Vector b){
     Vector product;
     product.x = a.y * b.z - a.z * b.y;
     product.y = a.z * b.x - a.x * b.z;

@@ -94,8 +94,8 @@ void load_object_colorG(char* token){
 void load_object_colorB(char* token){
     current_object -> color -> b = atof(token);
 }
-_1;
-  long double intersection_2;
+void process_object(int object_kind)
+{
     switch(object_kind){
         case SPHERE:
             current_object -> object = sphere;
