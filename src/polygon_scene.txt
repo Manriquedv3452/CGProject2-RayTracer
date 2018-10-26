@@ -11,18 +11,18 @@ Scene{
 
         Light
         {
-            position=[100, 100, -1000];
+            position=[50, 100, -1000];
             intensity=1.0;
             c1=1.0;
         }
 
     Polygon 
     {
-        point = [392, 331, 10];
-        point = [596, 192, 70];
-        point = [445, 214, 40];
-        point = [439, 115, 55];
-        point = [196, 92, 100];
+        point = [392, 331, 500];
+        point = [596, 192, 500];
+        point = [445, 214, 500];
+        point = [439, 115, 500];
+        point = [196, 92, 500];
 
         color = [1, 0, 0];
         diffuse_coefficient = 0.4;
@@ -33,11 +33,11 @@ Scene{
 
     Polygon 
     {
-        point = [692, 331, 10];
-        point = [896, 192, 70];
-        point = [745, 500, 40];
-        point = [739, 115, 55];
-        point = [496, 92, 100];
+        point = [492, 231, 200];
+        point = [796, 92, 200];
+        point = [645, 400, 200];
+        point = [639, 15, 200];
+        point = [396, -8, 200];
 
         color = [1, 0, 0];
         diffuse_coefficient = 0.4;

@@ -42,6 +42,7 @@ RGB* what_color(Vector *eye, Vector *direction)
     I = 0.0;
     E = 0.0;
     N = object -> normal_vector_function(intersection, object);
+  
 
     normalize_vector(N);
     for (current_light = scene -> lightsHead; current_light -> next != scene -> lightsTail; current_light = current_light -> next)
@@ -52,9 +53,16 @@ RGB* what_color(Vector *eye, Vector *direction)
       L -> z = current_light -> next -> position.z - intersection_point.z;
 
       light_distance = calculate_magnitude(*L);
+
       normalize_vector(L);
       
       N_dot_L = dot_product(*N, *L);
+      if (N_dot_L < 0.0)
+      {
+        N -> z = -N -> z;
+        N_dot_L = dot_product(*N, *L);
+      }
+
 
       
       if (N_dot_L > 0.0)
