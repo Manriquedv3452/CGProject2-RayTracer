@@ -46,6 +46,28 @@ Scene{
         stain_level = 500;
     }
 
+
+    //ESTRELLA
+    Polygon
+    {
+        point = [130, 20, 100];
+        point = [150, 90, 100];
+        point = [210, 90, 100];
+        point = [160, 130, 100];
+        point = [180, 200, 100];
+        point = [130, 160, 100];
+        point = [80, 200, 100];
+        point = [100, 130, 100];
+        point = [50, 90, 100];
+        point = [110, 90, 100];
+
+        color = [0, 1, 0];
+        diffuse_coefficient = 0.4;
+        ambient_lighting_coefficient = 1.0;
+        specular_coefficient = 0.7;
+        stain_level = 500;
+    }
+
     Sphere
     {
         center = [800, 283, 500];

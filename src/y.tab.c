@@ -1619,7 +1619,7 @@ yyreduce:
 
   case 33:
 #line 88 "bison.y" /* yacc.c:1646  */
-    { load_object_texture(current_token); }
+    { /*load_object_texture(current_token);*/ }
 #line 1624 "y.tab.c" /* yacc.c:1646  */
     break;
 
