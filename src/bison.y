@@ -31,19 +31,21 @@ char* actualFunction = "";
 int is_in_object = 0;
 void end_expression(void);
 %}
-%token	I_CONSTANT F_CONSTANT STRING_LITERAL 
+%token	I_CONSTANT F_CONSTANT STRING_LITERAL
 %token 	SCENE EYE AMBIENT_LIGHTING BACKGROUND
 %token	LIGHT INTENSITY POSITION LIGHT_C1 LIGHT_C2 LIGHT_C3
 %token 	TEXTURE COLOR TEXTURE_FILE DIFFUSE_COEFFICIENT AMBIENT_LIGHTING_COEFFICIENT SPECULAR_COEFFICIENT STAIN_LEVEL_KN
-%token  SPHERE RADIUS CENTER 
+%token  SPHERE RADIUS CENTER
+%token  POLYGON POINT
 
 %token	BOOL CHAR SHORT INT LONG SIGNED UNSIGNED FLOAT DOUBLE VOID
 
 %start translation_unit
 %%
-	
+
 object_expression
 	: SPHERE {is_in_object = 1; create_sphere(); create_object(SPHERE); } compound_statement_object { is_in_object = 0; process_object(SPHERE); insert_object(current_object, scene); };
+	| POLYGON {is_in_object = 1; create_polygon(); create_object(POLYGON); } compound_statement_object { is_in_object = 0; process_object(POLYGON); insert_object(current_object, scene); };
 	| LIGHT { create_light(); } compound_statement_light { insert_light(light_aux, scene); }
 	;
 
@@ -54,14 +56,14 @@ constant
 
 
 /*string
-	: STRING_LITERAL 
+	: STRING_LITERAL
 	;	*/
 
 
 assignment_expression
 	: EYE assignment_operator '[' constant { load_scene_eye_x(current_token); }
 							  ',' constant { load_scene_eye_y(current_token); }
-							  ',' constant { load_scene_eye_z(current_token); } ']' 
+							  ',' constant { load_scene_eye_z(current_token); } ']'
 	| AMBIENT_LIGHTING assignment_operator constant { add_ambient_lighting(current_token); }
 	| BACKGROUND assignment_operator '[' constant { add_background_colorR(current_token); } ','
 										 constant { add_background_colorG(current_token); } ','
@@ -70,12 +72,16 @@ assignment_expression
 
 assignment_expression_object
 	: RADIUS assignment_operator constant { add_sphere_radius(current_token); }
-	| CENTER assignment_operator '[' constant { add_sphere_center_x(current_token); } 
+	| CENTER assignment_operator '[' constant { add_sphere_center_x(current_token); }
 								 ',' constant { add_sphere_center_y(current_token); }
-								 ',' constant { add_sphere_center_z(current_token); } ']' 
-							
-	| COLOR assignment_operator '[' constant { load_object_colorR(current_token); } 
-								 ',' constant { load_object_colorG(current_token); } 
+								 ',' constant { add_sphere_center_z(current_token); } ']'
+
+	| POINT assignment_operator '[' constant { add_polygon_point_x(current_token); }
+								 ',' constant { add_polygon_point_y(current_token); }
+								 ',' constant { add_polygon_point_z(current_token); } ']'
+
+	| COLOR assignment_operator '[' constant { load_object_colorR(current_token); }
+								 ',' constant { load_object_colorG(current_token); }
 								 ',' constant { load_object_colorB(current_token); }  ']'
 
 	| TEXTURE assignment_operator TEXTURE_FILE { load_object_texture(current_token); }
@@ -86,14 +92,14 @@ assignment_expression_object
 	;
 
 assignment_expression_light
-	: POSITION assignment_operator '[' constant { add_light_position_x(current_token); } 
+	: POSITION assignment_operator '[' constant { add_light_position_x(current_token); }
 								 ',' constant { add_light_position_y(current_token); }
 								 ',' constant { add_light_position_z(current_token); } ']'
 
-	| INTENSITY assignment_operator constant { add_light_intensity(current_token); } 
-							
-	| COLOR assignment_operator '[' constant { load_light_colorR(current_token); } 
-								 ',' constant { load_light_colorG(current_token); } 
+	| INTENSITY assignment_operator constant { add_light_intensity(current_token); }
+
+	| COLOR assignment_operator '[' constant { load_light_colorR(current_token); }
+								 ',' constant { load_light_colorG(current_token); }
 								 ',' constant { load_light_colorB(current_token); }  ']'
 	| LIGHT_C1 assignment_operator constant { add_light_c1(current_token); }
 	| LIGHT_C2 assignment_operator constant { add_light_c2(current_token); }
@@ -106,11 +112,11 @@ assignment_operator
 	;
 
 expression
-	: assignment_expression	 
+	: assignment_expression
 	;
-	
+
 expression_object
-	: assignment_expression_object 
+	: assignment_expression_object
 	;
 
 expression_light
@@ -147,18 +153,18 @@ direct_declarator
 
 statement
 	: compound_statement
-	| expression_statement				
+	| expression_statement
 	;
 
 statement_object
 	: compound_statement_object
-	| expression_statement_object				
+	| expression_statement_object
 	;
 
 
 statement_light
 	: compound_statement_light
-	| expression_statement_light			
+	| expression_statement_light
 	;
 
 
@@ -182,8 +188,8 @@ compound_statement_light
 
 block_item_list
 	: block_item
-	| block_item_list block_item						
-	;	
+	| block_item_list block_item
+	;
 
 block_item
 	: statement
@@ -192,8 +198,8 @@ block_item
 
 block_item_list_object
 	: block_item_object
-	| block_item_list_object block_item_object					
-	;	
+	| block_item_list_object block_item_object
+	;
 
 
 block_item_object
@@ -202,8 +208,8 @@ block_item_object
 
 block_item_list_light
 	: block_item_light
-	| block_item_list_light block_item_light				
-	;	
+	| block_item_list_light block_item_light
+	;
 
 
 block_item_light
@@ -239,8 +245,8 @@ external_declaration
 	;
 
 function_definition
-	: declaration_specifiers declarator { }  compound_statement { ray_tracer();	 }	
-	| declarator  compound_statement { printf("Doing Ray Tracing...\n"); ray_tracer(); }			
+	: declaration_specifiers declarator { }  compound_statement { ray_tracer();	 }
+	| declarator  compound_statement { printf("Doing Ray Tracing...\n"); ray_tracer(); }
 	;
 
 %%

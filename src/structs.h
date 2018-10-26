@@ -5,7 +5,7 @@ typedef struct {
   long double b;
 } RGB;
 
-typedef struct 
+typedef struct
 {
 	long double x;
 	long double y;
@@ -24,7 +24,7 @@ typedef struct
 	long double v;
 } Texel_Coord;
 
-typedef struct 
+typedef struct
 {
 	int width;
 	int height;
@@ -51,7 +51,7 @@ typedef struct object{
 
 } Object;
 
-struct Intersection 
+struct Intersection
 {
   Object * object;
   Vector intersection_point;
@@ -63,7 +63,19 @@ typedef struct sphere{
     Vector center;
 } Sphere;
 
-typedef struct 
+typedef struct sphere{
+    double A;
+    double B;
+    double C;
+    double D;
+} Plane;
+
+typedef struct sphere{
+    Vector** point;
+    Plane* plane;
+} Polygon;
+
+typedef struct
 {
 	Vector origin;
 	Vector direction;
@@ -87,11 +99,11 @@ typedef struct
 	long double ymax;
 } Window;
 
-typedef struct 
+typedef struct
 {
 	Vector *eye;
 	RGB* background;
-	
+
 	Light *lightsHead;
 	Light *lightsTail;
 
@@ -110,7 +122,7 @@ typedef enum token_types{
 
 Scene *scene;
 Object *current_object;
-Light *light_aux; 
+Light *light_aux;
 Sphere *sphere;
 Window window;
 RGB **framebuffer;
