@@ -1,7 +1,7 @@
 Intersection * intersection_polygon(Vector *eye, Vector *tVector, Object *polygonOject);
 Vector * polygon_normal_vector(Intersection * intersection, Object* object);
 Plane* calculate_polygon_plane(Polygon* polygon_object);
-void create_flat_points(Polygon * polygon);
+void create_flat_points(Polygon * polygonObject);
 int ray_through_polygon(VectorUV intersection, Polygon* polygonObject);
 
 Intersection * intersection_polygon(Vector *eye, Vector *direction, Object *polygonOject){
@@ -81,10 +81,10 @@ int ray_through_polygon(VectorUV intersection, Polygon* polygonObject)
 {
 	VectorUV * aux_flatpoints = (VectorUV*) calloc(polygonObject -> points_number,sizeof(VectorUV));
 
-	for (int i = 0; i < polygon ->  points_number; i++) 
+	for (int i = 0; i < polygonObject ->  points_number; i++) 
   {
-		aux_flatpoints[i].u = polygon -> flat_points[i] -> u - intersection.u;
-		aux_flatpoints[i].v = polygon -> flat_points[i] -> v - intersection.v;
+		aux_flatpoints[i].u = polygonObject -> flat_points[i] -> u - intersection.u;
+		aux_flatpoints[i].v = polygonObject -> flat_points[i] -> v - intersection.v;
 
 	}
 
@@ -92,7 +92,7 @@ int ray_through_polygon(VectorUV intersection, Polygon* polygonObject)
 	int wallCounter = 0;
 	for (int a = 0; a < polygonObject -> points_number; a++) 
   {
-		int b = (a + 1) % (polygon -> points_number);
+		int b = (a + 1) % (polygonObject -> points_number);
 
 		if ((aux_flatpoints[a].v > 0 && aux_flatpoints[b].v < 0) || (aux_flatpoints[a].v < 0 && aux_flatpoints[b].v > 0)) 
     {
@@ -161,41 +161,41 @@ Vector * polygon_normal_vector(Intersection * intersection, Object* object){
   return normal_vector;
 }
 
-void create_flat_points(Polygon * polygon)
+void create_flat_points(Polygon * polygonObject)
 {
-  polygon -> flat_points = calloc(polygon -> points_number, sizeof(VectorUV));
+  polygonObject -> flat_points = calloc(polygonObject -> points_number, sizeof(VectorUV));
   
-  long double A = fabs(polygon -> plane -> A);
-  long double B = fabs(polygon -> plane -> B);
-  long double C = fabs(polygon -> plane -> C);
+  long double A = fabs(polygonObject -> plane -> A);
+  long double B = fabs(polygonObject -> plane -> B);
+  long double C = fabs(polygonObject -> plane -> C);
 
-  Points* head = polygon -> points_head;
-  Points* tail = polygon -> points_tail;
+  Points* head = polygonObject -> points_head;
+  Points* tail = polygonObject -> points_tail;
   Points* current = head;
 
 
   if (A > B && A > C)
   {
-    for (int i = 0; i < polygon -> points_number; i++, current = current -> next)
+    for (int i = 0; i < polygonObject -> points_number; i++, current = current -> next)
     {
-      polygon -> flat_points[i] = create_vectorUV(current -> next -> point -> y, 
+      polygonObject -> flat_points[i] = create_vectorUV(current -> next -> point -> y, 
                                                   current -> next -> point -> z);
     }
   }
   else if (B > A && B > C)
   {
-    for (int i = 0; i < polygon -> points_number; i++, current = current -> next)
+    for (int i = 0; i < polygonObject -> points_number; i++, current = current -> next)
     {
-      polygon -> flat_points[i]= create_vectorUV(current -> next -> point -> x,
+      polygonObject -> flat_points[i]= create_vectorUV(current -> next -> point -> x,
                                               current -> next -> point -> z);
 
     }
   }
   else 
   {
-    for (int i = 0; i < polygon -> points_number; i++, current = current -> next)
+    for (int i = 0; i < polygonObject -> points_number; i++, current = current -> next)
     {
-      polygon -> flat_points[i] = create_vectorUV(current -> next -> point -> x,
+      polygonObject -> flat_points[i] = create_vectorUV(current -> next -> point -> x,
                                     current -> next -> point -> y);
     }
   }
