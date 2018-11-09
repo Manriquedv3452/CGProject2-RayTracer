@@ -100,7 +100,7 @@ RGB* what_color(Vector *eye, Vector *direction, int reflex_level)
     else
       color = get_texture_RGB(intersection);
 
-    if (reflex_level > 0 && ACTIVE_MIRROS)
+    if (reflex_level > 0 && intersection -> object -> mirror_active)
     {
       Vector *reflex_vector = calculate_reflex_vector(direction, N, V);
       reflex_color = what_color(&intersection_point, reflex_vector, reflex_level - 1);

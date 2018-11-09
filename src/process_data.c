@@ -8,6 +8,17 @@ void end_expression(void){
 }
 
 
+void add_mirror_level(char* token)
+{
+    //current_object -> mirror_level = atoi(token);
+    return;
+}
+
+void activate_object_mirror(void)
+{   
+    current_object -> mirror_active = 1;
+}   
+
 void add_object_radius(char* token)
 {
     switch(current_object_type)
@@ -135,6 +146,7 @@ void create_object(int object_kind){
     current_object -> ambient_lighting_coefficient = 1.0;
     current_object -> specular_coefficient = 1.0;
     current_object -> stain_level_Kn = 5;
+    current_object -> mirror_active = 0;
 
     switch (object_kind){
         case SPHERE:

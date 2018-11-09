@@ -7,6 +7,9 @@ void process_object(int object_kind);
 void add_diffuse_coefficient(char* token);
 void add_ambient_lighting_coefficient(char* token);
 void add_specular_coefficient(char* token);
+void add_mirror_level(char* token);
+void activate_object_mirror(void);
+
 void add_object_kn(char* token);
 void add_object_radius(char* token);
 void add_object_d1(char* token);

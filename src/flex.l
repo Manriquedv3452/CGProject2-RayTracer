@@ -108,6 +108,8 @@ int cursorPos = 0;
 "background"	{ return BACKGROUND; }
 "anchor"		{ return ANCHOR; }
 "axis"			{ return AXIS; }
+"%mirror"		{ return MIRROR; }
+"%mirror_level"	{return MIRROR_LEVEL; }
 "d1"	{ return D1; }
 "d2"	{ return D2; }
 "c1" { return LIGHT_C1; }

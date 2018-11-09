@@ -49,6 +49,7 @@ typedef struct object{
 	long double ambient_lighting_coefficient;
 	long double specular_coefficient;
 	int stain_level_Kn;
+	int mirror_active;
 
 } Object;
 

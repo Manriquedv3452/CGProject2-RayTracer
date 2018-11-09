@@ -19,6 +19,7 @@ Scene{
         ambient_lighting_coefficient = 1.0;
         specular_coefficient = 1.0;
         stain_level = 50;
+        %mirror;
     }
 
     Cylinder
@@ -33,6 +34,7 @@ Scene{
         ambient_lighting_coefficient = 1.0;
         specular_coefficient = 1.0;
         stain_level = 50;
+        %mirror;
     }
 
 }
