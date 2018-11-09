@@ -12,6 +12,13 @@ void add_object_radius(char* token);
 void add_object_d1(char* token);
 void add_object_d2(char* token);
 
+void add_object_anchor_x(char* token);
+void add_object_anchor_y(char* token);
+void add_object_anchor_z(char* token);
+void add_object_axis_x(char* token);
+void add_object_axis_y(char* token);
+void add_object_axis_z(char* token);
+
 void create_sphere(void);
 void add_sphere_center_x(char* token);
 void add_sphere_center_y(char* token);
@@ -37,6 +44,18 @@ void add_cylinder_axis_z(char* token);
 void add_cylinder_radius(char* token);
 void add_cylinder_d1(char* token);
 void add_cylinder_d2(char* token);
+
+void create_cone(void);
+void add_cone_anchor_x(char* token);
+void add_cone_anchor_y(char* token);
+void add_cone_anchor_z(char* token);
+void add_cone_axis_x(char* token);
+void add_cone_axis_y(char* token);
+void add_cone_axis_z(char* token);
+void add_cone_radius(char* token);
+void add_cone_d1(char* token);
+void add_cone_d2(char* token);
+
 
 void create_scene(void);
 void add_ambient_lighting(char* token);

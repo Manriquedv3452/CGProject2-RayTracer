@@ -91,13 +91,13 @@ assignment_expression_object
 								 ',' constant { load_object_colorG(current_token); }
 								 ',' constant { load_object_colorB(current_token); }  ']'
 
-	| AXIS assignment_operator '[' constant { add_cylinder_axis_x(current_token); }
-								 ',' constant { add_cylinder_axis_y(current_token); }
-								 ',' constant { add_cylinder_axis_z(current_token); }  ']'
+	| AXIS assignment_operator '[' constant { add_object_axis_x(current_token); }
+								 ',' constant { add_object_axis_y(current_token); }
+								 ',' constant { add_object_axis_z(current_token); }  ']'
 
-	| ANCHOR assignment_operator '[' constant { add_cylinder_anchor_x(current_token); }
-								 ',' constant { add_cylinder_anchor_y(current_token); }
-								 ',' constant { add_cylinder_anchor_z(current_token); }  ']'
+	| ANCHOR assignment_operator '[' constant { add_object_anchor_x(current_token); }
+								 ',' constant { add_object_anchor_y(current_token); }
+								 ',' constant { add_object_anchor_z(current_token); }  ']'
 
 	| TEXTURE assignment_operator TEXTURE_FILE { load_object_texture(current_token); }
 	| DIFFUSE_COEFFICIENT assignment_operator constant { add_diffuse_coefficient(current_token); }

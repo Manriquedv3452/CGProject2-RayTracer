@@ -48,6 +48,82 @@ void add_object_d2(char* token)
     }
 }
 
+void add_object_axis_x(char* token)
+{
+    switch(current_object_type)
+    {
+        case CYLINDER:
+            add_cylinder_axis_x(token);
+            break;
+
+        case CONE:
+            break;
+    }
+}
+
+void add_object_axis_y(char* token)
+{
+    switch(current_object_type)
+    {
+        case CYLINDER:
+            add_cylinder_axis_y(token);
+            break;
+
+        case CONE:
+            break;
+    }
+}
+void add_object_axis_z(char* token)
+{
+    switch(current_object_type)
+    {
+        case CYLINDER:
+            add_cylinder_axis_z(token);
+            break;
+
+        case CONE:
+            break;
+    }
+}
+
+void add_object_anchor_x(char* token)
+{
+    switch(current_object_type)
+    {
+        case CYLINDER:
+            add_cylinder_anchor_x(token);
+            break;
+
+        case CONE:
+            break;
+    }
+}
+void add_object_anchor_y(char* token)
+{
+    switch(current_object_type)
+    {
+        case CYLINDER:
+            add_cylinder_anchor_y(token);
+            break;
+
+        case CONE:
+            break;
+    }
+}
+void add_object_anchor_z(char* token)
+{
+    switch(current_object_type)
+    {
+        case CYLINDER:
+            add_cylinder_anchor_z(token);
+            break;
+
+        case CONE:
+            break;
+    }
+}
+
+
 void create_object(int object_kind){
     current_object = (Object*) malloc(sizeof(Object));
     current_object -> color = (RGB*) malloc(sizeof(RGB));
@@ -89,9 +165,9 @@ void create_object(int object_kind){
             break;
 
         case CONE:
-            /*current_object -> intersection_function = &intersection_polygon;
-            current_object -> mapping_texture_function = &map_polygon;
-            current_object -> normal_vector_function = &polygon_normal_vector;*/
+            current_object -> intersection_function = &intersection_cone;
+            //current_object -> mapping_texture_function = &map_polygon;
+            current_object -> normal_vector_function = &cone_normal_vector;
             break;
 
         case ELIPSE:
@@ -159,6 +235,10 @@ void process_object(int object_kind)
 
         case CYLINDER:
             current_object -> object = cylinder;
+            break;
+
+        case CONE:
+            current_object -> object = cone;
             break;
 
         default:
@@ -275,6 +355,55 @@ void add_cylinder_d1(char* token)
 void add_cylinder_d2(char* token)
 {
     cylinder -> d2 = atof(token);
+}
+
+void create_cone(void){
+    cone = (Cone*) malloc(sizeof(Cone));
+    
+    cone -> anchor = (Vector*) malloc(sizeof(Vector));
+    cone -> anchor -> x = 0;
+    cone -> anchor -> y = 0;
+    cone -> anchor -> z = 0;
+
+    cone -> axis = (Vector*) malloc(sizeof(Vector));
+    cone -> axis -> x = 0;
+    cone -> axis -> y = 0;
+    cone -> axis -> z = 0;
+
+    cone -> d1 = -50;
+    cone -> d2 = 50;
+
+    cone -> angle = 0;
+}
+
+void add_cone_anchor_x(char* token){
+     cone -> anchor -> x = atof(token);
+}
+void add_cone_anchor_y(char* token){
+     cone -> anchor -> y = atof(token);
+}
+void add_cone_anchor_z(char* token){
+     cone -> anchor -> z = atof(token);
+}
+
+void add_cone_axis_x(char* token){
+     cone -> axis -> x = atof(token);
+}
+void add_cone_axis_y(char* token){
+     cone -> axis -> y = atof(token);
+}
+void add_cone_axis_z(char* token){
+     cone -> axis -> z = atof(token);
+}
+
+void add_cone_d1(char* token)
+{
+    cone -> d1 = atof(token);
+}
+
+void add_cone_d2(char* token)
+{
+    cone -> d2 = atof(token);
 }
 
 //LIGHT

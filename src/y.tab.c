@@ -1680,37 +1680,37 @@ yyreduce:
 
   case 37:
 #line 94 "bison.y" /* yacc.c:1646  */
-    { add_cylinder_axis_x(current_token); }
+    { add_object_axis_x(current_token); }
 #line 1685 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
 #line 95 "bison.y" /* yacc.c:1646  */
-    { add_cylinder_axis_y(current_token); }
+    { add_object_axis_y(current_token); }
 #line 1691 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
 #line 96 "bison.y" /* yacc.c:1646  */
-    { add_cylinder_axis_z(current_token); }
+    { add_object_axis_z(current_token); }
 #line 1697 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
 #line 98 "bison.y" /* yacc.c:1646  */
-    { add_cylinder_anchor_x(current_token); }
+    { add_object_anchor_x(current_token); }
 #line 1703 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
 #line 99 "bison.y" /* yacc.c:1646  */
-    { add_cylinder_anchor_y(current_token); }
+    { add_object_anchor_y(current_token); }
 #line 1709 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
 #line 100 "bison.y" /* yacc.c:1646  */
-    { add_cylinder_anchor_z(current_token); }
+    { add_object_anchor_z(current_token); }
 #line 1715 "y.tab.c" /* yacc.c:1646  */
     break;
 

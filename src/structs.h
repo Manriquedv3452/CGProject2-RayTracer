@@ -159,6 +159,7 @@ Vector* actual_point;
 Sphere *sphere;
 Polygon *polygon;
 Cylinder *cylinder;
+Cone *cone;
 
 #define Hresolution 1008
 #define Vresolution 567

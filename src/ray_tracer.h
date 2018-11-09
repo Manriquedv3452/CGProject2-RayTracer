@@ -10,6 +10,7 @@
 #include "sphere.h"
 #include "polygon.h"
 #include "cylinder.h"
+#include "cone.h"
 
 #define ANTIALIASING 0
 #define REFLEX_LEVEL 6
