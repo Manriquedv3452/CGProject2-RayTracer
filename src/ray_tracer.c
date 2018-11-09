@@ -1,6 +1,6 @@
 #include "ray_tracer.h"
 
-RGB* what_color(Vector *eye, Vector *direction)
+RGB* what_color(Vector *eye, Vector *direction, int reflex_level)
 {
   RGB * color;
   RGB *new_color = (RGB*) malloc(sizeof(RGB));
@@ -19,6 +19,7 @@ RGB* what_color(Vector *eye, Vector *direction)
   long double V_dot_R;
   Light* current_light;
   long double light_distance;
+  RGB* reflex_color;
 
   long double Fatt; //atenation factor
 
@@ -32,6 +33,7 @@ RGB* what_color(Vector *eye, Vector *direction)
     return scene -> background;
   else 
   {
+    reflex_color = (RGB*) malloc(sizeof(RGB));
     V -> x = -direction -> x;
     V -> y = -direction -> y;
     V -> z = -direction -> z;
@@ -42,7 +44,6 @@ RGB* what_color(Vector *eye, Vector *direction)
     I = 0.0;
     E = 0.0;
     N = object -> normal_vector_function(intersection, object);
-  
 
     normalize_vector(N);
     for (current_light = scene -> lightsHead; current_light -> next != scene -> lightsTail; current_light = current_light -> next)
@@ -63,8 +64,6 @@ RGB* what_color(Vector *eye, Vector *direction)
         N_dot_L = dot_product(*N, *L);
       }
 
-
-      
       if (N_dot_L > 0.0)
       {
         Fatt = min(1.0, 1/(
@@ -90,7 +89,6 @@ RGB* what_color(Vector *eye, Vector *direction)
           }
         }
       }
-    
     }
 
     I += scene -> ambient_lighting * object -> ambient_lighting_coefficient;
@@ -102,6 +100,19 @@ RGB* what_color(Vector *eye, Vector *direction)
     else
       color = get_texture_RGB(intersection);
 
+    if (reflex_level > 0 && ACTIVE_MIRROS)
+    {
+      Vector *reflex_vector = calculate_reflex_vector(direction, N, V);
+      reflex_color = what_color(&intersection_point, reflex_vector, reflex_level - 1);
+
+      new_color -> r = color -> r * 0.6 + reflex_color -> r * 0.4;
+      new_color -> g = color -> g * 0.6 + reflex_color -> g * 0.4;
+      new_color -> b = color -> b * 0.6 + reflex_color -> b * 0.4;
+
+      color = new_color;
+
+    }
+
     new_color -> r = (color -> r * I) + E * (1.0 - color -> r);
     new_color -> g = (color -> g * I) + E * (1.0 - color -> g);
     new_color -> b = (color -> b * I) + E * (1.0 - color -> b);
@@ -109,6 +120,19 @@ RGB* what_color(Vector *eye, Vector *direction)
     return new_color;
   } 
 
+}
+
+Vector* calculate_reflex_vector(Vector* direction, Vector* N, Vector* V)
+{
+  Vector* R = (Vector*) malloc(sizeof(Vector));
+
+  long double n_dot_r = dot_product(*N, *V);
+
+  R -> x = 2 * N -> x * n_dot_r - V -> x;
+  R -> y = 2 * N -> y * n_dot_r - V -> y;
+  R -> z = 2 * N -> z * n_dot_r - V -> z;
+
+  return R;
 }
 
 Intersection * first_intersection (Vector *eye, Vector *direction)
@@ -152,28 +176,123 @@ Vector map_framebuffer_to_window(long double x, long double y)
   return window_point;
 }
 
+
+RGB* antialiasing(int i, int j, Vector* direction)
+{ 
+  RGB* color1;
+  RGB* color2;
+  RGB* color3;
+  RGB* color4;
+  RGB* middle_color;
+  RGB* result_color;
+  Vector window_point;
+
+  result_color = (RGB*) malloc(sizeof(RGB));
+
+  //Left up corner
+  window_point = map_framebuffer_to_window(j - 0.5, i - 0.5);
+  direction -> x = window_point.x - scene -> eye -> x;
+  direction -> y = window_point.y - scene -> eye -> y;
+  direction -> z = window_point.z - scene -> eye -> z;
+  
+  normalize_vector(direction);
+  color1 = what_color(scene -> eye, direction, REFLEX_LEVEL);
+
+  //Right up corner
+  window_point = map_framebuffer_to_window(j - 0.5, i + 0.5);
+  direction -> x = window_point.x - scene -> eye -> x;
+  direction -> y = window_point.y - scene -> eye -> y;
+  direction -> z = window_point.z - scene -> eye -> z;
+  
+  normalize_vector(direction);
+  color2 = what_color(scene -> eye, direction, REFLEX_LEVEL);
+
+  //Left bottom color
+  window_point = map_framebuffer_to_window(j + 0.5, i - 0.5);
+  direction -> x = window_point.x - scene -> eye -> x;
+  direction -> y = window_point.y - scene -> eye -> y;
+  direction -> z = window_point.z - scene -> eye -> z;
+  
+  normalize_vector(direction);
+  color3 = what_color(scene -> eye, direction, REFLEX_LEVEL);
+
+  //Right bottom color
+  window_point = map_framebuffer_to_window(j + 0.5, i + 0.5);
+  direction -> x = window_point.x - scene -> eye -> x;
+  direction -> y = window_point.y - scene -> eye -> y;
+  direction -> z = window_point.z - scene -> eye -> z;
+  
+  normalize_vector(direction);
+  color4 = what_color(scene -> eye, direction, REFLEX_LEVEL);
+
+  //Middle color
+  window_point = map_framebuffer_to_window(j, i);
+  direction -> x = window_point.x - scene -> eye -> x;
+  direction -> y = window_point.y - scene -> eye -> y;
+  direction -> z = window_point.z - scene -> eye -> z;
+  
+  normalize_vector(direction);
+  middle_color = what_color(scene -> eye, direction, REFLEX_LEVEL);
+
+  result_color -> r = (color1 -> r + 
+                        color2 -> r + 
+                        color3 -> r + 
+                        color4 -> r + 
+                        middle_color -> r) / 5;
+
+  result_color -> g = (color1 -> g + 
+                      color2 -> g + 
+                      color3 -> g + 
+                      color4 -> g +
+                      middle_color -> g) / 5;
+
+  result_color -> b = (color1 -> b + 
+                      color2 -> b + 
+                      color3 -> b + 
+                      color4 -> b +
+                      middle_color -> b) / 5;
+  
+
+  return result_color;
+}
+
+RGB* one_ray(int i, int j, Vector *direction)
+{
+  Vector window_point;
+  window_point = map_framebuffer_to_window(j, i);
+
+
+  direction -> x = window_point.x - scene -> eye -> x;
+  direction -> y = window_point.y - scene -> eye -> y;
+  direction -> z = window_point.z - scene -> eye -> z;
+  
+  normalize_vector(direction);
+  RGB* color = what_color(scene -> eye, direction, REFLEX_LEVEL);
+
+  return color;
+
+}
+
 void ray_tracer()
 {
 
   Vector window_point;
-  Vector *direction;
-  RGB * color;  
+  Vector *direction; 
+
+  RGB* (*get_color)(int, int, Vector*);
+
+  if (ANTIALIASING)
+    get_color = &antialiasing;
+  else
+    get_color = &one_ray;
 
   direction = (Vector*) malloc(sizeof(Vector));
   for (int i = 0; i < Vresolution; i++)
   {
     for (int j = 0; j < Hresolution; j++)
     {
-     window_point = map_framebuffer_to_window(j, i);
-
-
-      direction -> x = window_point.x - scene -> eye -> x;
-      direction -> y = window_point.y - scene -> eye -> y;
-      direction -> z = window_point.z - scene -> eye -> z;
-     
-      normalize_vector(direction);
-      color = what_color(scene -> eye, direction);
-      framebuffer[i][j] = *color;
+    
+      framebuffer[i][j] = *get_color(i, j, direction);
       
     }
   }

@@ -86,6 +86,23 @@ typedef struct polygon{
 	VectorUV** flat_points;
 } Polygon;
 
+typedef struct cylinder
+{
+	long double radius;
+	long double d1, d2;
+	Vector* axis;
+	Vector* anchor;
+
+} Cylinder;
+
+typedef struct CONE
+{
+	long double angle;
+	long double d1, d2;
+	Vector* axis;
+	Vector* anchor;
+} Cone;
+
 typedef struct
 {
 	Vector origin;
@@ -141,6 +158,7 @@ Vector* actual_point;
 //objects
 Sphere *sphere;
 Polygon *polygon;
+Cylinder *cylinder;
 
 #define Hresolution 1008
 #define Vresolution 567

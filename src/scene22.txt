@@ -1,0 +1,38 @@
+Scene{
+    eye=[504, 283, -2000];
+    ambient_lighting=0.2;
+
+    Light{
+        position=[900, 283, -1000];
+        intensity=1.0;
+        c1=1.0;
+        }
+
+
+    Sphere
+    {
+        center = [779,470,1100];
+        radius = 200;
+        color = [0, 1, 0];
+        texture = textures/wood.avs;
+         diffuse_coefficient = 0.8;
+        ambient_lighting_coefficient = 1.0;
+        specular_coefficient = 1.0;
+        stain_level = 50;
+    }
+
+    Cylinder
+    {
+        anchor = [779,470,1100];
+        axis     = [0,1.0,0.0];
+        radius = 400;    
+        d1 = -100;
+        d2 = 100;
+        color = [1, 0, 0];
+         diffuse_coefficient = 0.8;
+        ambient_lighting_coefficient = 1.0;
+        specular_coefficient = 1.0;
+        stain_level = 50;
+    }
+
+}

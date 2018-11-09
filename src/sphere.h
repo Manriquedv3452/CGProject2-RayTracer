@@ -18,6 +18,7 @@ Intersection * intersection_sphere(Vector *eye, Vector *direction, Object *spher
   Sphere * sphere_object = (Sphere*) sphereOject -> object;
   intersection = (Intersection*) malloc(sizeof(Intersection));
 
+
   
   beta = 2*(
             direction -> x * (eye -> x - sphere_object -> center.x) + 

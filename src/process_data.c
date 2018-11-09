@@ -1,8 +1,51 @@
+
+
 void end_expression(void){
     if (current_token_code == I_CONSTANT)
         printf("%s\n", current_token);
 
     printf("%s -%d - %d\n", current_token, current_token_code, SCENE);
+}
+
+
+void add_object_radius(char* token)
+{
+    switch(current_object_type)
+    {
+        case SPHERE:
+            add_sphere_radius(token);
+            break;
+
+        case CYLINDER:
+            add_cylinder_radius(token);
+            break;
+
+
+    }
+}
+
+void add_object_d1(char* token)
+{
+    switch(current_object_type)
+    {
+        case CYLINDER:
+            add_cylinder_d1(token);
+            break;
+
+
+    }
+}
+
+void add_object_d2(char* token)
+{
+    switch(current_object_type)
+    {
+        case CYLINDER:
+            add_cylinder_d2(token);
+            break;
+
+
+    }
 }
 
 void create_object(int object_kind){
@@ -19,22 +62,24 @@ void create_object(int object_kind){
 
     switch (object_kind){
         case SPHERE:
+            current_object_type = SPHERE;
             current_object -> intersection_function = &intersection_sphere;
             current_object -> mapping_texture_function = &map_sphere;
             current_object -> normal_vector_function = &sphere_normal_vector;
             break;
 
         case POLYGON:
-        
+            current_object_type = POLYGON;
             current_object -> intersection_function = &intersection_polygon;
             //current_object -> mapping_texture_function = &map_polygon;
             current_object -> normal_vector_function = &polygon_normal_vector;
             break;
 
-        case CILINDER:
-            /*current_object -> intersection_function = &intersection_polygon;
-            current_object -> mapping_texture_function = &map_polygon;
-            current_object -> normal_vector_function = &polygon_normal_vector;*/
+        case CYLINDER:
+            current_object_type = CYLINDER;
+            current_object -> intersection_function = &intersection_cylinder;
+            //current_object -> mapping_texture_function = &map_polygon;
+            current_object -> normal_vector_function = &cylinder_normal_vector;
             break;
 
         case DISC:
@@ -112,6 +157,10 @@ void process_object(int object_kind)
             current_object -> object = polygon;
             break;
 
+        case CYLINDER:
+            current_object -> object = cylinder;
+            break;
+
         default:
             printf("ERROR\n");
             break;
@@ -172,6 +221,60 @@ void insert_polygon_point(void)
     Points* point = (Points*) malloc(sizeof(Points));
     point -> point = actual_point;
     insert_point(point, polygon);
+}
+
+//CYLINDER
+
+void create_cylinder(void){
+    cylinder = (Cylinder *) malloc(sizeof(Cylinder));
+    
+    cylinder -> anchor = (Vector*) malloc(sizeof(Vector));
+    cylinder -> anchor -> x = 0;
+    cylinder -> anchor -> y = 0;
+    cylinder -> anchor -> z = 0;
+
+    cylinder -> axis = (Vector*) malloc(sizeof(Vector));
+    cylinder -> axis -> x = 0;
+    cylinder -> axis -> y = 0;
+    cylinder -> axis -> z = 0;
+
+    cylinder -> d1 = -50;
+    cylinder -> d2 = 50;
+}
+
+void add_cylinder_anchor_x(char* token){
+     cylinder -> anchor -> x = atof(token);
+}
+void add_cylinder_anchor_y(char* token){
+     cylinder -> anchor -> y = atof(token);
+}
+void add_cylinder_anchor_z(char* token){
+     cylinder -> anchor -> z = atof(token);
+}
+
+void add_cylinder_axis_x(char* token){
+     cylinder -> axis -> x = atof(token);
+}
+void add_cylinder_axis_y(char* token){
+     cylinder -> axis -> y = atof(token);
+}
+void add_cylinder_axis_z(char* token){
+     cylinder -> axis -> z = atof(token);
+}
+
+void add_cylinder_radius(char* token)
+{
+    cylinder -> radius = atof(token);
+}
+
+void add_cylinder_d1(char* token)
+{
+    cylinder -> d1 = atof(token);
+}
+
+void add_cylinder_d2(char* token)
+{
+    cylinder -> d2 = atof(token);
 }
 
 //LIGHT

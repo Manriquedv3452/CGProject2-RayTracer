@@ -93,6 +93,7 @@ int cursorPos = 0;
 "position" { return POSITION; }
 "Sphere" { return SPHERE; }
 "Polygon" { return POLYGON; }
+"Cylinder" { return CYLINDER; }
 "point" { return POINT; }
 "eye" { return EYE; }
 "radius" { return RADIUS; }
@@ -105,6 +106,10 @@ int cursorPos = 0;
 "specular_coefficient"		{ return SPECULAR_COEFFICIENT; }
 "stain_level"		{ return STAIN_LEVEL_KN; }
 "background"	{ return BACKGROUND; }
+"anchor"		{ return ANCHOR; }
+"axis"			{ return AXIS; }
+"d1"	{ return D1; }
+"d2"	{ return D2; }
 "c1" { return LIGHT_C1; }
 "c2" { return LIGHT_C2; }
 "c3" { return LIGHT_C3; }

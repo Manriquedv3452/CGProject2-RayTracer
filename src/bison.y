@@ -30,13 +30,15 @@ int inFor = FALSE;
 char* actualFunction = "";
 int is_in_object = 0;
 void end_expression(void);
+
 %}
 %token	I_CONSTANT F_CONSTANT STRING_LITERAL
 %token 	SCENE EYE AMBIENT_LIGHTING BACKGROUND
 %token	LIGHT INTENSITY POSITION LIGHT_C1 LIGHT_C2 LIGHT_C3
 %token 	TEXTURE COLOR TEXTURE_FILE DIFFUSE_COEFFICIENT AMBIENT_LIGHTING_COEFFICIENT SPECULAR_COEFFICIENT STAIN_LEVEL_KN
 %token  SPHERE RADIUS CENTER
-%token	CILINDER DISC CONE ELIPSE QUADRATIC_SURFACE 
+%token	CYLINDER AXIS ANCHOR D1 D2
+%token	DISC CONE ELIPSE QUADRATIC_SURFACE 
 %token  POLYGON POINT
 
 %token	BOOL CHAR SHORT INT LONG SIGNED UNSIGNED FLOAT DOUBLE VOID
@@ -47,6 +49,7 @@ void end_expression(void);
 object_expression
 	: SPHERE {is_in_object = 1; create_sphere(); create_object(SPHERE); } compound_statement_object { is_in_object = 0; process_object(SPHERE); insert_object(current_object, scene); };
 	| POLYGON {is_in_object = 1; create_polygon(); create_object(POLYGON); } compound_statement_object { is_in_object = 0; process_object(POLYGON); insert_object(current_object, scene); };
+	| CYLINDER {is_in_object = 1; create_cylinder(); create_object(CYLINDER); } compound_statement_object { is_in_object = 0; process_object(CYLINDER); insert_object(current_object, scene); };
 	| LIGHT { create_light(); } compound_statement_light { insert_light(light_aux, scene); }
 	;
 
@@ -72,7 +75,10 @@ assignment_expression
 	;
 
 assignment_expression_object
-	: RADIUS assignment_operator constant { add_sphere_radius(current_token); }
+	: RADIUS assignment_operator constant { add_object_radius(current_token); }
+	| D1 assignment_operator constant { add_object_d1(current_token); }
+	| D2 assignment_operator constant { add_object_d2(current_token); }
+
 	| CENTER assignment_operator '[' constant { add_sphere_center_x(current_token); }
 								 ',' constant { add_sphere_center_y(current_token); }
 								 ',' constant { add_sphere_center_z(current_token); } ']'
@@ -84,6 +90,14 @@ assignment_expression_object
 	| COLOR assignment_operator '[' constant { load_object_colorR(current_token); }
 								 ',' constant { load_object_colorG(current_token); }
 								 ',' constant { load_object_colorB(current_token); }  ']'
+
+	| AXIS assignment_operator '[' constant { add_cylinder_axis_x(current_token); }
+								 ',' constant { add_cylinder_axis_y(current_token); }
+								 ',' constant { add_cylinder_axis_z(current_token); }  ']'
+
+	| ANCHOR assignment_operator '[' constant { add_cylinder_anchor_x(current_token); }
+								 ',' constant { add_cylinder_anchor_y(current_token); }
+								 ',' constant { add_cylinder_anchor_z(current_token); }  ']'
 
 	| TEXTURE assignment_operator TEXTURE_FILE { load_object_texture(current_token); }
 	| DIFFUSE_COEFFICIENT assignment_operator constant { add_diffuse_coefficient(current_token); }

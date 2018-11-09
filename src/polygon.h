@@ -101,7 +101,9 @@ int ray_through_polygon(VectorUV intersection, Polygon* polygonObject)
       {
 				wallCounter++;
 
-			} else if (aux_flatpoints[a].u > 0 || aux_flatpoints[b].u > 0)
+			} 
+      
+      else if (aux_flatpoints[a].u > 0 || aux_flatpoints[b].u > 0)
       {
 					if ((aux_flatpoints[a].u -aux_flatpoints[a].v * (aux_flatpoints[b].u - aux_flatpoints[a].u)/(aux_flatpoints[b].v-aux_flatpoints[a].v)) >= 0) 
           {
