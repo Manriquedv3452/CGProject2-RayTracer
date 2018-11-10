@@ -14,7 +14,7 @@ Scene{
         center = [779,470,1100];
         radius = 200;
         color = [0, 1, 0];
-        texture = textures/wood.avs;
+        texture = textures/eyeElliptical.avs;
          diffuse_coefficient = 0.8;
         ambient_lighting_coefficient = 1.0;
         specular_coefficient = 1.0;
@@ -24,13 +24,57 @@ Scene{
 
     Cylinder
     {
-        anchor = [779,470,1100];
-        axis     = [0,1.0,0.0];
-        radius = 400;    
+        anchor = [779, 270,1100];
+        axis  = [0,1,0];
+        radius = 200;    
         d1 = -100;
         d2 = 100;
         color = [1, 0, 0];
+        diffuse_coefficient = 0.8;
+        ambient_lighting_coefficient = 1.0;
+        specular_coefficient = 1.0;
+        stain_level = 50;
+        %mirror;
+    }
+
+
+    Polygon
+    {
+        point = [230, 120, 1300];
+        point = [250, 190, 1300];
+        point = [310, 190, 1300];
+        point = [260, 230, 1300];
+        point = [280, 300, 1300];
+        point = [230, 260, 1300];
+        point = [180, 300, 1300];
+        point = [200, 230, 1300];
+        point = [150, 190, 1300];
+        point = [210, 190, 1300];
+        color = [0, 1, 0];
+        diffuse_coefficient = 0.4;
+        ambient_lighting_coefficient = 1.0;
+        specular_coefficient = 0.7;
+        stain_level = 500;
+    }
+
+    Sphere
+    {
+        center = [300,130,1100];
+        radius = 25;
+        color = [0, 1, 0];
          diffuse_coefficient = 0.8;
+        ambient_lighting_coefficient = 1.0;
+        specular_coefficient = 1.0;
+        stain_level = 50;
+    }
+
+    Sphere
+    {
+        center = [200,600,1100];
+        radius = 100;
+        color = [0, 1, 0];
+        texture = textures/eyeElliptical.avs;
+        diffuse_coefficient = 0.8;
         ambient_lighting_coefficient = 1.0;
         specular_coefficient = 1.0;
         stain_level = 50;

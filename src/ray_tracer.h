@@ -12,7 +12,7 @@
 #include "cylinder.h"
 #include "cone.h"
 
-#define ANTIALIASING 0
+#define ANTIALIASING 1
 #define REFLEX_LEVEL 6
 #define ACTIVE_MIRROS 0
 

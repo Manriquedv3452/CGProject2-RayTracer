@@ -22,22 +22,22 @@ Intersection * intersection_cylinder(Vector *eye, Vector *direction, Object *cyl
 
     
     Vector x;
-    x.x = eye -> x - cylinder -> anchor -> x;
-    x.y = eye -> y - cylinder -> anchor -> y;
-    x.z = eye -> z - cylinder -> anchor -> z;
+    x.x = eye -> x - cylinder_object -> anchor -> x;
+    x.y = eye -> y - cylinder_object -> anchor -> y;
+    x.z = eye -> z - cylinder_object -> anchor -> z;
 
 
     alpha = power_int(direction -> x, 2) +
             power_int(direction -> y, 2) +
             power_int(direction -> z, 2) -
-            power_int((direction -> x * cylinder -> axis -> x + direction -> y * cylinder -> axis -> y + direction -> z * cylinder -> axis -> z), 2);
+            power_int((direction -> x * cylinder_object -> axis -> x + direction -> y * cylinder_object -> axis -> y + direction -> z * cylinder_object -> axis -> z), 2);
 
     beta = 2.0*(
-                dot_product(*direction, x) - dot_product(*direction, *cylinder -> axis) * dot_product(x, *cylinder -> axis)
+                dot_product(*direction, x) - dot_product(*direction, *cylinder_object -> axis) * dot_product(x, *cylinder_object -> axis)
 
             );
 
-   gamma = dot_product(x, x) - power_int(dot_product(x, *cylinder -> axis), 2) - cylinder -> radius * cylinder -> radius;
+   gamma = dot_product(x, x) - power_int(dot_product(x, *cylinder_object -> axis), 2) - cylinder_object -> radius * cylinder_object -> radius;
 
     discriminate = (beta*beta - 4*alpha*gamma);
 
@@ -65,15 +65,15 @@ Intersection * intersection_cylinder(Vector *eye, Vector *direction, Object *cyl
         intersection =  new_intersection(cylinderOject, intersection_1, intersection_point);
 
         Vector edge;
-        edge.x = intersection_point.x - cylinder -> anchor -> x;
-        edge.y = intersection_point.y - cylinder -> anchor -> y;
-        edge.z = intersection_point.z - cylinder -> anchor -> z;
+        edge.x = intersection_point.x - cylinder_object -> anchor -> x;
+        edge.y = intersection_point.y - cylinder_object -> anchor -> y;
+        edge.z = intersection_point.z - cylinder_object -> anchor -> z;
 
-        double distance = dot_product(edge, *cylinder -> axis);
+        double distance = dot_product(edge, *cylinder_object -> axis);
 
-        double m = distance / calculate_magnitude(*cylinder -> axis);
+        double m = distance / calculate_magnitude(*cylinder_object -> axis);
 
-        if (m >= cylinder -> d1 && m <= cylinder -> d2)
+        if (m >= cylinder_object -> d1 && m <= cylinder_object -> d2)
         {
             intersection -> t = intersection_1;
 
@@ -85,16 +85,16 @@ Intersection * intersection_cylinder(Vector *eye, Vector *direction, Object *cyl
             intersection_point.z = eye -> z + intersection_2 * direction -> z;
             intersection -> intersection_point = intersection_point;
 
-            edge.x = intersection_point.x - cylinder -> anchor -> x;
-            edge.y = intersection_point.y - cylinder -> anchor -> y;
-            edge.z = intersection_point.z - cylinder -> anchor -> z;
+            edge.x = intersection_point.x - cylinder_object -> anchor -> x;
+            edge.y = intersection_point.y - cylinder_object -> anchor -> y;
+            edge.z = intersection_point.z - cylinder_object -> anchor -> z;
 
 
-            double distance = dot_product(edge, *cylinder -> axis);
+            double distance = dot_product(edge, *cylinder_object -> axis);
 
-            double m = distance / calculate_magnitude(*cylinder -> axis);
+            double m = distance / calculate_magnitude(*cylinder_object -> axis);
 
-            if (m >= cylinder -> d1 && m <=  cylinder -> d2)
+            if (m >= cylinder_object -> d1 && m <=  cylinder_object -> d2)
             {
                 intersection -> t = intersection_2;
 
