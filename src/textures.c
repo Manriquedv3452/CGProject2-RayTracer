@@ -31,3 +31,5 @@ VectorUV * map_sphere (Intersection * intersection){
     return vectorUV;
 }
 
+
+VectorUV * map_rectangle(Intersection * intersection)

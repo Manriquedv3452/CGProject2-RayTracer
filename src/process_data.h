@@ -55,13 +55,14 @@ void add_cone_anchor_z(char* token);
 void add_cone_axis_x(char* token);
 void add_cone_axis_y(char* token);
 void add_cone_axis_z(char* token);
-void add_cone_radius(char* token);
+void add_cone_angle(char* token);
 void add_cone_d1(char* token);
 void add_cone_d2(char* token);
 
 
 void create_scene(void);
 void add_ambient_lighting(char* token);
+void activate_antialiasing(void);
 void load_scene_eye_x(char* token);
 void load_scene_eye_y(char* token);
 void load_scene_eye_z(char* token);

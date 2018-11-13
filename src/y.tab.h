@@ -54,43 +54,45 @@ extern int yydebug;
     BACKGROUND = 264,
     MIRROR = 265,
     MIRROR_LEVEL = 266,
-    LIGHT = 267,
-    INTENSITY = 268,
-    POSITION = 269,
-    LIGHT_C1 = 270,
-    LIGHT_C2 = 271,
-    LIGHT_C3 = 272,
-    TEXTURE = 273,
-    COLOR = 274,
-    TEXTURE_FILE = 275,
-    DIFFUSE_COEFFICIENT = 276,
-    AMBIENT_LIGHTING_COEFFICIENT = 277,
-    SPECULAR_COEFFICIENT = 278,
-    STAIN_LEVEL_KN = 279,
-    SPHERE = 280,
-    RADIUS = 281,
-    CENTER = 282,
-    CYLINDER = 283,
-    AXIS = 284,
-    ANCHOR = 285,
-    D1 = 286,
-    D2 = 287,
-    DISC = 288,
-    CONE = 289,
+    ANTIALIASING = 267,
+    LIGHT = 268,
+    INTENSITY = 269,
+    POSITION = 270,
+    LIGHT_C1 = 271,
+    LIGHT_C2 = 272,
+    LIGHT_C3 = 273,
+    TEXTURE = 274,
+    COLOR = 275,
+    TEXTURE_FILE = 276,
+    DIFFUSE_COEFFICIENT = 277,
+    AMBIENT_LIGHTING_COEFFICIENT = 278,
+    SPECULAR_COEFFICIENT = 279,
+    STAIN_LEVEL_KN = 280,
+    SPHERE = 281,
+    RADIUS = 282,
+    CENTER = 283,
+    CYLINDER = 284,
+    AXIS = 285,
+    ANCHOR = 286,
+    D1 = 287,
+    D2 = 288,
+    DISC = 289,
     ELIPSE = 290,
     QUADRATIC_SURFACE = 291,
-    POLYGON = 292,
-    POINT = 293,
-    BOOL = 294,
-    CHAR = 295,
-    SHORT = 296,
-    INT = 297,
-    LONG = 298,
-    SIGNED = 299,
-    UNSIGNED = 300,
-    FLOAT = 301,
-    DOUBLE = 302,
-    VOID = 303
+    CONE = 292,
+    ANGLE = 293,
+    POLYGON = 294,
+    POINT = 295,
+    BOOL = 296,
+    CHAR = 297,
+    SHORT = 298,
+    INT = 299,
+    LONG = 300,
+    SIGNED = 301,
+    UNSIGNED = 302,
+    FLOAT = 303,
+    DOUBLE = 304,
+    VOID = 305
   };
 #endif
 /* Tokens.  */
@@ -103,43 +105,45 @@ extern int yydebug;
 #define BACKGROUND 264
 #define MIRROR 265
 #define MIRROR_LEVEL 266
-#define LIGHT 267
-#define INTENSITY 268
-#define POSITION 269
-#define LIGHT_C1 270
-#define LIGHT_C2 271
-#define LIGHT_C3 272
-#define TEXTURE 273
-#define COLOR 274
-#define TEXTURE_FILE 275
-#define DIFFUSE_COEFFICIENT 276
-#define AMBIENT_LIGHTING_COEFFICIENT 277
-#define SPECULAR_COEFFICIENT 278
-#define STAIN_LEVEL_KN 279
-#define SPHERE 280
-#define RADIUS 281
-#define CENTER 282
-#define CYLINDER 283
-#define AXIS 284
-#define ANCHOR 285
-#define D1 286
-#define D2 287
-#define DISC 288
-#define CONE 289
+#define ANTIALIASING 267
+#define LIGHT 268
+#define INTENSITY 269
+#define POSITION 270
+#define LIGHT_C1 271
+#define LIGHT_C2 272
+#define LIGHT_C3 273
+#define TEXTURE 274
+#define COLOR 275
+#define TEXTURE_FILE 276
+#define DIFFUSE_COEFFICIENT 277
+#define AMBIENT_LIGHTING_COEFFICIENT 278
+#define SPECULAR_COEFFICIENT 279
+#define STAIN_LEVEL_KN 280
+#define SPHERE 281
+#define RADIUS 282
+#define CENTER 283
+#define CYLINDER 284
+#define AXIS 285
+#define ANCHOR 286
+#define D1 287
+#define D2 288
+#define DISC 289
 #define ELIPSE 290
 #define QUADRATIC_SURFACE 291
-#define POLYGON 292
-#define POINT 293
-#define BOOL 294
-#define CHAR 295
-#define SHORT 296
-#define INT 297
-#define LONG 298
-#define SIGNED 299
-#define UNSIGNED 300
-#define FLOAT 301
-#define DOUBLE 302
-#define VOID 303
+#define CONE 292
+#define ANGLE 293
+#define POLYGON 294
+#define POINT 295
+#define BOOL 296
+#define CHAR 297
+#define SHORT 298
+#define INT 299
+#define LONG 300
+#define SIGNED 301
+#define UNSIGNED 302
+#define FLOAT 303
+#define DOUBLE 304
+#define VOID 305
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

@@ -281,7 +281,7 @@ void ray_tracer()
 
   RGB* (*get_color)(int, int, Vector*);
 
-  if (ANTIALIASING)
+  if (antialiasing_active)
     get_color = &antialiasing;
   else
     get_color = &one_ray;

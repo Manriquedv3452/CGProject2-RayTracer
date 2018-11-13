@@ -1,7 +1,7 @@
-Intersection * intersection_cone(Vector *eye, Vector *tVector, Object *cylinderOject);
+Intersection * intersection_cone(Vector *eye, Vector *tVector, Object *coneObject);
 Vector * cone_normal_vector(Intersection * intersection, Object* object);
 
-Intersection * intersection_cone(Vector *eye, Vector *direction, Object *cylinderOject)
+Intersection * intersection_cone(Vector *eye, Vector *direction, Object *coneObject)
 {
     long double intersection_1;
     long double intersection_2;
@@ -9,39 +9,43 @@ Intersection * intersection_cone(Vector *eye, Vector *direction, Object *cylinde
     double alpha;
     double beta; 
     double gamma;
-    double p1;
-    double p2;
         
     long double discriminate;
 
     Vector intersection_point;
     Intersection * intersection;
 
-    Cylinder * cylinder_object = (Cylinder*) cylinderOject -> object;
+    Cone * cone_object = (Cone*) coneObject -> object;
     intersection = (Intersection*) malloc(sizeof(Intersection));
 
     
     Vector x;
-    x.x = eye -> x - cylinder -> anchor -> x;
-    x.y = eye -> y - cylinder -> anchor -> y;
-    x.z = eye -> z - cylinder -> anchor -> z;
-
+    x.x = eye -> x - cone_object -> anchor -> x;
+    x.y = eye -> y - cone_object -> anchor -> y;
+    x.z = eye -> z - cone_object -> anchor -> z;
 
     alpha = power_int(direction -> x, 2) +
             power_int(direction -> y, 2) +
             power_int(direction -> z, 2) -
-            power_int((direction -> x * cylinder -> axis -> x + direction -> y * cylinder -> axis -> y + direction -> z * cylinder -> axis -> z), 2);
+            ((1 + cone_object -> angle * cone_object -> angle)*
+            pow(dot_product(*direction, *cone_object -> axis), 2));
+
+       
+    //printf("%.2f\n", (float) cone_object ->  axis -> x);
 
     beta = 2.0*(
-                dot_product(*direction, x) - dot_product(*direction, *cylinder -> axis) * dot_product(x, *cylinder -> axis)
+                dot_product(*direction, x) - 
+                ((1 + cone_object -> angle * cone_object -> angle)*
+                dot_product(*direction, *cone_object -> axis) * dot_product(x, *cone_object -> axis))
 
             );
 
-   gamma = dot_product(x, x) - power_int(dot_product(x, *cylinder -> axis), 2) - cylinder -> radius * cylinder -> radius;
+   gamma = dot_product(x, x) - 
+    ((1 + cone_object -> angle * cone_object -> angle)*
+   power_int(dot_product(x, *cone_object -> axis), 2));
+
 
     discriminate = (beta*beta - 4*alpha*gamma);
-
-
     if (discriminate < EPSILON)
     {
         intersection = NULL;
@@ -62,18 +66,19 @@ Intersection * intersection_cone(Vector *eye, Vector *direction, Object *cylinde
         intersection_point.y = eye -> y + intersection_1 * direction -> y;
         intersection_point.z = eye -> z + intersection_1 * direction -> z;
 
-        intersection =  new_intersection(cylinderOject, intersection_1, intersection_point);
+        intersection =  new_intersection(coneObject, intersection_1, intersection_point);
 
         Vector edge;
-        edge.x = intersection_point.x - cylinder -> anchor -> x;
-        edge.y = intersection_point.y - cylinder -> anchor -> y;
-        edge.z = intersection_point.z - cylinder -> anchor -> z;
+        edge.x = intersection_point.x - cone_object -> anchor -> x;
+        edge.y = intersection_point.y - cone_object -> anchor -> y;
+        edge.z = intersection_point.z - cone_object -> anchor -> z;
 
-        double distance = dot_product(edge, *cylinder -> axis);
+        double distance = dot_product(edge, *cone_object -> axis);
 
-        double m = distance / calculate_magnitude(*cylinder -> axis);
+        double m = distance / calculate_magnitude(*cone_object -> axis);
 
-        if (m >= cylinder -> d1 && m <= cylinder -> d2)
+        intersection -> m = m;
+        if (m >= cone_object -> d1 && m <= cone_object -> d2)
         {
             intersection -> t = intersection_1;
 
@@ -85,19 +90,19 @@ Intersection * intersection_cone(Vector *eye, Vector *direction, Object *cylinde
             intersection_point.z = eye -> z + intersection_2 * direction -> z;
             intersection -> intersection_point = intersection_point;
 
-            edge.x = intersection_point.x - cylinder -> anchor -> x;
-            edge.y = intersection_point.y - cylinder -> anchor -> y;
-            edge.z = intersection_point.z - cylinder -> anchor -> z;
+            edge.x = intersection_point.x - cone_object -> anchor -> x;
+            edge.y = intersection_point.y - cone_object -> anchor -> y;
+            edge.z = intersection_point.z - cone_object -> anchor -> z;
 
 
-            double distance = dot_product(edge, *cylinder -> axis);
+            double distance = dot_product(edge, *cone_object -> axis);
 
-            double m = distance / calculate_magnitude(*cylinder -> axis);
+            m = distance / calculate_magnitude(*cone_object -> axis);
 
-            if (m >= cylinder -> d1 && m <=  cylinder -> d2)
+            if (m >= cone_object -> d1 && m <=  cone_object -> d2)
             {
                 intersection -> t = intersection_2;
-
+                intersection -> m = m;
             }
             else
             {
@@ -115,40 +120,19 @@ Vector * cone_normal_vector(Intersection * intersection, Object* object)
    
     Vector *normal_vector = (Vector*) malloc(sizeof(Vector));
 
-    Cylinder * cylinder_object = (Cylinder*) object -> object;
+    Cone * cone_object = (Cone*) object -> object;
 
-    long double p, px, py, pz;
+    normal_vector -> x = intersection -> intersection_point.x - cone_object -> anchor -> x -
+                    (1 + cone_object -> angle * cone_object -> angle) * cone_object -> axis -> x *
+                    intersection -> m;
 
-    p = (intersection -> intersection_point.x - cylinder_object -> anchor -> x) * cylinder_object -> axis -> x + 
-        (intersection -> intersection_point.y - cylinder_object -> anchor -> y) * cylinder_object -> axis -> y +
-        (intersection -> intersection_point.z - cylinder_object -> anchor -> z) * cylinder_object -> axis -> z;
+    normal_vector -> y = intersection -> intersection_point.y - cone_object -> anchor -> y -
+                (1 + cone_object -> angle * cone_object -> angle) * cone_object -> axis -> y *
+                intersection -> m;
 
-    px = 2 * ((cylinder_object -> anchor -> x * cylinder_object -> axis -> x) -
-            intersection -> intersection_point.x);
-
-    py = 2 * ((cylinder_object -> anchor -> y * cylinder_object -> axis -> y) -
-            intersection -> intersection_point.y);
-
-    pz = 2 * ((cylinder_object -> anchor -> z * cylinder_object -> axis -> z) -
-            intersection -> intersection_point.z);
-
-
-    normal_vector -> x = px * (power_int(cylinder_object -> axis -> x, 2) - 1) +
-                        py * (cylinder_object -> axis -> x * cylinder_object -> axis -> y) + 
-                        pz * (cylinder_object -> axis -> x * cylinder_object -> axis -> z);
-
-
-    normal_vector -> y = px * (cylinder_object -> axis -> y * cylinder_object -> axis -> x) +
-                py * (power_int(cylinder_object -> axis -> y, 2) - 1) + 
-                pz * (cylinder_object -> axis -> y * cylinder_object -> axis -> z);
-
-
-
-    normal_vector -> z =  px * (cylinder_object -> axis -> z * cylinder_object -> axis -> x) +
-                py * (cylinder_object -> axis -> z * cylinder_object -> axis -> y) + 
-                pz * (power_int(cylinder_object -> axis -> z, 2) - 1);
-
-            
+    normal_vector -> z = intersection -> intersection_point.z - cone_object -> anchor -> z -
+                    (1 + cone_object -> angle * cone_object -> angle) * cone_object -> axis -> z *
+                    intersection -> m;
 
     return normal_vector;
 }

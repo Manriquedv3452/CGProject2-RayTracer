@@ -94,6 +94,8 @@ int cursorPos = 0;
 "Sphere" { return SPHERE; }
 "Polygon" { return POLYGON; }
 "Cylinder" { return CYLINDER; }
+"Cone"	{	return 	CONE;	}
+"angle"	{ return ANGLE; }
 "point" { return POINT; }
 "eye" { return EYE; }
 "radius" { return RADIUS; }
@@ -110,6 +112,7 @@ int cursorPos = 0;
 "axis"			{ return AXIS; }
 "%mirror"		{ return MIRROR; }
 "%mirror_level"	{return MIRROR_LEVEL; }
+"%antialiasing"	{ return ANTIALIASING; }
 "d1"	{ return D1; }
 "d2"	{ return D2; }
 "c1" { return LIGHT_C1; }

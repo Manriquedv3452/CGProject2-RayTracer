@@ -33,12 +33,13 @@ void end_expression(void);
 
 %}
 %token	I_CONSTANT F_CONSTANT STRING_LITERAL
-%token 	SCENE EYE AMBIENT_LIGHTING BACKGROUND MIRROR MIRROR_LEVEL
+%token 	SCENE EYE AMBIENT_LIGHTING BACKGROUND MIRROR MIRROR_LEVEL ANTIALIASING
 %token	LIGHT INTENSITY POSITION LIGHT_C1 LIGHT_C2 LIGHT_C3
 %token 	TEXTURE COLOR TEXTURE_FILE DIFFUSE_COEFFICIENT AMBIENT_LIGHTING_COEFFICIENT SPECULAR_COEFFICIENT STAIN_LEVEL_KN
 %token  SPHERE RADIUS CENTER
 %token	CYLINDER AXIS ANCHOR D1 D2
-%token	DISC CONE ELIPSE QUADRATIC_SURFACE 
+%token	DISC  ELIPSE QUADRATIC_SURFACE 
+%token 	CONE ANGLE
 %token  POLYGON POINT
 
 %token	BOOL CHAR SHORT INT LONG SIGNED UNSIGNED FLOAT DOUBLE VOID
@@ -50,6 +51,7 @@ object_expression
 	: SPHERE {is_in_object = 1; create_sphere(); create_object(SPHERE); } compound_statement_object { is_in_object = 0; process_object(SPHERE); insert_object(current_object, scene); };
 	| POLYGON {is_in_object = 1; create_polygon(); create_object(POLYGON); } compound_statement_object { is_in_object = 0; process_object(POLYGON); insert_object(current_object, scene); };
 	| CYLINDER {is_in_object = 1; create_cylinder(); create_object(CYLINDER); } compound_statement_object { is_in_object = 0; process_object(CYLINDER); insert_object(current_object, scene); };
+	| CONE {is_in_object = 1; create_cone(); create_object(CONE); } compound_statement_object {is_in_object = 0; process_object(CONE); insert_object(current_object, scene); }
 	| LIGHT { create_light(); } compound_statement_light { insert_light(light_aux, scene); }
 	;
 
@@ -69,6 +71,7 @@ assignment_expression
 							  ',' constant { load_scene_eye_y(current_token); }
 							  ',' constant { load_scene_eye_z(current_token); } ']'
 	| AMBIENT_LIGHTING assignment_operator constant { add_ambient_lighting(current_token); }
+	| ANTIALIASING { activate_antialiasing(); }
 	| BACKGROUND assignment_operator '[' constant { add_background_colorR(current_token); } ','
 										 constant { add_background_colorG(current_token); } ','
 										 constant { add_background_colorB(current_token); } ']'
@@ -76,6 +79,7 @@ assignment_expression
 
 assignment_expression_object
 	: RADIUS assignment_operator constant { add_object_radius(current_token); }
+	| ANGLE assignment_operator constant { add_cone_angle(current_token); }
 	| D1 assignment_operator constant { add_object_d1(current_token); }
 	| D2 assignment_operator constant { add_object_d2(current_token); }
 

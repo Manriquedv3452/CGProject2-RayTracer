@@ -58,6 +58,7 @@ struct Intersection
   Object * object;
   Vector intersection_point;
   long double t;
+  long double m;
 };
 
 typedef struct sphere{
@@ -96,7 +97,7 @@ typedef struct cylinder
 
 } Cylinder;
 
-typedef struct CONE
+typedef struct cone
 {
 	long double angle;
 	long double d1, d2;

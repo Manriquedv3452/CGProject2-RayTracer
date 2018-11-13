@@ -1,4 +1,7 @@
-
+void activate_antialiasing(void)
+{
+    antialiasing_active = 1;
+}
 
 void end_expression(void){
     if (current_token_code == I_CONSTANT)
@@ -42,6 +45,9 @@ void add_object_d1(char* token)
         case CYLINDER:
             add_cylinder_d1(token);
             break;
+        case CONE:
+            add_cone_d1(token);
+            break;
 
 
     }
@@ -54,7 +60,9 @@ void add_object_d2(char* token)
         case CYLINDER:
             add_cylinder_d2(token);
             break;
-
+        case CONE:
+            add_cone_d2(token);
+            break;
 
     }
 }
@@ -68,6 +76,7 @@ void add_object_axis_x(char* token)
             break;
 
         case CONE:
+            add_cone_axis_x(token);
             break;
     }
 }
@@ -81,6 +90,7 @@ void add_object_axis_y(char* token)
             break;
 
         case CONE:
+            add_cone_axis_y(token);
             break;
     }
 }
@@ -91,8 +101,9 @@ void add_object_axis_z(char* token)
         case CYLINDER:
             add_cylinder_axis_z(token);
             break;
-
+             
         case CONE:
+            add_cone_axis_z(token);
             break;
     }
 }
@@ -106,6 +117,7 @@ void add_object_anchor_x(char* token)
             break;
 
         case CONE:
+            add_cone_anchor_x(token);
             break;
     }
 }
@@ -118,6 +130,7 @@ void add_object_anchor_y(char* token)
             break;
 
         case CONE:
+            add_cone_anchor_y(token);
             break;
     }
 }
@@ -130,6 +143,7 @@ void add_object_anchor_z(char* token)
             break;
 
         case CONE:
+            add_cone_anchor_z(token);
             break;
     }
 }
@@ -177,6 +191,7 @@ void create_object(int object_kind){
             break;
 
         case CONE:
+            current_object_type = CONE;
             current_object -> intersection_function = &intersection_cone;
             //current_object -> mapping_texture_function = &map_polygon;
             current_object -> normal_vector_function = &cone_normal_vector;
@@ -418,6 +433,10 @@ void add_cone_d2(char* token)
     cone -> d2 = atof(token);
 }
 
+void add_cone_angle(char* token)
+{
+    cone -> angle = atof(token);
+}
 //LIGHT
 void create_light(void){
     light_aux = (Light *) malloc(sizeof(Light));

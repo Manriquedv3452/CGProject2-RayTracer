@@ -76,6 +76,7 @@ Intersection * intersection_cylinder(Vector *eye, Vector *direction, Object *cyl
         if (m >= cylinder_object -> d1 && m <= cylinder_object -> d2)
         {
             intersection -> t = intersection_1;
+            intersection -> m = m;
 
         }
         else
@@ -92,11 +93,12 @@ Intersection * intersection_cylinder(Vector *eye, Vector *direction, Object *cyl
 
             double distance = dot_product(edge, *cylinder_object -> axis);
 
-            double m = distance / calculate_magnitude(*cylinder_object -> axis);
+            m = distance / calculate_magnitude(*cylinder_object -> axis);
 
             if (m >= cylinder_object -> d1 && m <=  cylinder_object -> d2)
             {
                 intersection -> t = intersection_2;
+                intersection -> m = m;
 
             }
             else
@@ -117,38 +119,14 @@ Vector * cylinder_normal_vector(Intersection * intersection, Object* object)
 
     Cylinder * cylinder_object = (Cylinder*) object -> object;
 
-    long double p, px, py, pz;
+    normal_vector -> x = intersection -> intersection_point.x - cylinder_object -> anchor -> x -
+                    cylinder_object -> axis -> x * intersection -> m;
 
-    p = (intersection -> intersection_point.x - cylinder_object -> anchor -> x) * cylinder_object -> axis -> x + 
-        (intersection -> intersection_point.y - cylinder_object -> anchor -> y) * cylinder_object -> axis -> y +
-        (intersection -> intersection_point.z - cylinder_object -> anchor -> z) * cylinder_object -> axis -> z;
+    normal_vector -> y = intersection -> intersection_point.y - cylinder_object -> anchor -> y -
+                    cylinder_object -> axis -> y * intersection -> m;
 
-    px = 2 * ((cylinder_object -> anchor -> x * cylinder_object -> axis -> x) -
-            intersection -> intersection_point.x);
-
-    py = 2 * ((cylinder_object -> anchor -> y * cylinder_object -> axis -> y) -
-            intersection -> intersection_point.y);
-
-    pz = 2 * ((cylinder_object -> anchor -> z * cylinder_object -> axis -> z) -
-            intersection -> intersection_point.z);
-
-
-    normal_vector -> x = px * (power_int(cylinder_object -> axis -> x, 2) - 1) +
-                        py * (cylinder_object -> axis -> x * cylinder_object -> axis -> y) + 
-                        pz * (cylinder_object -> axis -> x * cylinder_object -> axis -> z);
-
-
-    normal_vector -> y = px * (cylinder_object -> axis -> y * cylinder_object -> axis -> x) +
-                py * (power_int(cylinder_object -> axis -> y, 2) - 1) + 
-                pz * (cylinder_object -> axis -> y * cylinder_object -> axis -> z);
-
-
-
-    normal_vector -> z =  px * (cylinder_object -> axis -> z * cylinder_object -> axis -> x) +
-                py * (cylinder_object -> axis -> z * cylinder_object -> axis -> y) + 
-                pz * (power_int(cylinder_object -> axis -> z, 2) - 1);
-
-            
+    normal_vector -> z = intersection -> intersection_point.z - cylinder_object -> anchor -> z -
+                    cylinder_object -> axis -> z * intersection -> m;
 
     return normal_vector;
 }

@@ -12,9 +12,10 @@
 #include "cylinder.h"
 #include "cone.h"
 
-#define ANTIALIASING 1
 #define REFLEX_LEVEL 6
 #define ACTIVE_MIRROS 0
+
+int antialiasing_active = 0;
 
 RGB* what_color(Vector *eye, Vector *distance, int reflex_level);
 Intersection * first_intersection (Vector *eye, Vector *distance);
