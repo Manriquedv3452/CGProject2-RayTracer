@@ -3,6 +3,9 @@ Vector * polygon_normal_vector(Intersection * intersection, Object* object);
 Plane* calculate_polygon_plane(Polygon* polygon_object);
 void create_flat_points(Polygon * polygonObject);
 int ray_through_polygon(VectorUV intersection, Polygon* polygonObject);
+Vector calc_vector(long double x, long double y, Vector *normal, long double D);
+Rectangle get_poly_rectangle(Polygon* poly);
+void calc_rectangle(Rectangle *rect);
 
 Intersection * intersection_polygon(Vector *eye, Vector *direction, Object *polygonOject){
   long double intersection_1;
@@ -138,11 +141,13 @@ Plane* calculate_polygon_plane(Polygon* polygon_object)
   new_plane -> A = cross_product_result -> x/mag;
   new_plane -> B = cross_product_result -> y/mag;
   new_plane -> C = cross_product_result -> z/mag;
-
-
   new_plane -> D = -(new_plane -> A * point0 -> x + 
-                    new_plane -> B * point0 -> y +
-                    new_plane -> C * point0 -> z);
+                new_plane -> B * point0 -> y +
+                new_plane -> C * point0 -> z);
+
+  polygon_object -> Normal -> x = new_plane -> A;
+  polygon_object -> Normal -> y = new_plane -> B;
+  polygon_object -> Normal -> z = new_plane -> C;
 
 
   free(vector1);
@@ -154,13 +159,9 @@ Plane* calculate_polygon_plane(Polygon* polygon_object)
 
 Vector * polygon_normal_vector(Intersection * intersection, Object* object){
   Polygon* polygon_object = (Polygon*) object -> object;
-  Vector * normal_vector = (Vector*) malloc(sizeof(Vector));
 
-  normal_vector -> x = polygon_object -> plane -> A;
-  normal_vector -> y = polygon_object -> plane -> B;
-  normal_vector -> z = polygon_object -> plane -> C;
 
-  return normal_vector;
+  return polygon_object -> Normal;
 }
 
 void create_flat_points(Polygon * polygonObject)
@@ -201,5 +202,70 @@ void create_flat_points(Polygon * polygonObject)
                                     current -> next -> point -> y);
     }
   }
+
+}
+
+Vector calc_vector(long double x, long double y, Vector *normal, long double D){
+  Vector newPoint = {x, y, -1 * (normal -> x * x + normal -> y * y + D) / normal -> z};
+  return newPoint;
+}
+
+void calc_rectangle(Rectangle *rect)
+{
+  rect -> length = sqrt(pow(rect -> point1.x - rect -> point0.x, 2) + pow(rect -> point1.y - rect -> point0.y, 2) + pow(rect -> point1.z - rect -> point0.z, 2));
+  rect -> height = sqrt(pow(rect -> point3.x - rect -> point0.x, 2) + pow(rect -> point3.y - rect -> point0.y, 2) + pow(rect -> point3.z - rect -> point0.z, 2));
+
+  rect -> vectorLength.x = (rect -> point1.x - rect -> point0.x) / rect -> length;
+  rect -> vectorLength.y = (rect -> point1.y - rect -> point0.y) / rect -> length;
+  rect -> vectorLength.z = (rect -> point1.z - rect -> point0.z) / rect -> length;
+
+  rect -> vectorHeight.x = (rect -> point3.x - rect -> point0.x) / rect -> height;
+  rect -> vectorHeight.y = (rect -> point3.y - rect -> point0.y) / rect -> height;
+  rect -> vectorHeight.z = (rect -> point3.z - rect -> point0.z) / rect -> height;
+}
+
+
+Rectangle get_poly_rectangle(Polygon* poly)
+{
+  long double xmin, ymin, xmax, ymax;
+  Rectangle rect;
+  Points* current_point = poly->points_head;
+
+ 
+  xmin = poly->points_head->next->point->x;
+  ymin = poly->points_head->next->point->y;
+  xmax = poly->points_head->next->next->point->x;
+  ymax = poly->points_head->next->next->point->y;
+
+  long double current_x, current_y;
+
+  for (current_point; current_point->next != poly->points_tail; current_point = current_point->next)
+  {
+    current_x = current_point->next->point->x;
+    current_y = current_point->next->point->y;
+
+    if (current_x < xmin)
+      xmin = current_x;
+    else if (current_x > xmax)
+      xmax = current_x;
+
+    if (current_y < ymin)
+      ymin = current_y;
+
+    else if(current_y > ymax)
+      ymax = current_y;
+  }
+
+  rect.point0 = calc_vector(xmin, ymin, poly->Normal, poly->plane->D);
+  rect.point1 = calc_vector(xmax, ymin, poly->Normal, poly->plane->D);
+  rect.point2 = calc_vector(xmax, ymax, poly->Normal, poly->plane->D);
+  rect.point3 = calc_vector(xmin, ymax, poly->Normal, poly->plane->D);
+
+  calc_rectangle(&rect);
+
+  
+
+  return rect;
+
 
 }

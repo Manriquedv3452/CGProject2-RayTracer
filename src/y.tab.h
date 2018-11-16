@@ -79,20 +79,21 @@ extern int yydebug;
     DISC = 289,
     ELIPSE = 290,
     QUADRATIC_SURFACE = 291,
-    CONE = 292,
-    ANGLE = 293,
-    POLYGON = 294,
-    POINT = 295,
-    BOOL = 296,
-    CHAR = 297,
-    SHORT = 298,
-    INT = 299,
-    LONG = 300,
-    SIGNED = 301,
-    UNSIGNED = 302,
-    FLOAT = 303,
-    DOUBLE = 304,
-    VOID = 305
+    VECTORG = 292,
+    CONE = 293,
+    ANGLE = 294,
+    POLYGON = 295,
+    POINT = 296,
+    BOOL = 297,
+    CHAR = 298,
+    SHORT = 299,
+    INT = 300,
+    LONG = 301,
+    SIGNED = 302,
+    UNSIGNED = 303,
+    FLOAT = 304,
+    DOUBLE = 305,
+    VOID = 306
   };
 #endif
 /* Tokens.  */
@@ -130,20 +131,21 @@ extern int yydebug;
 #define DISC 289
 #define ELIPSE 290
 #define QUADRATIC_SURFACE 291
-#define CONE 292
-#define ANGLE 293
-#define POLYGON 294
-#define POINT 295
-#define BOOL 296
-#define CHAR 297
-#define SHORT 298
-#define INT 299
-#define LONG 300
-#define SIGNED 301
-#define UNSIGNED 302
-#define FLOAT 303
-#define DOUBLE 304
-#define VOID 305
+#define VECTORG 292
+#define CONE 293
+#define ANGLE 294
+#define POLYGON 295
+#define POINT 296
+#define BOOL 297
+#define CHAR 298
+#define SHORT 299
+#define INT 300
+#define LONG 301
+#define SIGNED 302
+#define UNSIGNED 303
+#define FLOAT 304
+#define DOUBLE 305
+#define VOID 306
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

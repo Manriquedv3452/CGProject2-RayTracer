@@ -22,6 +22,12 @@ void add_object_axis_x(char* token);
 void add_object_axis_y(char* token);
 void add_object_axis_z(char* token);
 
+
+void add_vectorG_x(char* token);
+void add_vectorG_y(char* token);
+void add_vectorG_z(char* token);
+
+
 void create_sphere(void);
 void add_sphere_center_x(char* token);
 void add_sphere_center_y(char* token);
@@ -35,6 +41,7 @@ void add_polygon_point_x(char* token);
 void add_polygon_point_y(char* token);
 void add_polygon_point_z(char* token);
 void insert_polygon_point(void);
+
 
 
 void create_cylinder(void);

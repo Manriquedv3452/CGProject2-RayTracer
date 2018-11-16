@@ -6,14 +6,13 @@
 #include "vector.h"
 #include "structs_operations.h"
 #include "image.c"
-#include "textures.c"
 #include "sphere.h"
 #include "polygon.h"
 #include "cylinder.h"
 #include "cone.h"
+#include "textures.c"
 
 #define REFLEX_LEVEL 6
-#define ACTIVE_MIRROS 0
 
 int antialiasing_active = 0;
 

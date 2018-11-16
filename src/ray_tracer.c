@@ -46,6 +46,14 @@ RGB* what_color(Vector *eye, Vector *direction, int reflex_level)
     N = object -> normal_vector_function(intersection, object);
 
     normalize_vector(N);
+
+    if (dot_product(*N, *direction) > 0)
+    {
+      N -> x *= -1;
+      N -> y *= -1;
+      N -> z *= -1;
+    }
+
     for (current_light = scene -> lightsHead; current_light -> next != scene -> lightsTail; current_light = current_light -> next)
     {
       
@@ -58,11 +66,11 @@ RGB* what_color(Vector *eye, Vector *direction, int reflex_level)
       normalize_vector(L);
       
       N_dot_L = dot_product(*N, *L);
-      if (N_dot_L < 0.0)
-      {
-        N -> z = -N -> z;
-        N_dot_L = dot_product(*N, *L);
-      }
+      //if (N_dot_L < 0.0)
+      //{
+       /// N -> z = -N -> z;
+        //N_dot_L = dot_product(*N, *L);
+      //}
 
       if (N_dot_L > 0.0)
       {
@@ -98,7 +106,9 @@ RGB* what_color(Vector *eye, Vector *direction, int reflex_level)
     if (intersection -> object -> texture == NULL)
       color = intersection -> object -> color;
     else
+    {
       color = get_texture_RGB(intersection);
+    }
 
     if (reflex_level > 0 && intersection -> object -> mirror_active)
     {
@@ -126,11 +136,11 @@ Vector* calculate_reflex_vector(Vector* direction, Vector* N, Vector* V)
 {
   Vector* R = (Vector*) malloc(sizeof(Vector));
 
-  long double n_dot_r = dot_product(*N, *V);
+  long double n_dot_v = dot_product(*N, *V);
 
-  R -> x = 2 * N -> x * n_dot_r - V -> x;
-  R -> y = 2 * N -> y * n_dot_r - V -> y;
-  R -> z = 2 * N -> z * n_dot_r - V -> z;
+  R -> x = 2 * N -> x * n_dot_v - V -> x;
+  R -> y = 2 * N -> y * n_dot_v - V -> y;
+  R -> z = 2 * N -> z * n_dot_v - V -> z;
 
   return R;
 }

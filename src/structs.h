@@ -64,6 +64,7 @@ struct Intersection
 typedef struct sphere{
     long double radius;
     Vector center;
+	Vector vectorG;
 } Sphere;
 
 typedef struct plane{
@@ -80,12 +81,29 @@ typedef struct points
 	Vector* point;
 } Points;
 
+typedef struct rectangle
+{
+	Vector point0;
+	Vector point1;
+	Vector point2;
+	Vector point3;
+
+	long double length;
+	long double height;
+
+	Vector vectorLength;
+	Vector vectorHeight;
+
+} Rectangle;
+
 typedef struct polygon{
     Points* points_head;
 	Points* points_tail;
 	int points_number;
     Plane* plane;
 	VectorUV** flat_points;
+	Rectangle poly_rectangle;
+	Vector* Normal;
 } Polygon;
 
 typedef struct cylinder
@@ -94,6 +112,7 @@ typedef struct cylinder
 	long double d1, d2;
 	Vector* axis;
 	Vector* anchor;
+	Vector vectorG;
 
 } Cylinder;
 
@@ -103,6 +122,7 @@ typedef struct cone
 	long double d1, d2;
 	Vector* axis;
 	Vector* anchor;
+	Vector vectorG;
 } Cone;
 
 typedef struct

@@ -1,0 +1,187 @@
+Scene{
+    eye=[504, 283, -1500];
+    //ambient_lighting=0.2;
+    //%antialiasing;
+
+
+                Light{
+        position=[504, 500, 1000];
+        intensity=1.0;
+        c1=1;
+        }
+
+                    Light{
+        position=[500, 200, -1000];
+        intensity=1.0;
+        c1=1;
+        }
+    Sphere
+    {
+        center = [200, 200, 400];
+        radius = 100;
+        color = [1, 0, 0];
+         diffuse_coefficient = 0.5;
+        ambient_lighting_coefficient = 0.6;
+        specular_coefficient = 0.6;
+        stain_level = 50;
+        %mirror;
+    }
+    Sphere
+    {
+        center = [400, 200, 400];
+        radius = 100;
+        color = [0, 1, 0];
+         diffuse_coefficient = 0.5;
+        ambient_lighting_coefficient = 0.6;
+        specular_coefficient = 0.6;
+        stain_level = 50;
+        //texture = textures/eyeElliptical.avs;
+        %mirror;
+    }
+
+
+
+    /*MARCO DEL FONDO*/
+    Cylinder
+    {
+        anchor = [635, 567,1980];
+        axis  = [0,1,0];
+        radius = 5;    
+        d1 = -100;
+        d2 = 100;
+        vectorG = [1, 0, 0];
+        color = [0.3, 0.3, 0.3];
+        diffuse_coefficient = 0.6;
+        ambient_lighting_coefficient = 1.0;
+        specular_coefficient = 1.0;
+        //texture=textures/rockie.avs;
+        stain_level = 100;
+        %mirror;
+    }
+        Cylinder
+    {
+        anchor = [535, 667,1980];
+        axis  = [1,0,0];
+        radius = 5;    
+        d1 = -160;
+        d2 = 100;
+        vectorG = [1, 0, 0];
+        color = [0.3, 0.3, 0.3];
+        diffuse_coefficient = 0.6;
+        ambient_lighting_coefficient = 1.0;
+        specular_coefficient = 1.0;
+        //texture=textures/rockie.avs;
+        stain_level = 100;
+        %mirror;
+    }
+
+    Cylinder
+    {
+        anchor = [380, 567,1980];
+        axis  = [0,1,0];
+        radius = 5;    
+        d1 = -100;
+        d2 = 100;
+        vectorG = [1, 0, 0];
+        color = [0.3, 0.3, 0.3];
+        diffuse_coefficient = 0.6;
+        ambient_lighting_coefficient = 1.0;
+        specular_coefficient = 1.0;
+        //texture=textures/rockie.avs;
+        stain_level = 100;
+        %mirror;
+    }
+
+
+
+    /*MARCO DE FRENTE*/
+    Cylinder
+    {
+        anchor = [625, 150,-35];
+        axis  = [0,1,0];
+        radius = 5;    
+        d1 = -100;
+        d2 = -20;
+        vectorG = [1, 0, 0];
+        color = [0.3, 0.3, 0.3];
+        diffuse_coefficient = 0.6;
+        ambient_lighting_coefficient = 1.0;
+        specular_coefficient = 1.0;
+        //texture=textures/rockie.avs;
+        stain_level = 100;
+        %mirror;
+    }
+
+        Cylinder
+    {
+        anchor = [625, 130,-35];
+        axis  = [1,0,0];
+        radius = 5;    
+        d1 = -240;
+        d2 = 0;
+        vectorG = [1, 0, 0];
+        color = [0.3, 0.3, 0.3];
+        diffuse_coefficient = 0.6;
+        ambient_lighting_coefficient = 1.0;
+        specular_coefficient = 1.0;
+        //texture=textures/rockie.avs;
+        stain_level = 100;
+        %mirror;
+    }
+
+        Cylinder
+    {
+        anchor = [385, 150,-35];
+        axis  = [0,1,0];
+        radius = 5;    
+        d1 = -100;
+        d2 = -20;
+        vectorG = [1, 0, 0];
+        color = [0.3, 0.3, 0.3];
+        diffuse_coefficient = 0.6;
+        ambient_lighting_coefficient = 1.0;
+        specular_coefficient = 1.0;
+        //texture=textures/rockie.avs;
+        stain_level = 100;
+        %mirror;
+    }
+
+
+
+        Cone
+    {
+        anchor = [800, 200,400];
+        axis  = [0,1,0];
+        d1 = -100;
+        d2 = 0;
+        angle = 0.8;
+        //texture = textures/rock.avs;
+        color = [1, 0, 0];
+        diffuse_coefficient = 0.6;
+        ambient_lighting_coefficient = 0.7;
+        specular_coefficient = 0.3;
+        stain_level = 100;
+        %mirror;
+    }
+
+    Polygon
+    {
+        point = [0, 0, 0];
+        point = [0, 567, 2000];
+        point = [1008, 567, 2000];
+        point = [1008, 0, 0];
+
+        color = [0, 1, 0];
+                texture = textures/soccerfield.avs;
+        diffuse_coefficient = 0.4;
+        ambient_lighting_coefficient = 0.3;
+        specular_coefficient = 0.3;
+        stain_level = 100;
+        //%mirror;
+    }
+
+
+
+
+
+}

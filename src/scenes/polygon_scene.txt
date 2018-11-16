@@ -1,0 +1,87 @@
+Scene{
+    eye=[504, 283, -2000];
+    ambient_lighting=0.2;
+
+       Light
+       {
+        position=[600, 200, -1000];
+        intensity=0.6;
+        c1=1.0;
+       }
+
+        Light
+        {
+            position=[50, 100, -1000];
+            intensity=1.0;
+            c1=1.0;
+        }
+
+    Polygon 
+    {
+        point = [392, 331, 500];
+        point = [596, 192, 500];
+        point = [445, 214, 500];
+        point = [439, 115, 500];
+        point = [196, 92, 500];
+
+        color = [1, 0, 0];
+        diffuse_coefficient = 0.4;
+        ambient_lighting_coefficient = 1.0;
+        specular_coefficient = 0.7;
+        stain_level = 500;
+    }
+
+    Polygon 
+    {
+        point = [492, 231, 200];
+        point = [796, 92, 200];
+        point = [645, 400, 200];
+        point = [639, 15, 200];
+        point = [396, -8, 200];
+        %mirror;
+        color = [1, 0, 0];
+        diffuse_coefficient = 0.4;
+        ambient_lighting_coefficient = 1.0;
+        specular_coefficient = 0.7;
+        stain_level = 500;
+    }
+
+
+    //ESTRELLA
+    Polygon
+    {
+        /*point = [130, 20, 100];
+        point = [150, 90, 100];
+        point = [210, 90, 100];
+        point = [160, 130, 100];
+        point = [180, 200, 100];
+        point = [130, 160, 100];
+        point = [80, 200, 100];
+        point = [100, 130, 100];
+        point = [50, 90, 100];
+        point = [110, 90, 100];*/
+
+        point = [100, 10, 100];
+        point = [40, 198, 100];
+        point = [190, 78, 100];
+        point = [10, 78, 100];
+        point = [160, 198, 100];
+
+        color = [0, 1, 0];
+        diffuse_coefficient = 0.4;
+        ambient_lighting_coefficient = 1.0;
+        specular_coefficient = 0.7;
+        stain_level = 500;
+    }
+
+    Sphere
+    {
+        center = [800, 283, 500];
+        radius = 100;
+        color = [1, 0, 0];
+         diffuse_coefficient = 0.8;
+        ambient_lighting_coefficient = 1.0;
+        specular_coefficient = 1.0;
+        stain_level = 50;
+    }
+}

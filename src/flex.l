@@ -95,6 +95,7 @@ int cursorPos = 0;
 "Polygon" { return POLYGON; }
 "Cylinder" { return CYLINDER; }
 "Cone"	{	return 	CONE;	}
+"vectorG" { return VECTORG; }
 "angle"	{ return ANGLE; }
 "point" { return POINT; }
 "eye" { return EYE; }

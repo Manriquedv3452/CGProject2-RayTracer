@@ -35,10 +35,10 @@ void end_expression(void);
 %token	I_CONSTANT F_CONSTANT STRING_LITERAL
 %token 	SCENE EYE AMBIENT_LIGHTING BACKGROUND MIRROR MIRROR_LEVEL ANTIALIASING
 %token	LIGHT INTENSITY POSITION LIGHT_C1 LIGHT_C2 LIGHT_C3
-%token 	TEXTURE COLOR TEXTURE_FILE DIFFUSE_COEFFICIENT AMBIENT_LIGHTING_COEFFICIENT SPECULAR_COEFFICIENT STAIN_LEVEL_KN
+%token 	TEXTURE COLOR TEXTURE_FILE DIFFUSE_COEFFICIENT AMBIENT_LIGHTING_COEFFICIENT SPECULAR_COEFFICIENT STAIN_LEVEL_KN 
 %token  SPHERE RADIUS CENTER
 %token	CYLINDER AXIS ANCHOR D1 D2
-%token	DISC  ELIPSE QUADRATIC_SURFACE 
+%token	DISC  ELIPSE QUADRATIC_SURFACE VECTORG
 %token 	CONE ANGLE
 %token  POLYGON POINT
 
@@ -82,6 +82,11 @@ assignment_expression_object
 	| ANGLE assignment_operator constant { add_cone_angle(current_token); }
 	| D1 assignment_operator constant { add_object_d1(current_token); }
 	| D2 assignment_operator constant { add_object_d2(current_token); }
+
+	| VECTORG assignment_operator '[' constant { add_vectorG_x(current_token); }
+								  ',' constant {add_vectorG_y(current_token); }
+								  ',' constant {add_vectorG_z(current_token); }
+								  ']'
 
 	| CENTER assignment_operator '[' constant { add_sphere_center_x(current_token); }
 								 ',' constant { add_sphere_center_y(current_token); }

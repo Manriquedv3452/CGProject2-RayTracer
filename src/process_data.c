@@ -149,6 +149,60 @@ void add_object_anchor_z(char* token)
 }
 
 
+void add_vectorG_x(char* token)
+{
+    switch(current_object_type)
+    {
+        case SPHERE:
+            sphere -> vectorG.x = atof(token);
+            break;
+        
+        case CYLINDER:
+            cylinder -> vectorG.x = atof(token);
+            break;
+
+        case CONE:
+            cone ->vectorG.x = atof(token);
+    }
+}
+
+void add_vectorG_y(char* token)
+{
+    switch(current_object_type)
+    {
+        case SPHERE:
+            sphere -> vectorG.y = atof(token);
+            break;
+        
+        case CYLINDER:
+            cylinder -> vectorG.y = atof(token);
+            break;
+
+        case CONE:
+            cone ->vectorG.y = atof(token);
+    }
+}
+
+
+void add_vectorG_z(char* token)
+{
+    switch(current_object_type)
+    {
+        case SPHERE:
+            sphere -> vectorG.z = atof(token);
+            break;
+        
+        case CYLINDER:
+            cylinder -> vectorG.z = atof(token);
+            break;
+
+        case CONE:
+            cone ->vectorG.z = atof(token);
+    }
+}
+
+
+
 void create_object(int object_kind){
     current_object = (Object*) malloc(sizeof(Object));
     current_object -> color = (RGB*) malloc(sizeof(RGB));
@@ -173,14 +227,14 @@ void create_object(int object_kind){
         case POLYGON:
             current_object_type = POLYGON;
             current_object -> intersection_function = &intersection_polygon;
-            //current_object -> mapping_texture_function = &map_polygon;
+            current_object -> mapping_texture_function = &map_rectangle;
             current_object -> normal_vector_function = &polygon_normal_vector;
             break;
 
         case CYLINDER:
             current_object_type = CYLINDER;
             current_object -> intersection_function = &intersection_cylinder;
-            //current_object -> mapping_texture_function = &map_polygon;
+            current_object -> mapping_texture_function = &map_cylinder;
             current_object -> normal_vector_function = &cylinder_normal_vector;
             break;
 
@@ -193,7 +247,7 @@ void create_object(int object_kind){
         case CONE:
             current_object_type = CONE;
             current_object -> intersection_function = &intersection_cone;
-            //current_object -> mapping_texture_function = &map_polygon;
+            current_object -> mapping_texture_function = &map_cone;
             current_object -> normal_vector_function = &cone_normal_vector;
             break;
 
@@ -256,7 +310,9 @@ void process_object(int object_kind)
 
 
             polygon -> plane = calculate_polygon_plane(polygon);
+  
             create_flat_points(polygon);
+            polygon->poly_rectangle = get_poly_rectangle(polygon);
             current_object -> object = polygon;
             break;
 
@@ -305,6 +361,11 @@ void create_polygon(void){
     polygon -> points_head -> next = polygon -> points_tail;
     polygon -> points_tail -> previous = polygon -> points_head;
 
+    polygon -> Normal = (Vector*) malloc(sizeof(Vector));
+    polygon -> Normal -> x =0;
+    polygon -> Normal -> y =0;
+    polygon -> Normal -> z =0;
+
     polygon -> points_number = 0;
 }
 
@@ -347,6 +408,10 @@ void create_cylinder(void){
 
     cylinder -> d1 = -50;
     cylinder -> d2 = 50;
+
+    cylinder -> vectorG.x = 0;
+    cylinder -> vectorG.y = 0;
+    cylinder -> vectorG.z = 0;
 }
 
 void add_cylinder_anchor_x(char* token){
